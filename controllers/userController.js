@@ -7,10 +7,10 @@ const generateToken = require('../middleware/generateToken.js');
 
 
 // 회원 가입
-const get_register = (req, res) => {
-	res.render('user/register');
-}
 const post_register = async (req, res) => {
+	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+		res.clearCookie('login_access_token');
+	}
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
@@ -42,11 +42,11 @@ const post_register = async (req, res) => {
 }
 
 // 회원 정보 수정
-const get_edit = (req, res) => {
+const get_setting = (req, res) => {
 	const id = req.params.id;
-	res.render('user/edit', {id: id});
+	res.render('parts_user/setting', {id: id});
 }
-const post_edit = async (req, res) => {
+const post_setting = async (req, res) => {
     const schema = Joi.object().keys({
         password: Joi.string().required(),
         password_check: Joi.string().required(),
@@ -69,15 +69,12 @@ const post_edit = async (req, res) => {
     const { password, nickname, birthdate, sex, address } = req.body;
 
 	//query uder this line dosn't work. i can't use '[ ]' and '?' syntax 
-	//const edit_result = await db.query(`UPDATE user SET (pw=?, nickname=?, birthdate=?, sex=?, address=?) VALUES(?,?,?,?,?) WHERE id = '${req.params.id}'`, [password, nickname, birthdate, sex, address]);
-	const edit_result = await db.query(`UPDATE user SET pw='${password}', nickname='${nickname}', birthdate='${birthdate}', sex='${sex}', address='${address}' WHERE id='${req.params.id}'`);
-	if(edit_result != undefined)
+	//const user_info_edit_result = await db.query(`UPDATE user SET (pw=?, nickname=?, birthdate=?, sex=?, address=?) VALUES(?,?,?,?,?) WHERE id = '${req.params.id}'`, [password, nickname, birthdate, sex, address]);
+	const user_info_edit_result = await db.query(`UPDATE user SET pw='${password}', nickname='${nickname}', birthdate='${birthdate}', sex='${sex}', address='${address}' WHERE id='${req.params.id}'`);
+	if(user_info_edit_result != undefined)
 		res.redirect('/');
 }
 
-const get_login = (req, res) => {
-	res.render('user/login', {});
-}
 const post_login = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -88,7 +85,7 @@ const post_login = async (req, res) => {
 			return res.send("this email isn't registered yet.");
 		// password not match
 		if(password != db_taken[0].pw)
-			return res.send("this password you entered is NOT match with the email.");
+			return res.send("this password you entered is NOT matched with the email.");
 		// success login,
 		// generate token
 		const token = generateToken.generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
@@ -98,11 +95,7 @@ const post_login = async (req, res) => {
 			httpOnly: true
 		});
 
-		const obj_ejs = {
-			nickname: db_taken[0].nickname,
-		}
-
-		return res.render('user/after_login_success', obj_ejs);
+		return res.redirect('/');
 	}
 	catch(err){
 		console.log(err);
@@ -112,21 +105,11 @@ const post_login = async (req, res) => {
 // 로그아웃
 const post_logout = (req, res) => {
 	if(checkLoggedIn.check_loggedIn(req)[1] == true){
-		const sender = `
-		<p>"logout success, the token at the client side is deleted."
-		</p>
-
-		<form action="/user/login" method="post">
-			<input type="text" name="email" value="email">
-			<input type="text" name="password" value="password">
-			<input type="submit" value="Log in">
-		</form>`;
-
 		res.clearCookie('login_access_token');
-		res.send(sender);
+		res.redirect('/');
 	}
 	else{
-		res.send("you are not loged in.");
+		console.log(`logout err: it tried logout while it's not logged i`);
 	}
 }
 
@@ -159,12 +142,10 @@ const post_cookie_test = (req, res) => {
 
 
 module.exports = {
-	get_register,
 	post_register,
-	get_edit,
-	post_edit,
+	get_setting,
+	post_setting,
 
-	get_login,
 	post_login,
 
 	post_cookie_test,

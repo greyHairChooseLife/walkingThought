@@ -6,7 +6,10 @@ diaryRouter.post('/gen/:id', diaryController.dummy);
 
 
 diaryRouter.post('/daily/:id', diaryController.daily);
-diaryRouter.post('/monthly_mode_A/:id', diaryController.monthly_mode_A);
+diaryRouter.post('/monthly/:id', diaryController.monthly);
+
+
+
 diaryRouter.post('/monthly_mode_B/:id', diaryController.monthly_mode_B);
 //diaryRouter.post('/annualy/:id', diaryController.annualy);
 //diaryRouter.delete('/delete/:id', diaryCtrl.delete);

@@ -6,81 +6,83 @@
 	<link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
-	<h1>5year diary</h1>
-	<h2>who's diary?</h2>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<form action="/user/register" method="get">
-		<input id="register" type="submit" value="register">
-	</form>
-	<br>
-	<br>
-	<br>
-	<table>
-		<tr>
-			<td>nickname</td>
-		</tr>
-		<tr>
-		<td style="border: none;"><br></td>
-		</tr>
 
-	<% for(var i=0; i < Object.keys(user_list_id).length; i++){ %>
-		<tr>
-			<td>
-			<%= user_list_nickname[i] %>
-			</td>
-			<td>
-				<form action="/user/delete/<%= user_list_id[i] %>" method="post">
-					<input type="submit" value="delete_account">
-				</form>
-			</td>
-			<td>
-				<form action="/diary/gen/<%= user_list_id[i] %>" method="post">
-					<input type="submit" value="dummy data generate">
-				</form>
-			</td>
-			<td>
-				<form action="/diary/daily/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
-					<input type="submit" value="daily_diary">
-				</form>
-			</td>
-			<td>
-				<form action="/diary/monthly_mode_A/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
-					<input type="submit" value="monthly_mode_A_diary">
-				</form>
-			</td>
-			<td>
-				<form action="/diary/monthly_mode_B/<%= user_list_id[i] %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
-					<input type="submit" value="monthly_mode_B_diary">
-				</form>
-			</td>
-			<td>
-				<form action="/user/login" method="get">
-					<input type="submit" value="login">
-				</form>
-			</td>
-		</tr>
-	<% } %>
-	</table>
+	<% if(checkLoggedIn == false){ %>
+	<div id="logged_out">
 
+		<%- include("./parts_user/login.ejs") %>
+
+	</div>
+	<% } %>  
+
+	<% if(checkLoggedIn == true){ %>
+	<div id="logged_in">
+	
+		<div>
+			welcome, <%= user_nickname %>!!
+		</div>
+		<br>
+		<form action="/user/logout" method="post">
+			<input type="submit" value="log out">
+		</form>
+
+		<form action="/user/setting/<%= user_id %>" method="get">
+			<input type="submit" value="setting">
+		</form>
+
+		<form action="/diary/daily/<%= user_id %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+			<input type="submit" value="D diary">
+		</form>
+
+		<form action="/diary/monthly/<%= user_id %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+			<input type="submit" value="M diary">
+		</form>
+
+		<form action="/diary/gen/<%= user_id %>" method="post">
+			<input type="submit" value="dummy data generate">
+		</form>
+
+	</div>
+	<% } %>  
+
+	<%- include("./parts_user/register.ejs") %>
+
+	<h1>service introduction</h1>
+		<%- include("./introduction.ejs") %>
+
+
+
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
 	<p>data load testing, from html</p>
 	<p>from html: <%= Object.keys(user_list_id).length %></p>
 	<p>from html: <%= index_year %></p>
-	<br>
-	<br>
-	<br>
-	<br>
-
 </body>
 </html>
 
 <style>
 	td {
-	border : solid; 1px;
+		border: solid; 1px;
+	}
+	#logged_in {
+		border: solid blue 2px;
+		margin: 5%;
 	}
 </style>
 

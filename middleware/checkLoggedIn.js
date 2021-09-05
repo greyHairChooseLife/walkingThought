@@ -2,13 +2,19 @@ const jwt = require('jsonwebtoken');
 
 function get_token(req) {
 	let token = req.headers.cookie;
-	token = token.split("=")[1];
-	return token;
+	if(token != undefined){
+		token = token.split("=")[1];
+		return token;
+	} else{
+		return false;
+	}
 }
 
 function verify_token(token) {
-	const answer = jwt.verify(token, process.env.JWT_SECREAT);
-	return answer;
+	if(token != false){
+		const answer = jwt.verify(token, process.env.JWT_SECREAT);
+		return answer;
+	}
 }
 
 //remember the difference between jwt.decode() vs jwt.verify(). And why there is jwt.decode()

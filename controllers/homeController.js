@@ -1,8 +1,18 @@
 const date_ob = new Date();
-const tools = require('../tools.js');
 const db = require('../config/db.js').promise();
+const checkLoggedIn = require('../middleware/checkLoggedIn.js');
+
 
 const home = async (req, res) => {
+
+	let loginStatus = false; 
+	let user_id = false;
+	let user_nickname = false;
+	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+		user_id = checkLoggedIn.check_loggedIn(req)[0].id;
+		user_nickname = checkLoggedIn.check_loggedIn(req)[0].nickname;
+		loginStatus = true; 
+	}
 
 	const year = date_ob.getFullYear();
 	const month = date_ob.getMonth()+1;
@@ -26,6 +36,9 @@ const home = async (req, res) => {
 		index_year: year,
 		index_month: month,
 		index_date: date,
+		checkLoggedIn: loginStatus,
+		user_id: user_id,
+		user_nickname: user_nickname,
 
 	};
 	return res.render('home', obj_ejs);

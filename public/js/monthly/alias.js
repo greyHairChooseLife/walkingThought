@@ -8,16 +8,26 @@ const date_class = document.getElementsByClassName('date');
 const content_class = document.getElementsByClassName('content');
 const question_class = document.getElementsByClassName('question');
 
-const L1 = document.getElementById('L1');
-const L2 = document.getElementById('L2');
-const L3 = document.getElementById('L3');
-const L4 = document.getElementById('L4');
-const R1 = document.getElementById('R1');
-const R2 = document.getElementById('R2');
-const R3 = document.getElementById('R3');
-const R4 = document.getElementById('R4');
+const L1_sign = document.getElementById('L1_sign');
+const L2_sign = document.getElementById('L2_sign');
+const L3_sign = document.getElementById('L3_sign');
+const L4_sign = document.getElementById('L4_sign');
+const R1_sign = document.getElementById('R1_sign');
+const R2_sign = document.getElementById('R2_sign');
+const R3_sign = document.getElementById('R3_sign');
+const R4_sign = document.getElementById('R4_sign');
 
-const arr_note = [L1, L2, L3, L4, R1, R2, R3, R4];
+const L1_board = document.getElementById('L1_board');
+const L2_board = document.getElementById('L2_board');
+const L3_board = document.getElementById('L3_board');
+const L4_board = document.getElementById('L4_board');
+const R1_board = document.getElementById('R1_board');
+const R2_board = document.getElementById('R2_board');
+const R3_board = document.getElementById('R3_board');
+const R4_board = document.getElementById('R4_board');
+
+const arr_note_sign = [L1_sign, L2_sign, L3_sign, L4_sign, R1_sign, R2_sign, R3_sign, R4_sign];
+const arr_note_board = [L1_board, L2_board, L3_board, L4_board, R1_board, R2_board, R3_board, R4_board];
 
 const L1_date = document.getElementById('L1_date');
 const L2_date = document.getElementById('L2_date');
@@ -57,6 +67,7 @@ const down_button = document.getElementById("down_button");
 const left_button = document.getElementById("left_button");
 const right_button = document.getElementById("right_button");
 const today_button = document.getElementById("today_button");
+const daily_button = document.getElementById("daily_button");
 
 const arr_button = [up_button, down_button, left_button, right_button, today_button];
 

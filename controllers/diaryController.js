@@ -8,6 +8,36 @@ const dummy = (req, res) => {
 	res.send('data settled');
 }
 
+function get_daily_diary(y, m, d, user_id){
+	if(d === 0){
+		m = m-1;
+		d = new Date(y, m, d).getDate();
+	}
+	if(m === 0){
+		y = y-1;
+		m = 12;
+	}
+		
+	return db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
+		AND (classes = 'd')
+		AND (YEAR(created_date) = ${y})
+		AND (MONTH(created_date) = ${m}) 
+		AND (DAY(created_date) = ${d})
+		`, [user_id]);
+}
+
+function get_monthly_diary(y, m, user_id){
+	if(m === 0){
+		y = y-1;
+		m = 12;
+	}
+		
+	return db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
+		AND (classes = 'm')
+		AND (YEAR(created_date) = ${y})
+		AND (MONTH(created_date) = ${m}) 
+		`, [user_id]);
+}
 
 const daily = async (req, res) => {
 
@@ -15,150 +45,117 @@ const daily = async (req, res) => {
 	const focused_year = Number(req.query.year);
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
-	//const index = [user_id, focused_year, focused_month, focused_date];
 
-	const year_from = "'" + (focused_year-3) + "'";
-	const year_to = "'" + focused_year + "'";
-	const date_from = "'" + (focused_date-1) + "'";
-	const date_to = "'" + (focused_date) + "'";
-
-	//timezone issue? 2021-8-23 is actually 2021-8-24. sounds weired? let's try query at node & node. 
-	//timezone issue? 2021-8-23 is actually 2021-8-24. sounds weired? let's try query at node & node. 
-	//timezone issue? 2021-8-23 is actually 2021-8-24. sounds weired? let's try query at node & node. 
-	//timezone issue? 2021-8-23 is actually 2021-8-24. sounds weired? let's try query at node & node. 
-	//timezone issue? 2021-8-23 is actually 2021-8-24. sounds weired? let's try query at node & node. 
-	//timezone issue? 2021-8-23 is actually 2021-8-24. sounds weired? let's try query at node & node. 
-	const db_obj = await db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
-		AND (classes = 'd')
-		AND (YEAR(created_date) BETWEEN ${year_from} AND ${year_to}) 
-		AND (MONTH(created_date) = ${focused_month})
-		AND (DAY(created_date) BETWEEN ${date_from} AND ${date_to})
-		`, [user_id]);
-
-
-////////test data generated NOT in order. But it should be okay because real users write diary one by one, aka day by day, aka in order.
-
-//SELECT id, created_date, content, question FROM diary WHERE (user_id=1) AND (classes = 'd') AND (YEAR(created_date) BETWEEN '2018' AND '2021') AND (MONTH(created_date) = '8') AND (DAY(created_date) BETWEEN '25' AND '26');
-///////////////////////+------+---------------------+---------------------+----------------------+
-///////////////////////| id   | created_date        | content             | question             |
-///////////////////////+------+---------------------+---------------------+----------------------+
-///////////////////////| 3159 | 2018-08-25 00:00:00 | 2018-8-25's content | 2018-8-25's question |
-///////////////////////| 3160 | 2018-08-26 00:00:00 | 2018-8-26's content | 2018-8-26's question |
-///////////////////////| 3524 | 2019-08-25 00:00:00 | 2019-8-25's content | 2019-8-25's question |
-///////////////////////| 3525 | 2019-08-26 00:00:00 | 2019-8-26's content | 2019-8-26's question |
-///////////////////////| 3890 | 2020-08-25 00:00:00 | 2020-8-25's content | 2020-8-25's question |
-///////////////////////| 3891 | 2020-08-26 00:00:00 | 2020-8-26's content | 2020-8-26's question |
-///////////////////////| 4255 | 2021-08-26 00:00:00 | 2021-8-26's content | 2021-8-26's question |
-///////////////////////| 4256 | 2021-08-25 00:00:00 | 2021-8-25's content | 2021-8-25's question |
-///////////////////////+------+---------------------+---------------------+----------------------+
-		
-
-//////////
-////////// can't use 'date_format' properly. date_format(somthing, some format) becomes the obj's key!!
-//////////
-//////////
-//////////
-//////////
-//////////	let a = String(db_obj[0][0].created_date);
-//////////	console.log("a: ", a);
-//////////	
-//////////	a = a.split('00:00:00');
-//////////	console.log("a: ", a[0]);
-
-	// check wether db_obj is undefined or not.
-
+	let db_obj = [];
+	for(var i=0; i<2; i++){
+		for(var j=0; j<4; j++){
+			let temp = await get_daily_diary(focused_year-j, focused_month, focused_date-i, user_id);
+			if(temp[0][0] == undefined){
+				temp[0][0] = {
+					created_date: `you missed this day`,
+					content: `empty :<`,
+					question: `empty :(`,
+				}
+			}
+			db_obj.push(temp[0][0]);
+		}
+	}
 	const db_obj_ejs = {
-		L1_date : db_obj[0][0].created_date,
-		L2_date : db_obj[0][2].created_date,
-		L3_date : db_obj[0][4].created_date,
-		L4_date : db_obj[0][6].created_date,
+		L1_date : db_obj[7].created_date,
+		L2_date : db_obj[6].created_date,
+		L3_date : db_obj[5].created_date,
+		L4_date : db_obj[4].created_date,
  
-		L1_content : db_obj[0][0].content,
-		L2_content : db_obj[0][2].content,
-		L3_content : db_obj[0][4].content,
-		L4_content : db_obj[0][6].content,
+		L1_content : db_obj[7].content,
+		L2_content : db_obj[6].content,
+		L3_content : db_obj[5].content,
+		L4_content : db_obj[4].content,
 
-		L1_question : db_obj[0][0].question,
-		L2_question : db_obj[0][2].question,
-		L3_question : db_obj[0][4].question,
-		L4_question : db_obj[0][6].question,
+		L1_question : db_obj[7].question,
+		L2_question : db_obj[6].question,
+		L3_question : db_obj[5].question,
+		L4_question : db_obj[4].question,
 
-		R1_date : db_obj[0][1].created_date,
-		R2_date : db_obj[0][3].created_date,
-		R3_date : db_obj[0][5].created_date,
-		R4_date : db_obj[0][7].created_date,
+		R1_date : db_obj[3].created_date,
+		R2_date : db_obj[2].created_date,
+		R3_date : db_obj[1].created_date,
+		R4_date : db_obj[0].created_date,
  
-		R1_content : db_obj[0][1].content,
-		R2_content : db_obj[0][3].content,
-		R3_content : db_obj[0][5].content,
-		R4_content : db_obj[0][7].content,
+		R1_content : db_obj[3].content,
+		R2_content : db_obj[2].content,
+		R3_content : db_obj[1].content,
+		R4_content : db_obj[0].content,
 
-		R1_question : db_obj[0][1].question,
-		R2_question : db_obj[0][3].question,
-		R3_question : db_obj[0][5].question,
-		R4_question : db_obj[0][7].question,
+		R1_question : db_obj[3].question,
+		R2_question : db_obj[2].question,
+		R3_question : db_obj[1].question,
+		R4_question : db_obj[0].question,
 
 		//index : index,
 		index_year: focused_year,
 		index_month: focused_month,
 		index_date: focused_date,
 		user_id: user_id,
-
 	}
 
 	res.render('../views/diary/daily', db_obj_ejs);
 }
 
 
-const monthly_mode_A = async (req, res) => {
+const monthly = async (req, res) => {
 
 	const user_id = req.params.id;
 	const focused_year = Number(req.query.year);
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
 
-	const year_from = "'" + (focused_year-3) + "'";
-	const year_to = "'" + focused_year + "'";
-
-	const month_from = "'" + (focused_month-1) + "'";
-	const month_to = "'" + (focused_month) + "'";
-
-	const db_obj = await db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
-		AND (classes='m')
-		AND (YEAR(created_date) BETWEEN ${year_from} AND ${year_to}) 
-		AND (MONTH(created_date) BETWEEN ${month_from} AND ${month_to}) 
-		`, [user_id])
+	let db_obj = [];
+	for(var i=0; i<2; i++){
+		for(var j=0; j<4; j++){
+			let temp = await get_monthly_diary(focused_year-j, focused_month-i, user_id);
+			console.log(focused_year-j);
+			console.log(focused_month-i);
+			if(temp[0][0] == undefined){
+				temp[0][0] = {
+					created_date: `you missed this month`,
+					content: `empty :<`,
+					question: `empty :(`,
+				}
+			}
+			db_obj.push(temp[0][0]);
+		}
+	}
 
 	const db_obj_ejs = {
-		L1_date : db_obj[0][0].created_date,
-		L2_date : db_obj[0][2].created_date,
-		L3_date : db_obj[0][4].created_date,
-		L4_date : db_obj[0][6].created_date,
+		L1_date : db_obj[7].created_date,
+		L2_date : db_obj[6].created_date,
+		L3_date : db_obj[5].created_date,
+		L4_date : db_obj[4].created_date,
  
-		L1_content : db_obj[0][0].content,
-		L2_content : db_obj[0][2].content,
-		L3_content : db_obj[0][4].content,
-		L4_content : db_obj[0][6].content,
+		L1_content : db_obj[7].content,
+		L2_content : db_obj[6].content,
+		L3_content : db_obj[5].content,
+		L4_content : db_obj[4].content,
 
-		L1_question : db_obj[0][0].question,
-		L2_question : db_obj[0][2].question,
-		L3_question : db_obj[0][4].question,
-		L4_question : db_obj[0][6].question,
+		L1_question : db_obj[7].question,
+		L2_question : db_obj[6].question,
+		L3_question : db_obj[5].question,
+		L4_question : db_obj[4].question,
 
-		R1_date : db_obj[0][1].created_date,
-		R2_date : db_obj[0][3].created_date,
-		R3_date : db_obj[0][5].created_date,
-		R4_date : db_obj[0][7].created_date,
+		R1_date : db_obj[3].created_date,
+		R2_date : db_obj[2].created_date,
+		R3_date : db_obj[1].created_date,
+		R4_date : db_obj[0].created_date,
  
-		R1_content : db_obj[0][1].content,
-		R2_content : db_obj[0][3].content,
-		R3_content : db_obj[0][5].content,
-		R4_content : db_obj[0][7].content,
+		R1_content : db_obj[3].content,
+		R2_content : db_obj[2].content,
+		R3_content : db_obj[1].content,
+		R4_content : db_obj[0].content,
 
-		R1_question : db_obj[0][1].question,
-		R2_question : db_obj[0][3].question,
-		R3_question : db_obj[0][5].question,
-		R4_question : db_obj[0][7].question,
+		R1_question : db_obj[3].question,
+		R2_question : db_obj[2].question,
+		R3_question : db_obj[1].question,
+		R4_question : db_obj[0].question,
 
 		index_year: focused_year,
 		index_month: focused_month,
@@ -166,9 +163,7 @@ const monthly_mode_A = async (req, res) => {
 		user_id: user_id,
 	}
 
-	console.log(db_obj_ejs);
-
-	res.render('../views/diary/monthly_mode_A', db_obj_ejs);
+	res.render('../views/diary/monthly', db_obj_ejs);
 }
 
 
@@ -245,7 +240,7 @@ module.exports = {
 	dummy,
 
 	daily, 
-	monthly_mode_A,
+	monthly,
 	monthly_mode_B,
 
 }

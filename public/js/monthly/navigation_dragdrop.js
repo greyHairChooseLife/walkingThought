@@ -42,8 +42,6 @@ function compare_coordinates(x1, x2, y1, y2){
 //select move direction, up/down/left/right
 function select_direction(compared_x, compared_y){
 	if(compared_x == compared_y && compared_x == 0) return;  //selected_direction will be undefined
-	alert(compared_x);
-	alert(compared_y);
 	if(compared_x >= compared_y){
 		if(compared_x < window.innerWidth * 0.1 ){  //just in case they drag&drop accidently
 			alert("too short movement");
@@ -64,3 +62,4 @@ function select_direction(compared_x, compared_y){
 		else
 			return selected_direction = 'down';
 }
+
