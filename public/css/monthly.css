@@ -175,3 +175,13 @@ body {
 	grid-row: 1/5;
 	background-color: grey;
 }
+
+#writing_form {
+	position: absolute;
+	height: 60vh;
+	width: 40%;
+	top: 50px;
+	left: 50px;
+	border: solid 2px;
+	background-color: grey;
+}

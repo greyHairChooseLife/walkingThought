@@ -8,6 +8,8 @@ const date_class = document.getElementsByClassName('date');
 const content_class = document.getElementsByClassName('content');
 const question_class = document.getElementsByClassName('question');
 
+const writing_form = document.getElementById('writing_form');
+
 const L1 = document.getElementById('L1');
 const L2 = document.getElementById('L2');
 const L3 = document.getElementById('L3');
