@@ -59,9 +59,6 @@ const down_button = document.getElementById("down_button");
 const left_button = document.getElementById("left_button");
 const right_button = document.getElementById("right_button");
 const today_button = document.getElementById("today_button");
+const monthly_button = document.getElementById("monthly_button");
 
 const arr_button = [up_button, down_button, left_button, right_button, today_button];
-
-
-
-alert(index);

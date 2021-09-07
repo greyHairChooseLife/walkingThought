@@ -8,6 +8,8 @@ const date_class = document.getElementsByClassName('date');
 const content_class = document.getElementsByClassName('content');
 const question_class = document.getElementsByClassName('question');
 
+const writing_form = document.getElementById('writing_form');
+
 const L1_sign = document.getElementById('L1_sign');
 const L2_sign = document.getElementById('L2_sign');
 const L3_sign = document.getElementById('L3_sign');
@@ -70,7 +72,3 @@ const today_button = document.getElementById("today_button");
 const daily_button = document.getElementById("daily_button");
 
 const arr_button = [up_button, down_button, left_button, right_button, today_button];
-
-
-
-alert(index);
