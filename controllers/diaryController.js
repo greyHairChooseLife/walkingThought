@@ -1,8 +1,7 @@
 const db = require('../config/db.js').promise();
 
-const gen = require('../tester/test_data_generater.js');
-
 //generate dummy data
+const gen = require('../tester/test_data_generater.js');
 const dummy = (req, res) => {
 	gen.gen(req, res);
 	res.send('data settled');
@@ -227,6 +226,13 @@ const monthly_mode_B = async (req, res) => {
 	res.render('../views/diary/monthly_mode_B', db_obj_ejs);
 }
 
+const daily_post = (req, res) => {
+	console.log('routing success : daily_post');
+};
+
+const monthly_post = (req, res) => {
+	console.log('routing success : monthly_post');
+};
 
 
 
@@ -242,5 +248,8 @@ module.exports = {
 	daily, 
 	monthly,
 	monthly_mode_B,
+
+	daily_post,
+	monthly_post,
 
 }

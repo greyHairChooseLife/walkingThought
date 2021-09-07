@@ -1,0 +1,9 @@
+<form id="writing_form" action="/diary/monthly/post/<%= user_id %>" method="post">
+	<div>today's Question</div>
+	<textarea id="Question" name="question" cols="50" rows="5"></textarea>
+	<div>today's comment</div>
+	<textarea name="content" cols="50" rows="20"></textarea>
+
+	<input type="hidden" name="user_id" value=user_id>
+	<input type="submit" value="submit">
+</form>
