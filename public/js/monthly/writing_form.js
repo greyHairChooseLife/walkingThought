@@ -1,9 +1,3 @@
-//test
-writing_form.addEventListener('mouseenter', ()=> {
-	writing_form.style.backgroundColor = 'black';
-});
-
-
 //make things float
 var offset = [0,0];
 
