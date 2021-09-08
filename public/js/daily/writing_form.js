@@ -1,8 +1,10 @@
-//test
-writing_form.addEventListener('mouseenter', ()=> {
-	writing_form.style.backgroundColor = 'black';
+//trigger and closer action
+writing_form_trigger.addEventListener('click', () =>{
+	writing_form.style.display = "block";
 });
-
+writing_form_closer.addEventListener('click', () =>{
+	writing_form.style.display = "none";
+});
 
 //make things float
 var offset = [0,0];
