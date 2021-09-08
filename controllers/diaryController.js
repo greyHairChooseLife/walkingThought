@@ -227,11 +227,26 @@ const monthly_mode_B = async (req, res) => {
 }
 
 const daily_post = (req, res) => {
-	console.log('routing success : daily_post');
+	//console.log(req.body);
+	const { content, question, score, user_id } = req.body;
+	const classes = 'd';
+	const created_date = new Date();
+
+
+	db.query(`INSERT INTO diary (classes, created_date, content, question, score, user_id) VALUES (?, ?, ?, ?, ?, ?)`, [classes, created_date, content, question, score, user_id]);
+	//return 
+
 };
 
 const monthly_post = (req, res) => {
-	console.log('routing success : monthly_post');
+	//console.log(req.body);
+	const { content, question, user_id } = req.body;
+	const classes = 'm';
+	const created_date = new Date();
+
+
+	db.query(`INSERT INTO diary (classes, created_date, content, question, user_id) VALUES (?, ?, ?, ?, ?)`, [classes, created_date, content, question, user_id]);
+	//return 
 };
 
 
