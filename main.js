@@ -1,12 +1,18 @@
 require('dotenv').config();
 const { PORT } = process.env; // .env로 정보 유출을 방지 , env는 gitignore에 등록되어있습니다.
 
+
 //FRAMEWORK 
 const express = require('express');
 
 //MODULE
 
 const app = express();
+
+
+
+
+
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

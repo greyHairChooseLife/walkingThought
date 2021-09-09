@@ -1,9 +1,9 @@
 const db = require('../config/db.js').promise();
 const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
 //middleware
 const checkLoggedIn = require('../middleware/checkLoggedIn.js');
-const generateToken = require('../middleware/generateToken.js');
 
 
 // 회원 가입
@@ -75,6 +75,24 @@ const post_setting = async (req, res) => {
 		res.redirect('/');
 }
 
+
+
+//token generator
+function generate_token(id, nickname, created_date){
+    const token = jwt.sign(
+        {
+            id: id,
+            nickname: nickname,
+			created_date: created_date,
+        },
+        process.env.JWT_SECREAT,
+        {
+            expiresIn: '30d',
+        }
+    )
+    return token;
+};
+
 const post_login = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -88,7 +106,7 @@ const post_login = async (req, res) => {
 			return res.send("this password you entered is NOT matched with the email.");
 		// success login,
 		// generate token
-		const token = generateToken.generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
+		const token = generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
 		// send token as cookie(while there are various methods for different usages)
 		res.cookie('login_access_token', token, {
 			maxAge: 1000 * 60 * 60 * 24 * 30, //30days
