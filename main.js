@@ -19,7 +19,8 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.use(express.static('./public'));
 
-//middleware
+//hand made middleware
+//
 //getUserInfo checks login status
 app.use(getUserInfo);
 	

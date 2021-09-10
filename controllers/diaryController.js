@@ -228,25 +228,27 @@ const monthly_mode_B = async (req, res) => {
 
 const daily_post = (req, res) => {
 	//console.log(req.body);
-	const { content, question, score, user_id } = req.body;
+	const { content, question, score, user_id, index_year, index_month, index_date } = req.body;
 	const classes = 'd';
 	const created_date = new Date();
 
-
 	db.query(`INSERT INTO diary (classes, created_date, content, question, score, user_id) VALUES (?, ?, ?, ?, ?, ?)`, [classes, created_date, content, question, score, user_id]);
-	//return 
 
+	//without first argument 307, redirect askes GET method. 307 make it POST method.
+	res.redirect(307, `/diary/daily/${user_id}?year=${index_year}&month=${index_month}&date=${index_date}`);
 };
 
 const monthly_post = (req, res) => {
 	//console.log(req.body);
-	const { content, question, user_id } = req.body;
+	const { content, question, user_id, index_year, index_month, index_date } = req.body;
 	const classes = 'm';
 	const created_date = new Date();
 
 
 	db.query(`INSERT INTO diary (classes, created_date, content, question, user_id) VALUES (?, ?, ?, ?, ?)`, [classes, created_date, content, question, user_id]);
-	//return 
+	
+	//without first argument 307, redirect askes GET method. 307 make it POST method.
+	res.redirect(307, `/diary/monthly/${user_id}?year=${index_year}&month=${index_month}&date=${index_date}`);
 };
 
 
