@@ -122,13 +122,15 @@ const post_login = async (req, res) => {
 
 // 로그아웃
 const post_logout = (req, res) => {
-//	if(checkLoggedIn.check_loggedIn(req)[1] == true){
-//		res.clearCookie('login_access_token');
-//		res.redirect('/');
-//	}
-//	else{
-//		console.log(`logout err: it tried logout while it's not logged i`);
-//	}
+	const isLogin = res.locals.isLogin;
+	if(isLogin == true){
+		res.clearCookie('login_access_token');
+		res.redirect('/');
+	}
+	else{
+		console.log(`logout err: it tried logout while it's not logged in`);
+		res.redirect('/');
+	}
 }
 
 const post_delete = async (req, res) => { // 계정 삭제

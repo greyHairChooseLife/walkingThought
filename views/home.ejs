@@ -7,15 +7,14 @@
 </head>
 <body>
 
-	<% if(checkLoggedIn == false){ %>
+	<% if(checkLoggedIn === false){ %>
 	<div id="logged_out">
 
 		<%- include("./parts_user/login.ejs") %>
 
 	</div>
-	<% } %>  
+	<% } else { %>  
 
-	<% if(checkLoggedIn == true){ %>
 	<div id="logged_in">
 	
 		<div>
