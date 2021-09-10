@@ -3,14 +3,14 @@ const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 
 //middleware
-const checkLoggedIn = require('../middleware/checkLoggedIn.js');
+//const checkLoggedIn = require('../middleware/checkLoggedIn.js');
 
 
 // 회원 가입
 const post_register = async (req, res) => {
-	if(checkLoggedIn.check_loggedIn(req)[1] == true){
-		res.clearCookie('login_access_token');
-	}
+//	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+//		res.clearCookie('login_access_token');
+//	}
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
@@ -122,13 +122,13 @@ const post_login = async (req, res) => {
 
 // 로그아웃
 const post_logout = (req, res) => {
-	if(checkLoggedIn.check_loggedIn(req)[1] == true){
-		res.clearCookie('login_access_token');
-		res.redirect('/');
-	}
-	else{
-		console.log(`logout err: it tried logout while it's not logged i`);
-	}
+//	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+//		res.clearCookie('login_access_token');
+//		res.redirect('/');
+//	}
+//	else{
+//		console.log(`logout err: it tried logout while it's not logged i`);
+//	}
 }
 
 const post_delete = async (req, res) => { // 계정 삭제
@@ -146,14 +146,15 @@ const post_delete = async (req, res) => { // 계정 삭제
 //////////////////////////// cookie generation test
 //////////////////////////// cookie generation test
 const post_cookie_test = (req, res) => {
-	const user_obj = checkLoggedIn.check_loggedIn(req);
-	console.log(user_obj[0]);
+//	const user_obj = checkLoggedIn.check_loggedIn(req);
+//	console.log(user_obj[0]);
 
 	const msg = `Yes, your cookie is generated like you can see at console.log`
 
 	let individualized_text = msg;
 	for(var i=0; i<1000; i++)
-		individualized_text += String(user_obj[0].id);
+		//individualized_text += String(user_obj[0].id);
+		individualized_text += 1;
 
 	res.send(individualized_text);
 }
