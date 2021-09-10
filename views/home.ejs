@@ -70,8 +70,6 @@
 	<br>
 	<br>
 	<br>
-	<p>data load testing, from html</p>
-	<p>from html: <%= Object.keys(user_list_id).length %></p>
 	<p>from html: <%= index_year %></p>
 </body>
 </html>
@@ -86,10 +84,3 @@
 	}
 </style>
 
-<script>
-	var obj = "<%= JSON.stringify(user_list_id) %>";
-	obj = obj.replaceAll('&#34;', '\"');
-	obj = JSON.parse(obj);
-
-	document.write('data load testing, from script: ', obj[0]);
-</script>
