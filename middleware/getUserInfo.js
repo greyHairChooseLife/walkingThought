@@ -20,17 +20,18 @@ function verify_token(token) {
 
 
 const getUserInfo = (req, res, next) => {
-	let token = get_token(req);
-	if(verify_token(token) != undefined){
+	const token = get_token(req);
+	const decoded = verify_token(token);
+	if(decoded != undefined){
 		res.locals.user = {
-			id: 'verified',
-			nickname: 'fied',
+			id: decoded.id,
+			nickname: decoded.nickname,
 		}
 		res.locals.isLogin = true;
 	} else{
 		res.locals.user = {
-			id: 'not verified',
-			nickname: 'nono no',
+			id: '',
+			nickname: '',
 		}
 		res.locals.isLogin = false;
 	}
