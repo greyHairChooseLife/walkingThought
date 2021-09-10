@@ -2,15 +2,14 @@ const db = require('../config/db.js').promise();
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 
-//middleware
-//const checkLoggedIn = require('../middleware/checkLoggedIn.js');
-
 
 // 회원 가입
 const post_register = async (req, res) => {
-//	if(checkLoggedIn.check_loggedIn(req)[1] == true){
-//		res.clearCookie('login_access_token');
-//	}
+//check login status and if it is true then force to logged out as taking login_access_token away.
+	if(res.locals.isLogin === true){
+		res.clearCookie('login_access_token');
+	}
+
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
