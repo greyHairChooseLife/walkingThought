@@ -146,20 +146,6 @@ const post_delete = async (req, res) => { // 계정 삭제
 //////////////////////////// cookie generation test
 //////////////////////////// cookie generation test
 //////////////////////////// cookie generation test
-const post_cookie_test = (req, res) => {
-//	const user_obj = checkLoggedIn.check_loggedIn(req);
-//	console.log(user_obj[0]);
-
-	const msg = `Yes, your cookie is generated like you can see at console.log`
-
-	let individualized_text = msg;
-	for(var i=0; i<1000; i++)
-		//individualized_text += String(user_obj[0].id);
-		individualized_text += 1;
-
-	res.send(individualized_text);
-}
-
 
 module.exports = {
 	post_register,
@@ -167,8 +153,6 @@ module.exports = {
 	post_setting,
 
 	post_login,
-
-	post_cookie_test,
 
 	post_logout,
 	post_delete,
