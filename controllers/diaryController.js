@@ -1,7 +1,8 @@
 const db = require('../config/db.js').promise();
-
 //generate dummy data
 const gen = require('../tester/test_data_generater.js');
+
+
 const dummy = (req, res) => {
 	gen.gen(req, res);
 	res.send('data settled');
@@ -90,7 +91,6 @@ const daily = async (req, res) => {
 		R3_question : db_obj[1].question,
 		R4_question : db_obj[0].question,
 
-		//index : index,
 		index_year: focused_year,
 		index_month: focused_month,
 		index_date: focused_date,
@@ -100,6 +100,56 @@ const daily = async (req, res) => {
 	res.render('../views/diary/daily', db_obj_ejs);
 }
 
+function getDateName(year, month, day){
+	var a;
+	var b;
+	var c = Number(month);
+	var d = Number(day);
+	if(c == 1){
+		year = Number(year)-1;
+		c = 13;
+	} else if(c == 2){
+		year = Number(year)-1;
+		c = 14;
+	}
+
+	a = 0.25 * (21 * Number(String(year).substr(0,2)));
+	b = 0.25 * (5 * Number(String(year).substr(String(year).length-2, 2)));
+	c = (c+1)*26*0.1;
+	
+	if(a > 0)
+		a = parseInt(a);
+	else if(a < 0)
+		a = parseInt(a*(-1))+1;
+	if(b > 0)
+		b = parseInt(b);
+	else if(b < 0)
+		b = parseInt(b*(-1))+1;
+	if(c > 0)
+		c = parseInt(c);
+	else if(c < 0)
+		c = parseInt(c*(-1))+1;
+
+	answer = (a+b+c+d-1) % 7;
+
+	return(answer);
+	/*
+	if(answer == 0)
+		return("일요일");
+	else if(answer == 1)
+		return("월요일");
+	else if(answer == 2)
+		return("화요일");
+	else if(answer == 3)
+		return("수요일");
+	else if(answer == 4)
+		return("목요일");
+	else if(answer == 5)
+		return("금요일");
+	else if(answer == 6)
+		return("토요일");
+	*/
+}
 
 const monthly = async (req, res) => {
 
@@ -112,8 +162,6 @@ const monthly = async (req, res) => {
 	for(var i=0; i<2; i++){
 		for(var j=0; j<4; j++){
 			let temp = await get_monthly_diary(focused_year-j, focused_month-i, user_id);
-			console.log(focused_year-j);
-			console.log(focused_month-i);
 			if(temp[0][0] == undefined){
 				temp[0][0] = {
 					created_date: `you missed this month`,
@@ -124,6 +172,38 @@ const monthly = async (req, res) => {
 			db_obj.push(temp[0][0]);
 		}
 	}
+	
+	//get a name of day. the day of the first date of the month.
+	const init_day = getDateName(focused_year, focused_month, focused_date-focused_date+1);
+	const last_date_of_month = new Date(focused_year, focused_month, 0).getDate();
+
+//make calendar
+//////////	const calendar = await db.query(`SELECT created_date, content, question, score FROM diary WHERE (user_id=?)
+//////////		AND (classes = 'd')
+//////////		AND (YEAR(created_date) = ${focused_year})
+//////////		AND (MONTH(created_date) = ${focused_month}) 
+//////////		`, [user_id]);
+//////////
+//////////	let calendar_obj = [];
+//////////	for(let i=1; i<=last_date_of_month; i++){
+//////////		if(calendar[0][i] === undefined){
+//////////			calendar[0][i] = {
+//////////				date_of_created_date: i,
+//////////				question: 'you missed it :<',
+//////////				content: 'you missed it :<',
+//////////			}
+//////////		} else{
+//////////			calendar[0][i] = {
+//////////				date_of_created_date: calendar[0][i].created_date.getDate(),
+//////////				question: calendar[0][i].question,
+//////////				content: calendar[0][i].content,
+//////////			}
+//////////		}
+//////////		calendar_obj.push(calendar[0][i]);
+//////////	}
+
+
+	//obj for ejs
 
 	const db_obj_ejs = {
 		L1_date : db_obj[7].created_date,
@@ -155,79 +235,23 @@ const monthly = async (req, res) => {
 		R2_question : db_obj[2].question,
 		R3_question : db_obj[1].question,
 		R4_question : db_obj[0].question,
+		
+		//calendar_obj: calendar_obj,
 
 		index_year: focused_year,
 		index_month: focused_month,
 		index_date: focused_date,
 		user_id: user_id,
+
+		init_day: init_day,
+		last_date_of_month: last_date_of_month,
 	}
 
 	res.render('../views/diary/monthly', db_obj_ejs);
 }
 
 
-const monthly_mode_B = async (req, res) => {
-
-	const user_id = req.params.id;
-	const focused_year = Number(req.query.year);
-	const focused_month = Number(req.query.month);
-	const focused_date = Number(req.query.date);
-
-	const db_obj = await db.query(`SELECT created_date, content, question FROM diary WHERE user_id=?
-		AND (classes = 'd')
-		AND (YEAR(created_date)=?)
-		AND (MONTH(created_date)=?)
-		`, [user_id, focused_year, focused_month]);
-
-	let db_obj_ejs = {};
-	
-	for(let i=1; i <= db_obj[0].length; i++){
-		let key1 = 'D'+ i + '_date';
-		let key2 = 'D'+ i + '_content';
-		let key3 = 'D'+ i + '_question';
-		db_obj_ejs[key1] = db_obj[0][i-1].created_date;
-		db_obj_ejs[key2] = db_obj[0][i-1].content;
-		db_obj_ejs[key3] = db_obj[0][i-1].question;
-	}
-
-	db_obj_ejs.index_year = focused_year;
-	db_obj_ejs.index_month = focused_month;
-	db_obj_ejs.index_date = focused_date;
-	db_obj_ejs.user_id = user_id;
-
-	console.log(db_obj_ejs);
-
-
-//////////legacy code for calendar
-//////////legacy code for calendar
-//////////legacy code for calendar
-//////////legacy code for calendar
-//////////legacy code for calendar
-//////////legacy code for calendar
-//			var a = focused_year;
-//			var b = focused_month;
-//			var c = tools.switch_D_to_common_D(focused_date);
-//
-//			var calander = ``;
-//			for(i=0; i < 42; i++){
-//				var starting_point = tools.get_days_name(a,b,c);
-//				if(i >= starting_point && i <= daily_diary.length+starting_point-1){
-//					calander += `
-//					<div class="days" id="day${i-starting_point+1}"><div>${i-starting_point+1}</div></div>
-//					`;
-//				}
-//				else {
-//					calander += `
-//					<div class="days"><div></div></div>
-//					`;
-//				}
-//			}
-
-	res.render('../views/diary/monthly_mode_B', db_obj_ejs);
-}
-
 const daily_post = (req, res) => {
-	//console.log(req.body);
 	const { content, question, score, user_id, index_year, index_month, index_date } = req.body;
 	const classes = 'd';
 	const created_date = new Date();
@@ -239,11 +263,9 @@ const daily_post = (req, res) => {
 };
 
 const monthly_post = (req, res) => {
-	//console.log(req.body);
 	const { content, question, user_id, index_year, index_month, index_date } = req.body;
 	const classes = 'm';
 	const created_date = new Date();
-
 
 	db.query(`INSERT INTO diary (classes, created_date, content, question, user_id) VALUES (?, ?, ?, ?, ?)`, [classes, created_date, content, question, user_id]);
 	
@@ -264,7 +286,6 @@ module.exports = {
 
 	daily, 
 	monthly,
-	monthly_mode_B,
 
 	daily_post,
 	monthly_post,

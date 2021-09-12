@@ -1,0 +1,11 @@
+<% for(var i=0; i<=7*6; i++){ %>
+
+<div class="calendar_cards_box">
+<% if(init_day <= i && i-init_day+1 <= last_date_of_month){ %>
+<div class="calendar_cards" id="calendar_card_<%= i-init_day+1 %>">
+<%= i-init_day+1; %>
+</div>
+<% } %>
+</div>
+
+<% } %>

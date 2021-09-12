@@ -8,6 +8,9 @@ const keyboard_shortcut_help_result = document.getElementById("keyboard_shortcut
 const navigate_page = document.getElementById('navigate_page');
 
 
+//calendar
+const calendar_button = document.getElementById("calendar_button");
+const calendar_board = document.getElementById("calendar_board");
 
 //about writing_form
 const writing_form_trigger = document.getElementById('writing_form_trigger');

@@ -204,3 +204,47 @@ body {
 	background-color: grey;
 	display: none;
 }
+
+
+
+#calendar_button {
+	grid-column: 3/4;
+	grid-row: 2/3;
+	background-color: purple;
+	margin-top: 16vh;
+	margin-left: 10%;
+	margin-right: 10%;
+	height: 5vh;
+	text-align: center;
+}
+
+
+#calendar_board {
+	grid-column: 2/3;
+	grid-row: 1/3;
+	width: 80%;
+
+	display: grid;
+	grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;
+	grid-template-rows: 14% 14% 14% 14% 14% 14%;
+	align-content: center;
+	justify-content: center;
+	visibility: hidden;
+}
+
+.calendar_cards_box {
+	width: 90%;
+	height: 80%;
+	color: white;
+	font-size: 8mm;
+	align-self: center;
+	justify-self: center;
+
+	text-align: center;
+}
+
+.calendar_cards {
+	height: 100%;
+	background-color: purple;
+}
+
