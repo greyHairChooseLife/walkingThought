@@ -8,6 +8,7 @@ const dummy = (req, res) => {
 	res.send('data settled');
 }
 
+//contents for daily page. it need a proper function naming
 function get_daily_diary(y, m, d, user_id){
 	if(d === 0){
 		m = m-1;
@@ -26,6 +27,7 @@ function get_daily_diary(y, m, d, user_id){
 		`, [user_id]);
 }
 
+//contents for monthly page. it need a proper function naming 
 function get_monthly_diary(y, m, user_id){
 	if(m === 0){
 		y = y-1;
@@ -33,7 +35,7 @@ function get_monthly_diary(y, m, user_id){
 	}
 		
 	return db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
-		AND (classes = 'm')
+		AND (classes = 'd')
 		AND (YEAR(created_date) = ${y})
 		AND (MONTH(created_date) = ${m}) 
 		`, [user_id]);
@@ -153,98 +155,39 @@ function getDateName(year, month, day){
 
 const monthly = async (req, res) => {
 
-	const user_id = req.params.id;
+	const user_id = res.locals.user.id;
 	const focused_year = Number(req.query.year);
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
-
-	let db_obj = [];
-	for(var i=0; i<2; i++){
-		for(var j=0; j<4; j++){
-			let temp = await get_monthly_diary(focused_year-j, focused_month-i, user_id);
-			if(temp[0][0] == undefined){
-				temp[0][0] = {
-					created_date: `you missed this month`,
-					content: `empty :<`,
-					question: `empty :(`,
-				}
-			}
-			db_obj.push(temp[0][0]);
-		}
-	}
-	
 	//get a name of day. the day of the first date of the month.
 	const init_day = getDateName(focused_year, focused_month, focused_date-focused_date+1);
 	const last_date_of_month = new Date(focused_year, focused_month, 0).getDate();
 
-//make calendar
-//////////	const calendar = await db.query(`SELECT created_date, content, question, score FROM diary WHERE (user_id=?)
-//////////		AND (classes = 'd')
-//////////		AND (YEAR(created_date) = ${focused_year})
-//////////		AND (MONTH(created_date) = ${focused_month}) 
-//////////		`, [user_id]);
-//////////
-//////////	let calendar_obj = [];
-//////////	for(let i=1; i<=last_date_of_month; i++){
-//////////		if(calendar[0][i] === undefined){
-//////////			calendar[0][i] = {
-//////////				date_of_created_date: i,
-//////////				question: 'you missed it :<',
-//////////				content: 'you missed it :<',
-//////////			}
-//////////		} else{
-//////////			calendar[0][i] = {
-//////////				date_of_created_date: calendar[0][i].created_date.getDate(),
-//////////				question: calendar[0][i].question,
-//////////				content: calendar[0][i].content,
-//////////			}
-//////////		}
-//////////		calendar_obj.push(calendar[0][i]);
-//////////	}
+	const index = [user_id, focused_year, focused_month, focused_date, init_day, last_date_of_month];
 
+	let calendar_data = await get_monthly_diary(focused_year, focused_month, user_id);
+	calendar_data = calendar_data[0];
+	for(var i=0; i<last_date_of_month; i++){
+		if(calendar_data[i] == undefined){
+			calendar_data[i] = {
+				created_date: calendar_data[i-1].created_date.setDate(calendar_data[i-1].created_date.getDate()+1),
+				content: `empty :<`,
+				question: `empty :(`,
+			}
+		}
+	}
+
+	//sorting by order
+	const sorting_field = "created_date";
+	calendar_data.sort(function(a, b){
+		return a[sorting_field] - b[sorting_field];
+	});
+	
 
 	//obj for ejs
-
 	const db_obj_ejs = {
-		L1_date : db_obj[7].created_date,
-		L2_date : db_obj[6].created_date,
-		L3_date : db_obj[5].created_date,
-		L4_date : db_obj[4].created_date,
- 
-		L1_content : db_obj[7].content,
-		L2_content : db_obj[6].content,
-		L3_content : db_obj[5].content,
-		L4_content : db_obj[4].content,
-
-		L1_question : db_obj[7].question,
-		L2_question : db_obj[6].question,
-		L3_question : db_obj[5].question,
-		L4_question : db_obj[4].question,
-
-		R1_date : db_obj[3].created_date,
-		R2_date : db_obj[2].created_date,
-		R3_date : db_obj[1].created_date,
-		R4_date : db_obj[0].created_date,
- 
-		R1_content : db_obj[3].content,
-		R2_content : db_obj[2].content,
-		R3_content : db_obj[1].content,
-		R4_content : db_obj[0].content,
-
-		R1_question : db_obj[3].question,
-		R2_question : db_obj[2].question,
-		R3_question : db_obj[1].question,
-		R4_question : db_obj[0].question,
-		
-		//calendar_obj: calendar_obj,
-
-		index_year: focused_year,
-		index_month: focused_month,
-		index_date: focused_date,
-		user_id: user_id,
-
-		init_day: init_day,
-		last_date_of_month: last_date_of_month,
+		index: index,
+		calendar_data: calendar_data,
 	}
 
 	res.render('../views/diary/monthly', db_obj_ejs);
