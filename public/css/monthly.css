@@ -52,6 +52,14 @@ body {
 	background-color: yellow;
 	display:none;
 }
+#start_button {
+	grid-column: 3/4;
+	grid-row: 2/4;
+	background-color: yellow;
+	margin-top: 130%;
+	height: 20%;
+	width: 150%;
+}
 
 #read {
 	grid-column: 2/5;
