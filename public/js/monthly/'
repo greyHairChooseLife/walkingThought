@@ -1,4 +1,0 @@
-const card1 = document.getElementById(`calendar_card_1`);
-card1.addEventListener('mouseenter', function(){
-	alert('ok');
-});
