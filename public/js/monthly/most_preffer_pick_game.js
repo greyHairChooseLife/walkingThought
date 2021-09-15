@@ -1,6 +1,6 @@
 // pick 5 question event
 // pick 5 question event
-const how_many_questions = 5;
+const how_many_questions = 2;
 
 const start_button = document.getElementById('start_button');
 const left = document.getElementById('left');
@@ -98,6 +98,7 @@ left.addEventListener('click', () => {
 			right.style.display = 'none';
 		} else{
 			write_monthly.style.display = 'block';
+			document.getElementById('answer_arr_to_server').value = JSON.stringify(answer_arr);
 			left.style.display = 'none';
 			right.style.display = 'none';
 		}
@@ -118,6 +119,7 @@ right.addEventListener('click', () => {
 			right.style.display = 'none';
 		} else{
 			write_monthly.style.display = 'block';
+			document.getElementById('answer_arr_to_server').value = JSON.stringify(answer_arr);
 			left.style.display = 'none';
 			right.style.display = 'none';
 		}

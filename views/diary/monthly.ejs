@@ -30,7 +30,8 @@
 		<div id='read_content'>
 		</div>
 	</div>
-	<form id='write_monthly' action='/ok' method='post'>
+	<form id='write_monthly' action='/diary/write_monthly/:id' method='post'>
+		<input id='answer_arr_to_server' type='hidden' name='pickup' value=''>
 		<input type='submit' value='write monthly diary'>
 	</form>
 </div>

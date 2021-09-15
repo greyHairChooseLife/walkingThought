@@ -194,6 +194,8 @@ const pickup_game_monthly = async (req, res) => {
 }
 
 const write_monthly = async (req, res) => {
+	console.log(JSON.parse(req.body.pickup));
+	res.send('hello');
 }
 
 const read_monthly = async (req, res) => {
