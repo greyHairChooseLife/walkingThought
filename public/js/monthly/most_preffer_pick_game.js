@@ -7,6 +7,7 @@ const left_content = document.getElementById('left_content');
 const right = document.getElementById('right');
 const right_question = document.getElementById('right_question');
 const right_content = document.getElementById('right_content');
+const answer_board = document.getElementById('answer_board');
 
 const origin_arr = calendar_data; // get original base data from ejs
 let temp_arr = []; // have base data from deep copy of original data or filtered data from bin_arr
@@ -58,6 +59,13 @@ function show_candis(){
 	right_content.innerHTML = temp_arr[index_arr[0]][0].content;
 }
 
+//show answer array on answer_board. 
+function show_answer_arr(length){
+	answer_board.innerHTML = ''; // reset board.
+	for(var i=0; i<length; i++)
+		answer_board.innerHTML += answer_arr[i][0].question+'<br>';
+}
+
 start_button.addEventListener('click', () => {
 	start_button.style.display = 'none';
 	left.style.display = 'block';
@@ -80,6 +88,7 @@ left.addEventListener('click', () => {
 		show_candis();
 	} else {
 		answer_arr.push(temp_arr[0]);
+		show_answer_arr(answer_arr.length);
 
 		start_button.style.display = 'block';
 		left.style.display = 'none';
@@ -94,6 +103,7 @@ right.addEventListener('click', () => {
 		show_candis();
 	} else {
 		answer_arr.push(temp_arr[0]);
+		show_answer_arr(answer_arr.length);
 
 		start_button.style.display = 'block';
 		left.style.display = 'none';
