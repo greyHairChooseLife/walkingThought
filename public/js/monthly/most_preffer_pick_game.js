@@ -1,5 +1,7 @@
 // pick 5 question event
 // pick 5 question event
+const how_many_questions = 5;
+
 const start_button = document.getElementById('start_button');
 const left = document.getElementById('left');
 const left_question = document.getElementById('left_question');
@@ -8,6 +10,7 @@ const right = document.getElementById('right');
 const right_question = document.getElementById('right_question');
 const right_content = document.getElementById('right_content');
 const answer_board = document.getElementById('answer_board');
+const write_monthly = document.getElementById('write_monthly');
 
 const origin_arr = calendar_data; // get original base data from ejs
 let temp_arr = []; // have base data from deep copy of original data or filtered data from bin_arr
@@ -89,10 +92,15 @@ left.addEventListener('click', () => {
 	} else {
 		answer_arr.push(temp_arr[0]);
 		show_answer_arr(answer_arr.length);
-
-		start_button.style.display = 'block';
-		left.style.display = 'none';
-		right.style.display = 'none';
+		if(answer_arr.length < how_many_questions){
+			start_button.style.display = 'block';
+			left.style.display = 'none';
+			right.style.display = 'none';
+		} else{
+			write_monthly.style.display = 'block';
+			left.style.display = 'none';
+			right.style.display = 'none';
+		}
 	}
 });
 
@@ -104,9 +112,14 @@ right.addEventListener('click', () => {
 	} else {
 		answer_arr.push(temp_arr[0]);
 		show_answer_arr(answer_arr.length);
-
-		start_button.style.display = 'block';
-		left.style.display = 'none';
-		right.style.display = 'none';
+		if(answer_arr.length < how_many_questions){
+			start_button.style.display = 'block';
+			left.style.display = 'none';
+			right.style.display = 'none';
+		} else{
+			write_monthly.style.display = 'block';
+			left.style.display = 'none';
+			right.style.display = 'none';
+		}
 	}
 });

@@ -9,7 +9,6 @@
 	<div id='calendar_board'>
 	<%- include('../diary/parts_monthly/calendar.ejs') %>
 	</div>
-
 	<div id='left'>
 		<div id='left_question'>
 		</div>
@@ -31,6 +30,9 @@
 		<div id='read_content'>
 		</div>
 	</div>
+	<form id='write_monthly' action='/ok' method='post'>
+		<input type='submit' value='write monthly diary'>
+	</form>
 </div>
 
 
