@@ -190,12 +190,23 @@ const pickup_game_monthly = async (req, res) => {
 		calendar_data: calendar_data,
 	}
 
-	res.render('../views/diary/monthly', db_obj_ejs);
+	res.render('../views/diary/pickup_game_monthly', db_obj_ejs);
 }
 
 const write_monthly = async (req, res) => {
-	console.log(JSON.parse(req.body.pickup));
-	res.send('hello');
+	const index = 1;
+	const pickup_list = JSON.parse(req.body.pickup);
+
+	for(var i=0; i<pickup_list.length; i++){
+		console.log(pickup_list[i]);
+	}
+
+	//obj for ejs
+	const obj_ejs = {
+		index: index,
+		pickup_list: pickup_list,
+	}
+	res.render('../views/diary/write_monthly', obj_ejs);
 }
 
 const read_monthly = async (req, res) => {
