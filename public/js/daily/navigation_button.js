@@ -4,6 +4,6 @@ today_button.addEventListener("click", function(){
 	navigate_page.submit();
 });
 monthly_button.addEventListener("click", function(){
-	navigate_page.action = "/diary/monthly/" + user_id + "?year=" + index_year + "&month=" + index_month + "&date=" + index_date;
+	navigate_page.action = "/diary/pickup_game_monthly/" + user_id + "?year=" + index_year + "&month=" + index_month + "&date=" + index_date;
 	navigate_page.submit();
 });

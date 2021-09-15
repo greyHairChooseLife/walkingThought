@@ -41,7 +41,58 @@ function get_monthly_diary(y, m, user_id){
 		`, [user_id]);
 }
 
-const daily = async (req, res) => {
+function getDateName(year, month, day){
+	var a;
+	var b;
+	var c = Number(month);
+	var d = Number(day);
+	if(c == 1){
+		year = Number(year)-1;
+		c = 13;
+	} else if(c == 2){
+		year = Number(year)-1;
+		c = 14;
+	}
+
+	a = 0.25 * (21 * Number(String(year).substr(0,2)));
+	b = 0.25 * (5 * Number(String(year).substr(String(year).length-2, 2)));
+	c = (c+1)*26*0.1;
+	
+	if(a > 0)
+		a = parseInt(a);
+	else if(a < 0)
+		a = parseInt(a*(-1))+1;
+	if(b > 0)
+		b = parseInt(b);
+	else if(b < 0)
+		b = parseInt(b*(-1))+1;
+	if(c > 0)
+		c = parseInt(c);
+	else if(c < 0)
+		c = parseInt(c*(-1))+1;
+
+	answer = (a+b+c+d-1) % 7;
+
+	return(answer);
+	/*
+	if(answer == 0)
+		return("일요일");
+	else if(answer == 1)
+		return("월요일");
+	else if(answer == 2)
+		return("화요일");
+	else if(answer == 3)
+		return("수요일");
+	else if(answer == 4)
+		return("목요일");
+	else if(answer == 5)
+		return("금요일");
+	else if(answer == 6)
+		return("토요일");
+	*/
+}
+
+const read_and_write_daily = async (req, res) => {
 
 	const user_id = req.params.id;
 	const focused_year = Number(req.query.year);
@@ -102,58 +153,7 @@ const daily = async (req, res) => {
 	res.render('../views/diary/daily', db_obj_ejs);
 }
 
-function getDateName(year, month, day){
-	var a;
-	var b;
-	var c = Number(month);
-	var d = Number(day);
-	if(c == 1){
-		year = Number(year)-1;
-		c = 13;
-	} else if(c == 2){
-		year = Number(year)-1;
-		c = 14;
-	}
-
-	a = 0.25 * (21 * Number(String(year).substr(0,2)));
-	b = 0.25 * (5 * Number(String(year).substr(String(year).length-2, 2)));
-	c = (c+1)*26*0.1;
-	
-	if(a > 0)
-		a = parseInt(a);
-	else if(a < 0)
-		a = parseInt(a*(-1))+1;
-	if(b > 0)
-		b = parseInt(b);
-	else if(b < 0)
-		b = parseInt(b*(-1))+1;
-	if(c > 0)
-		c = parseInt(c);
-	else if(c < 0)
-		c = parseInt(c*(-1))+1;
-
-	answer = (a+b+c+d-1) % 7;
-
-	return(answer);
-	/*
-	if(answer == 0)
-		return("일요일");
-	else if(answer == 1)
-		return("월요일");
-	else if(answer == 2)
-		return("화요일");
-	else if(answer == 3)
-		return("수요일");
-	else if(answer == 4)
-		return("목요일");
-	else if(answer == 5)
-		return("금요일");
-	else if(answer == 6)
-		return("토요일");
-	*/
-}
-
-const monthly = async (req, res) => {
+const pickup_game_monthly = async (req, res) => {
 
 	const user_id = res.locals.user.id;
 	const focused_year = Number(req.query.year);
@@ -193,6 +193,11 @@ const monthly = async (req, res) => {
 	res.render('../views/diary/monthly', db_obj_ejs);
 }
 
+const write_monthly = async (req, res) => {
+}
+
+const read_monthly = async (req, res) => {
+}
 
 const daily_post = (req, res) => {
 	const { content, question, score, user_id, index_year, index_month, index_date } = req.body;
@@ -227,10 +232,11 @@ const monthly_post = (req, res) => {
 module.exports = {
 	dummy,
 
-	daily, 
-	monthly,
-
+	read_and_write_daily, 
 	daily_post,
-	monthly_post,
 
+	pickup_game_monthly,
+	write_monthly,
+	read_monthly,
+	monthly_post,
 }
