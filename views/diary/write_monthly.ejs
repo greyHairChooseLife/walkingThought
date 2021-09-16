@@ -3,23 +3,25 @@
 </head>
 
 <form id="writing_board" action="/diary/monthly/post/<%= user.id %>" method="post">
-
-
-
 </form>
+<input id="writing_board_submit" type="submit" value="submit">
 
 <div id="create_empty">
 	create_empty
+
 </div>
 
+<div id="pickup_list_container">
+	<% for(var i=0; i<pickup_list.length; i++){ %>
+	<div id="question<%= i %>">
+	<%= pickup_list[i][0].question %>
+	</div>
+	<% } %>
+</div>
 
+<script>
+const index = <%= JSON.stringify(index) %>;
+const pickup_list = <%- JSON.stringify(pickup_list) %>;
+</script>
 
-
-<script type="text/javascript" src="/js/monthly/write_diary.js"></script>
-
-
-
-	<div>today's Question</div>
-	<textarea id="Question" name="question" cols="50" rows="5"></textarea>
-	<div>today's comment</div>
-	<textarea name="content" cols="50" rows="20"></textarea>
+<script type="text/javascript" src="/js/monthly/write_monthly.js"></script>
