@@ -197,10 +197,6 @@ const write_monthly = async (req, res) => {
 	const index = 1;
 	const pickup_list = JSON.parse(req.body.pickup);
 
-	for(var i=0; i<pickup_list.length; i++){
-		console.log(pickup_list[i]);
-	}
-
 	//obj for ejs
 	const obj_ejs = {
 		index: index,
@@ -224,14 +220,16 @@ const daily_post = (req, res) => {
 };
 
 const monthly_post = (req, res) => {
-	const { content, question, user_id, index_year, index_month, index_date } = req.body;
+	const { content, question } = req.body;
+	console.log(req.body)
+	const user_id = res.locals.user.id;
 	const classes = 'm';
 	const created_date = new Date();
 
-	db.query(`INSERT INTO diary (classes, created_date, content, question, user_id) VALUES (?, ?, ?, ?, ?)`, [classes, created_date, content, question, user_id]);
+	//db.query(`INSERT INTO diary (classes, created_date, content, question, user_id) VALUES (?, ?, ?, ?, ?)`, [classes, created_date, content, question, user_id]);
 	
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
-	res.redirect(307, `/diary/monthly/${user_id}?year=${index_year}&month=${index_month}&date=${index_date}`);
+	res.redirect(`/`);
 };
 
 

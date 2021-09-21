@@ -1,6 +1,6 @@
 // pick 5 question event
 // pick 5 question event
-const how_many_questions = 2;
+const how_many_questions = 5;
 
 const start_button = document.getElementById('start_button');
 const left = document.getElementById('left');

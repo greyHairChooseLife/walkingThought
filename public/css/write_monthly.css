@@ -3,7 +3,7 @@ body {
 	padding: 0;
 }
 
-#create_empty {
+#add_more {
 	position: absolute;
 	top: 70%;
 	left: 5%;
@@ -11,6 +11,13 @@ body {
 	height: 5%;
 	background-color: yellow;
 	text-align: center;
+}
+
+#writing_board_submit {
+	position: absolute;
+	top: 70%;
+	left: 15%;
+	font-size: 30;
 }
 
 #pickup_list_container {
@@ -25,12 +32,70 @@ body {
 
 #writing_board {
 	position: absolute;
-	top: 10%;
-	left: 60%;
+	top: 10vh;
+	left: 40%;
+	
+	width: 60%;
+
+	display: grid;
+	grid-template-columns: 45% 45%;
+	grid-template-rows: 2vh 20vh 2vh 20vh 2vh 20vh 2vh 20vh;
 }
-#writing_board_submit {
-	position: absolute;
-	top: 70%;
-	left: 15%;
-	font-size: 30;
+
+#additional_paragraph1_title {
+	grid-column: 2/3;
+	grid-row: 3/4;
+}
+#additional_paragraph1_content {
+	grid-column: 2/3;
+	grid-row: 4/5;
+}
+#additional_paragraph2_title {
+	grid-column: 2/3;
+	grid-row: 5/6;
+}
+#additional_paragraph2_content {
+	grid-column: 2/3;
+	grid-row: 6/7;
+}
+
+#question_paragraph1_title {
+	grid-column: 1/2;
+	grid-row: 1/2;
+}
+#question_paragraph1_content {
+	grid-column: 1/2;
+	grid-row: 2/3;
+}
+#question_paragraph2_title {
+	grid-column: 1/2;
+	grid-row: 3/4;
+}
+#question_paragraph2_content {
+	grid-column: 1/2;
+	grid-row: 4/5;
+}
+#question_paragraph3_title {
+	grid-column: 1/2;
+	grid-row: 5/6;
+}
+#question_paragraph3_content {
+	grid-column: 1/2;
+	grid-row: 6/7;
+}
+#question_paragraph4_title {
+	grid-column: 1/2;
+	grid-row: 7/8;
+}
+#question_paragraph4_content {
+	grid-column: 1/2;
+	grid-row: 8/9;
+}
+#question_paragraph5_title {
+	grid-column: 2/3;
+	grid-row: 1/2;
+}
+#question_paragraph5_content {
+	grid-column: 2/3;
+	grid-row: 2/3;
 }
