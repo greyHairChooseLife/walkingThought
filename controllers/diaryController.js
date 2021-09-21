@@ -220,16 +220,45 @@ const daily_post = (req, res) => {
 };
 
 const monthly_post = (req, res) => {
-	const { content, question } = req.body;
-	console.log(req.body)
-	const user_id = res.locals.user.id;
-	const classes = 'm';
-	const created_date = new Date();
+	const { questions_title, questions_content, additions_title, additions_content  } = req.body;
+	console.log('questions_title: ',questions_title)
+	console.log('questions_content: ',questions_content)
+	console.log('additions_title: ',additions_title)
+	console.log('additions_content: ',additions_content)
 
-	//db.query(`INSERT INTO diary (classes, created_date, content, question, user_id) VALUES (?, ?, ?, ?, ?)`, [classes, created_date, content, question, user_id]);
+	const created_date = new Date();
+	const user_id = res.locals.user.id;
+
+	db.query(`INSERT INTO monthly_diary (created_date, 
+		question1_title,
+		question1_content,
+		question2_title,
+		question2_content,
+		question3_title,
+		question3_content,
+		question4_title,
+		question4_content,
+		question5_title,
+		question5_content,
+		addition1_title,
+		addition1_content,
+		addition2_title,
+		addition2_content,
+		addition3_title,
+		addition3_content,
+		user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [created_date, 
+			questions_title[0], questions_content[0], 
+			questions_title[1], questions_content[1], 
+			questions_title[2], questions_content[2], 
+			questions_title[3], questions_content[3], 
+			questions_title[4], questions_content[4], 
+			additions_title[0], additions_content[0], 
+			additions_title[1], additions_content[1], 
+			additions_title[2], additions_content[2], 
+			user_id]);
 	
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
-	res.redirect(`/`);
+	//res.redirect(`/`);
 };
 
 
