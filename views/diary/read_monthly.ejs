@@ -1,0 +1,46 @@
+<head>
+	<link rel="stylesheet" href="/css/read_monthly.css">
+</head>
+
+<div id="index">
+	<div id="year">
+		<div id="year2021">
+		2021
+		</div>
+	</div>
+
+	<div id="month">
+		<% for(var i=0; i<12; i++){ %>
+		<div class="" id="m<%= i+1 %>">
+		<%= i+1 %>월
+		</div>
+		<% } %>
+	</div>
+</div>
+
+<div id="diary">
+	<div class="title" id="question1_title"></div>
+	<div class="content" id="question1_content"></div>
+	<div class="title" id="question2_title"></div>
+	<div class="content" id="question2_content"></div>
+	<div class="title" id="question3_title"></div>
+	<div class="content" id="question3_content"></div>
+	<div class="title" id="question4_title"></div>
+	<div class="content" id="question4_content"></div>
+	<div class="title" id="question5_title"></div>
+	<div class="content" id="question5_content"></div>
+
+	<div class="title" id="addition1_title"></div>
+	<div class="content" id="addition1_content"></div>
+	<div class="title" id="addition2_title"></div>
+	<div class="content" id="addition2_content"></div>
+	<div class="title" id="addition3_title"></div>
+	<div class="content" id="addition3_content"></div>
+</div>
+
+
+<script>
+const db_obj = <%- JSON.stringify(db_obj) %>;
+</script>
+
+<script type="text/javascript" src="/js/monthly/read_monthly.js"></script>

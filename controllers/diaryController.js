@@ -193,7 +193,7 @@ const pickup_game_monthly = async (req, res) => {
 	res.render('../views/diary/pickup_game_monthly', db_obj_ejs);
 }
 
-const write_monthly = async (req, res) => {
+const write_monthly = (req, res) => {
 	const index = 1;
 	const pickup_list = JSON.parse(req.body.pickup);
 
@@ -206,6 +206,46 @@ const write_monthly = async (req, res) => {
 }
 
 const read_monthly = async (req, res) => {
+	const user_id = res.locals.user.id;
+	//const index_year = req.query.year;
+	const index_year = 2021;
+
+	let db_obj = [];
+	for(var i=0; i<12; i++){
+		let temp = await db.query(`SELECT * FROM monthly_diary WHERE (user_id=?)
+			AND (YEAR(created_date) = ${index_year})
+			AND (MONTH(created_date) = ${i+1})
+			`, [user_id]);
+		if(temp[0][0] == undefined){
+			temp[0][0] = {
+				created_date: 'you missed this month',
+				question1_title: 'you missed this month',
+				question1_content: 'you missed this month',
+				question2_title: 'you missed this month',
+				question2_content: 'you missed this month',
+				question3_title: 'you missed this month',
+				question3_content: 'you missed this month',
+				question4_title: 'you missed this month',
+				question4_content: 'you missed this month',
+				question5_title: 'you missed this month',
+				question5_content: 'you missed this month',
+				addition1_title: 'you missed this month',
+				addition1_content: 'you missed this month',
+				addition2_title: 'you missed this month',
+				addition2_content: 'you missed this month',
+				addition3_title: 'you missed this month',
+				addition3_content: 'you missed this month',
+			}
+		}
+		db_obj.push(temp[0][0]);
+	}
+
+	console.log(db_obj[8]);
+
+	const obj_ejs = {
+		db_obj: db_obj,
+	}
+	res.render('../views/diary/read_monthly', obj_ejs);
 }
 
 const daily_post = (req, res) => {
@@ -258,7 +298,7 @@ const monthly_post = (req, res) => {
 			user_id]);
 	
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
-	//res.redirect(`/`);
+	res.redirect(307, `/diary/read_monthly/`);
 };
 
 

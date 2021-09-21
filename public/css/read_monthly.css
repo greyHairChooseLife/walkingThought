@@ -1,0 +1,191 @@
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#index {
+	position: absolute;
+	top: 5%;
+	left: 2%;
+	height: 90%;
+	width: 12%;
+	background-color: yellow;
+	text-align: center;
+
+	display: grid;
+	grid-template-columns: 50% 50%;
+}
+
+#year {
+	grid-column: 1/2;
+}
+
+#month {
+	grid-column: 2/3;
+
+	display: grid;
+}
+
+#month > div {
+	margin-top: 10px;
+	background-color: grey;
+}
+
+
+#diary {
+	position: absolute;
+	top: 5%;
+	left: 25%;
+	height: 90%;
+	width: 70%;
+	background-color: yellow;
+	text-align: center;
+
+	display: grid;
+	grid-template-columns: 50% 50%;
+	grid-template-rows: 3% 22% 3% 22% 3% 22% 3% 22%;
+}
+
+#diary > div {
+	margin-top: 1%;
+}
+
+#question1_title{
+	grid-column: 1/2;
+	grid-row: 1/2;
+}
+#question1_content{
+	grid-column: 1/2;
+	grid-row: 2/3;
+}
+#question2_title{
+	grid-column: 1/2;
+	grid-row: 3/4;
+}
+#question2_content{
+	grid-column: 1/2;
+	grid-row: 4/5;
+}
+#question3_title{
+	grid-column: 1/2;
+	grid-row: 5/6;
+}
+#question3_content{
+	grid-column: 1/2;
+	grid-row: 6/7;
+}
+#question4_title{
+	grid-column: 1/2;
+	grid-row: 7/8;
+}
+#question4_content{
+	grid-column: 1/2;
+	grid-row: 8/9;
+}
+
+#question5_title{
+	grid-column: 2/3;
+	grid-row: 1/2;
+}
+#question5_content{
+	grid-column: 2/3;
+	grid-row: 2/3;
+}
+#addition1_title{
+	grid-column: 2/3;
+	grid-row: 3/4;
+}
+#addition1_content{
+	grid-column: 2/3;
+	grid-row: 4/5;
+}
+#addition2_title{
+	grid-column: 2/3;
+	grid-row: 5/6;
+}
+#addition2_content{
+	grid-column: 2/3;
+	grid-row: 6/7;
+}
+#addition3_title{
+	grid-column: 2/3;
+	grid-row: 7/8;
+}
+#addition3_content{
+	grid-column: 2/3;
+	grid-row: 8/9;
+}
+
+
+
+
+
+#writing_board {
+	position: absolute;
+	top: 10vh;
+	left: 40%;
+	
+	width: 60%;
+
+	display: grid;
+	grid-template-columns: 45% 45%;
+	grid-template-rows: 2vh 20vh 2vh 20vh 2vh 20vh 2vh 20vh;
+}
+
+#additional_paragraph1_title {
+	grid-column: 2/3;
+	grid-row: 3/4;
+}
+#additional_paragraph1_content {
+	grid-column: 2/3;
+	grid-row: 4/5;
+}
+#additional_paragraph2_title {
+	grid-column: 2/3;
+	grid-row: 5/6;
+}
+#additional_paragraph2_content {
+	grid-column: 2/3;
+	grid-row: 6/7;
+}
+
+#question_paragraph1_title {
+	grid-column: 1/2;
+	grid-row: 1/2;
+}
+#question_paragraph1_content {
+	grid-column: 1/2;
+	grid-row: 2/3;
+}
+#question_paragraph2_title {
+	grid-column: 1/2;
+	grid-row: 3/4;
+}
+#question_paragraph2_content {
+	grid-column: 1/2;
+	grid-row: 4/5;
+}
+#question_paragraph3_title {
+	grid-column: 1/2;
+	grid-row: 5/6;
+}
+#question_paragraph3_content {
+	grid-column: 1/2;
+	grid-row: 6/7;
+}
+#question_paragraph4_title {
+	grid-column: 1/2;
+	grid-row: 7/8;
+}
+#question_paragraph4_content {
+	grid-column: 1/2;
+	grid-row: 8/9;
+}
+#question_paragraph5_title {
+	grid-column: 2/3;
+	grid-row: 1/2;
+}
+#question_paragraph5_content {
+	grid-column: 2/3;
+	grid-row: 2/3;
+}
