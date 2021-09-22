@@ -19,6 +19,7 @@ const write_monthly = document.getElementById('write_monthly');
 //const cancel_3 = document.getElementById('cancel_3');
 //const cancel_4 = document.getElementById('cancel_4');
 //const cancel_arr = [cancel_0, cancel_1, cancel_2, cancel_3, cancel_4];
+// postpone cancel button.
 
 let card_arr = [];
 let card_on_off_arr = [];
@@ -27,6 +28,7 @@ for(var i=0; i<index[5]; i++){
 	card_arr[i] = document.getElementById(`calendar_card_${i+1}`);
 }
 
+//make calendar cards work as button to select pickup list
 for(var i=0; i<index[5]; i++){
 	(function(m){
 		card_arr[m].addEventListener('click', () => {
@@ -112,10 +114,7 @@ function show_answer_arr(length){
 	pickup_questions_cancel.innerHTML = ''; // reset board.
 	for(var i=0; i<length; i++){
 		pickup_questions.innerHTML += '<div>'+answer_arr[i][0].question+'</div>';
-		pickup_questions_cancel.innerHTML += `<div id="cancel_${i}">X</div>`;
-		document.getElementById(`cancel_${i}`).addEventListener('click', () => {
-
-		});
+		pickup_questions_cancel.innerHTML += `<div id="cancel_${i}">X</div>`;			//postpone cancel button. 
 	}
 }
 
