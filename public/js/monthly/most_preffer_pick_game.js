@@ -12,6 +12,36 @@ const right_content = document.getElementById('right_content');
 const answer_board = document.getElementById('answer_board');
 const write_monthly = document.getElementById('write_monthly');
 
+let card_arr = [];
+for(var i=0; i<index[5]; i++){
+	card_arr[i] = document.getElementById(`calendar_card_${i+1}`);
+}
+
+for(var i=0; i<index[5]; i++){
+	(function(m){
+		card_arr[m].addEventListener('click', () => {
+			temp_arr = origin_arr;
+			answer_arr.push([temp_arr[m]]);
+			bin_arr = temp_arr.filter((element) => element != temp_arr[m]);
+			show_answer_arr(answer_arr.length);
+			if(answer_arr.length < how_many_questions){
+				start_button.style.display = 'block';
+				left.style.display = 'none';
+				right.style.display = 'none';
+			} else{
+				write_monthly.style.display = 'block';
+				document.getElementById('answer_arr_to_server').value = JSON.stringify(answer_arr);
+				left.style.display = 'none';
+				right.style.display = 'none';
+			}
+		});
+	})(i);
+}
+
+
+
+
+
 const origin_arr = calendar_data; // get original base data from ejs
 let temp_arr = []; // have base data from deep copy of original data or filtered data from bin_arr
 let bin_arr = []; // keep data which is thrown by user to re-use as next base data
@@ -125,3 +155,5 @@ right.addEventListener('click', () => {
 		}
 	}
 });
+
+
