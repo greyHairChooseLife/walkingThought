@@ -13,26 +13,33 @@ const answer_board = document.getElementById('answer_board');
 const write_monthly = document.getElementById('write_monthly');
 
 let card_arr = [];
+let card_on_off_arr = [];
 for(var i=0; i<index[5]; i++){
+	card_on_off_arr[i] = 0;
 	card_arr[i] = document.getElementById(`calendar_card_${i+1}`);
 }
 
 for(var i=0; i<index[5]; i++){
 	(function(m){
 		card_arr[m].addEventListener('click', () => {
-			temp_arr = origin_arr;
-			answer_arr.push([temp_arr[m]]);
-			bin_arr = temp_arr.filter((element) => element != temp_arr[m]);
-			show_answer_arr(answer_arr.length);
-			if(answer_arr.length < how_many_questions){
-				start_button.style.display = 'block';
-				left.style.display = 'none';
-				right.style.display = 'none';
-			} else{
-				write_monthly.style.display = 'block';
-				document.getElementById('answer_arr_to_server').value = JSON.stringify(answer_arr);
-				left.style.display = 'none';
-				right.style.display = 'none';
+			if(card_on_off_arr[m] === 0){
+				card_on_off_arr[m] = 1;
+				card_arr[m].style.opacity = '10%';
+
+				temp_arr = origin_arr;
+				answer_arr.push([temp_arr[m]]);
+				bin_arr = temp_arr.filter((element) => element != temp_arr[m]);
+				show_answer_arr(answer_arr.length);
+				if(answer_arr.length < how_many_questions){
+					start_button.style.display = 'block';
+					left.style.display = 'none';
+					right.style.display = 'none';
+				} else{
+					write_monthly.style.display = 'block';
+					document.getElementById('answer_arr_to_server').value = JSON.stringify(answer_arr);
+					left.style.display = 'none';
+					right.style.display = 'none';
+				}
 			}
 		});
 	})(i);
