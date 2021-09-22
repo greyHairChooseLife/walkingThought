@@ -9,8 +9,16 @@ const left_content = document.getElementById('left_content');
 const right = document.getElementById('right');
 const right_question = document.getElementById('right_question');
 const right_content = document.getElementById('right_content');
-const answer_board = document.getElementById('answer_board');
+const pickup_questions = document.getElementById('pickup_questions');
+const pickup_questions_cancel = document.getElementById('pickup_questions_cancel');
 const write_monthly = document.getElementById('write_monthly');
+
+//const cancel_0 = document.getElementById('cancel_0');
+//const cancel_1 = document.getElementById('cancel_1');
+//const cancel_2 = document.getElementById('cancel_2');
+//const cancel_3 = document.getElementById('cancel_3');
+//const cancel_4 = document.getElementById('cancel_4');
+//const cancel_arr = [cancel_0, cancel_1, cancel_2, cancel_3, cancel_4];
 
 let card_arr = [];
 let card_on_off_arr = [];
@@ -28,7 +36,10 @@ for(var i=0; i<index[5]; i++){
 
 				temp_arr = origin_arr;
 				answer_arr.push([temp_arr[m]]);
-				bin_arr = temp_arr.filter((element) => element != temp_arr[m]);
+				bin_arr = temp_arr.filter((element) => element != temp_arr[m]);			// from here-------------
+				for(var j=0; j<answer_arr.length; j++){									// 			need to make proper bin_array so 'start button' can pour it into temp_arr 
+					bin_arr = bin_arr.filter((element) => element != answer_arr[j][0]); // 			-------------to here
+				}
 				show_answer_arr(answer_arr.length);
 				if(answer_arr.length < how_many_questions){
 					start_button.style.display = 'block';
@@ -44,10 +55,6 @@ for(var i=0; i<index[5]; i++){
 		});
 	})(i);
 }
-
-
-
-
 
 const origin_arr = calendar_data; // get original base data from ejs
 let temp_arr = []; // have base data from deep copy of original data or filtered data from bin_arr
@@ -99,11 +106,17 @@ function show_candis(){
 	right_content.innerHTML = temp_arr[index_arr[0]][0].content;
 }
 
-//show answer array on answer_board. 
+//show answer array on pickup_questions. 
 function show_answer_arr(length){
-	answer_board.innerHTML = ''; // reset board.
-	for(var i=0; i<length; i++)
-		answer_board.innerHTML += answer_arr[i][0].question+'<br>';
+	pickup_questions.innerHTML = ''; // reset board.
+	pickup_questions_cancel.innerHTML = ''; // reset board.
+	for(var i=0; i<length; i++){
+		pickup_questions.innerHTML += '<div>'+answer_arr[i][0].question+'</div>';
+		pickup_questions_cancel.innerHTML += `<div id="cancel_${i}">X</div>`;
+		document.getElementById(`cancel_${i}`).addEventListener('click', () => {
+
+		});
+	}
 }
 
 start_button.addEventListener('click', () => {

@@ -18,6 +18,9 @@ body {
 	height: 80%;
 	margin-left: 5%;
 	margin-top: 7%;
+
+	display: grid;
+	grid-template-columns: 90% 10%;
 }
 
 #calendar_board {
