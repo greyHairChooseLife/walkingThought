@@ -33,34 +33,30 @@ const m12 = document.getElementById('m12');
 const month_arr = [m1, m2, m3, m4, m5, m6, m7, m8, m9, m10, m11, m12];
 
 for(var i=0; i<12; i++){
+	if(db_obj[i] == undefined){
+		month_arr[i].classList.add('no_data');
+	}
+}
+
+for(var i=0; i<12; i++){
 	(function(m){
-		month_arr[m].addEventListener('click', () => {
-			for(var j=0; j<8; j++){
-				let key_title;
-				let key_content;
-				if(j<5){
-				key_title = 'question'+(j+1)+'_title';
-				key_content = 'question'+(j+1)+'_content';
-				} else{
-				key_title = 'addition'+(j-4)+'_title';
-				key_content = 'addition'+(j-4)+'_content';
+		if(month_arr[m].className != 'no_data'){
+			month_arr[m].addEventListener('click', () => {
+				for(var j=0; j<8; j++){
+					let key_title;
+					let key_content;
+					if(j<5){
+					key_title = 'question'+(j+1)+'_title';
+					key_content = 'question'+(j+1)+'_content';
+					} else{
+					key_title = 'addition'+(j-4)+'_title';
+					key_content = 'addition'+(j-4)+'_content';
+					}
+					title_arr[j].innerHTML = db_obj[m][key_title];
+					content_arr[j].innerHTML = db_obj[m][key_content];
 				}
-				title_arr[j].innerHTML = db_obj[m][key_title];
-				content_arr[j].innerHTML = db_obj[m][key_content];
-			}
-		});
+			});
+		}
 	})(i);
 }
 
-let number_of_paragraph = 0;
-add_more.addEventListener('click', () => {
-	writing_board.innerHTML += `
-		<div id="additional_paragraph${++number_of_paragraph}_title">added paragraph ${number_of_paragraph}</div>
-		<input type="hidden" name="additions_title" value="added paragraph ${number_of_paragraph}">
-		<textarea id="additional_paragraph${number_of_paragraph}_content" name='additions_content' cols="70" rows="10"></textarea>
-		`;
-});
-
-writing_board_submit.addEventListener('click', () => {
-	writing_board.submit();
-});

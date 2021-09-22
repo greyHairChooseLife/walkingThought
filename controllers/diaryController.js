@@ -216,31 +216,8 @@ const read_monthly = async (req, res) => {
 			AND (YEAR(created_date) = ${index_year})
 			AND (MONTH(created_date) = ${i+1})
 			`, [user_id]);
-		if(temp[0][0] == undefined){
-			temp[0][0] = {
-				created_date: 'you missed this month',
-				question1_title: 'you missed this month',
-				question1_content: 'you missed this month',
-				question2_title: 'you missed this month',
-				question2_content: 'you missed this month',
-				question3_title: 'you missed this month',
-				question3_content: 'you missed this month',
-				question4_title: 'you missed this month',
-				question4_content: 'you missed this month',
-				question5_title: 'you missed this month',
-				question5_content: 'you missed this month',
-				addition1_title: 'you missed this month',
-				addition1_content: 'you missed this month',
-				addition2_title: 'you missed this month',
-				addition2_content: 'you missed this month',
-				addition3_title: 'you missed this month',
-				addition3_content: 'you missed this month',
-			}
-		}
 		db_obj.push(temp[0][0]);
 	}
-
-	console.log(db_obj[8]);
 
 	const obj_ejs = {
 		db_obj: db_obj,
