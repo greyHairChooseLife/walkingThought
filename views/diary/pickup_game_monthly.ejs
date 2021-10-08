@@ -1,0 +1,91 @@
+<head>
+	<link rel="stylesheet" href="/css/pickup_game_monthly.css">
+</head>
+
+<div id="logo">
+걷는 생각들
+</div>
+
+<button type="button" id="keyboard_shortcut_help">* 단축키</button>
+<div id="keyboard_shortcut_help_result">
+<%- include('./parts_daily/keyboard_shortcut_explain.ejs') %>
+</div>
+
+<form action="/user/logout" method="post">
+	<button id="logout_button" type="submit">로그아웃</button>
+</form>
+<form action="/" method="get">
+	<button id="go_home" type="submit">처음으로</button>
+</form>
+
+<div id="window">
+	<div id='answer_board'>
+		<div id="answer_board_title">
+		뽑은 질문
+		</div>
+		<div id="refresh_button">
+			<a href="javascript:location.reload(true)">⟳ 다시하기</a>
+		</div>
+		<div id="pickup_questions">
+		</div>
+		<div id="pickup_questions_cancel">
+		</div>
+	</div>
+	<div id='calendar_board'>
+	<%- include('../diary/parts_monthly/calendar.ejs') %>
+	</div>
+	<div id='left'>
+		<div id='left_question'>
+		</div>
+		<div id='left_content'>
+		</div>
+	</div>
+	<div id='right'>
+		<div id='right_question'>
+		</div>
+		<div id='right_content'>
+		</div>
+	</div>
+	<div id='how_many_left'>
+	</div>
+	<button type="button" id='start_button'>
+		<div id="sub_word">
+		이달의 질문 월드컵
+		</div>
+		<div id="main_word">
+		시작
+		</div>
+	</button>
+	<form id='write_monthly' action='/diary/write_monthly/' method='post'>
+		<input id='answer_arr_to_server' type='hidden' name='pickup' value=''>
+	</form>
+	<button type="button" id='go_write_button'>
+		<div id="go_sub_word">
+		이달의 월간 생각
+		</div>
+		<div id="go_main_word">
+		쓰기
+		</div>
+	</button>
+	<div id="how_many_question_left">
+	</div>
+	<div id='read'>
+		<div id='read_question'>
+		</div>
+		<div id='read_content'>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+const index = <%= JSON.stringify(index) %>;
+const calendar_data = <%- JSON.stringify(calendar_data) %>;
+</script>
+
+<script type="text/javascript" src="/js/monthly/alias.js"></script>
+<script type="text/javascript" src="/js/monthly/public_event.js"></script>
+<script type="text/javascript" src="/js/monthly/pickup_game_monthly.js"></script>
+<script type="text/javascript" src="/js/monthly/pickup_game_effect.js"></script>
+

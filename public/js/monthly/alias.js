@@ -1,14 +1,27 @@
+//in the body tag
+const everything = document.getElementById('window');
+
+//about navigation
 const keyboard_shortcut_help = document.getElementById("keyboard_shortcut_help");
 const keyboard_shortcut_help_result = document.getElementById("keyboard_shortcut_help_result");
 
 const navigate_page = document.getElementById('navigate_page');
 
-const everything = document.getElementById('window');
+
+//calendar
+const calendar_button = document.getElementById("calendar_button");
+const calendar_board = document.getElementById("calendar_board");
+
+//about writing_form
+const writing_form_trigger = document.getElementById('writing_form_trigger');
+const writing_form_closer = document.getElementById('writing_form_closer');
+const writing_form = document.getElementById('writing_form');
+
+//about contents
 const date_class = document.getElementsByClassName('date');
 const content_class = document.getElementsByClassName('content');
 const question_class = document.getElementsByClassName('question');
 
-const writing_form = document.getElementById('writing_form');
 
 const L1_sign = document.getElementById('L1_sign');
 const L2_sign = document.getElementById('L2_sign');
@@ -64,11 +77,7 @@ const R4_question = document.getElementById('R4_question');
 
 const arr_question = [L1_question, L2_question, L3_question, L4_question, R1_question, R2_question, R3_question, R4_question];
 
-const up_button = document.getElementById("up_button");
-const down_button = document.getElementById("down_button");
-const left_button = document.getElementById("left_button");
-const right_button = document.getElementById("right_button");
 const today_button = document.getElementById("today_button");
 const daily_button = document.getElementById("daily_button");
 
-const arr_button = [up_button, down_button, left_button, right_button, today_button];
+const arr_button = [today_button, daily_button];

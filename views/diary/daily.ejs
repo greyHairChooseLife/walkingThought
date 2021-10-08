@@ -2,126 +2,98 @@
 	<link rel="stylesheet" href="/css/daily.css">
 </head>
 
-<div id="window">
-	<div class="note" id="L1">
-		<div class="L1_class date" id="L1_date"><%= L1_date %></div>
-		<div class="L1_class content" id="L1_content"><%= L1_content %></div>
-		<div class="L1_class question" id="L1_question"><%= L1_question %></div>
-	</div>
-	<div class="note" id="L2">
-		<div class="L2_class date" id="L2_date"><%= L2_date %></div>
-		<div class="L2_class content" id="L2_content"><%= L2_content %></div>
-		<div class="L2_class question" id="L2_question"><%= L2_question %></div>
-	</div>
-	<div class="note" id="L3">
-		<div class="L3_class date" id="L3_date"><%= L3_date %></div>
-		<div class="L3_class content" id="L3_content"><%= L3_content %></div>
-		<div class="L3_class question" id="L3_question"><%= L3_question %></div>
-	</div>
-	<div class="note" id="L4">
-		<div class="L4_class date" id="L4_date"><%= L4_date %></div>
-		<div class="L4_class content" id="L4_content"><%= L4_content %></div>
-		<div class="L4_class question" id="L4_question"><%= L4_question %></div>
-	</div>
-	<div class="note" id="R1">
-		<div class="R1_class date" id="R1_date"><%= R1_date %></div>
-		<div class="R1_class content" id="R1_content"><%= R1_content %></div>
-		<div class="R1_class question" id="R1_question"><%= R1_question %></div>
-	</div>
-	<div class="note" id="R2">
-		<div class="R2_class date" id="R2_date"><%= R2_date %></div>
-		<div class="R2_class content" id="R2_content"><%= R2_content %></div>
-		<div class="R2_class question" id="R2_question"><%= R2_question %></div>
-	</div>
-	<div class="note" id="R3">
-		<div class="R3_class date" id="R3_date"><%= R3_date %></div>
-		<div class="R3_class content" id="R3_content"><%= R3_content %></div>
-		<div class="R3_class question" id="R3_question"><%= R3_question %></div>
-	</div>
-	<div class="note" id="R4">
-		<div class="R4_class date" id="R4_date"><%= R4_date %></div>
-		<div class="R4_class content" id="R4_content"><%= R4_content %></div>
-		<div class="R4_class question" id="R4_question"><%= R4_question %></div>
-	</div>
-	<div id="side_bar">
-	</div>
-
-	<div id="navigate_button">
-		<div class="navigate_button" id="up_button">
-		UP
-		</div>
-		<div class="navigate_button" id="down_button">
-		DOWN
-		</div>
-		<div class="navigate_button" id="left_button">
-		LEFT
-		</div>
-		<div class="navigate_button" id="right_button">
-		RIGHT
-		</div>
-		<div class="navigate_button" id="today_button">
-		TODAY
-		</div>
-	</div>
-
-	<div id="keyboard_shortcut_help">
-	keyboard_shortcut
-	<br>
-	help
-	</div>
-
-	<div id="monthly_button">
-	MONTHLY
-	</div>
+<div id="drag_drop_section">
 </div>
 
+<div id="logo">
+걷는 생각들
+</div>
+
+<form action="/user/logout" method="post">
+	<button id="logout_button" type="submit">로그아웃</button>
+</form>
+
+<button id="today_button" type="button">오늘로</button>
+
+<form action="" method="post">
+	<input id="search_input" type="text" name="search_input" placeholder="단어">
+	<button id="search_button" type="reset">검색</button>
+</form>
+
+<form action="" method="post">
+	<input id="move_date_field" type="date" name="move_date_field">
+	<button id="move_date_button" type="reset">이동</button>
+</form>
+
+<button type="button" id="keyboard_shortcut_help">* 단축키</button>
 <div id="keyboard_shortcut_help_result">
-	<br>
-	<br>
-	"Navigate your note WITH"
-	<br>
-	: Shift + ArrowKey
-	<br>
-	<br>
-	<br>
-	"Select your note's WITH"
-	<br>
-	(left-side)
-	: Shift + [1 q a z]
-	<br>
-	(right-side)
-	: Shift + [2 w s x]
-	<br>
-	<br>
-	...and then...
-	<br>
-	<br>
-	"Open & Close red-line selected note's content WITH"
-	<br>
-	: Enter
+<%- include('./parts_daily/keyboard_shortcut_explain.ejs') %>
 </div>
 
-<div id="">
-	<%- include("./parts_daily/writing_form.ejs") %>
+<form action="/" method="get">
+	<button id="go_home" type="submit">처음으로</button>
+</form>
+
+
+<%- include('./parts_daily/diary_board_indicator.ejs') %>
+
+<div class="L-note" id="L1">
+	<div class="L1_class date" id="L1_date"><%= L1_date %></div>
+	<div class="L1_class content" id="L1_content"><%= L1_content %></div>
+	<div class="L1_class question" id="L1_question"><%= L1_question %></div>
 </div>
+<div class="L-note" id="L2">
+	<div class="L2_class date" id="L2_date"><%= L2_date %></div>
+	<div class="L2_class content" id="L2_content"><%= L2_content %></div>
+	<div class="L2_class question" id="L2_question"><%= L2_question %></div>
+</div>
+<div class="L-note" id="L3">
+	<div class="L3_class date" id="L3_date"><%= L3_date %></div>
+	<div class="L3_class content" id="L3_content"><%= L3_content %></div>
+	<div class="L3_class question" id="L3_question"><%= L3_question %></div>
+</div>
+<div class="L-note" id="L4">
+	<div class="L4_class date" id="L4_date"><%= L4_date %></div>
+	<div class="L4_class content" id="L4_content"><%= L4_content %></div>
+	<div class="L4_class question" id="L4_question"><%= L4_question %></div>
+</div>
+<div class="R-note" id="R1">
+	<div class="R1_class date" id="R1_date"><%= R1_date %></div>
+	<div class="R1_class content" id="R1_content"><%= R1_content %></div>
+	<div class="R1_class question" id="R1_question"><%= R1_question %></div>
+</div>
+<div class="R-note" id="R2">
+	<div class="R2_class date" id="R2_date"><%= R2_date %></div>
+	<div class="R2_class content" id="R2_content"><%= R2_content %></div>
+	<div class="R2_class question" id="R2_question"><%= R2_question %></div>
+</div>
+<div class="R-note" id="R3">
+	<div class="R3_class date" id="R3_date"><%= R3_date %></div>
+	<div class="R3_class content" id="R3_content"><%= R3_content %></div>
+	<div class="R3_class question" id="R3_question"><%= R3_question %></div>
+</div>
+<div class="R-note" id="R4">
+	<div class="R4_class date" id="R4_date"><%= R4_date %></div>
+	<div class="R4_class question" id="R4_question"><%= R4_question %></div>
+	<div class="R4_class content" id="R4_content"><%= R4_content %></div>
+</div>
+
+<%- include("./parts_daily/writing_form.ejs") %>
+
 
 
 <form id="navigate_page" action="" method="post">
 	<input type="hidden" name="" value="">
 </form>
 
-
-<% let index_year_ = index_year; %>
-<% let index_month_ = index_month; %>
-<% let index_date_ = index_date; %>
-<% let user_id_ = user_id; %>
-
-<%# comment: When I tried to define variables below at alias.js file(which is inserted in this.ejs), I couldn't use ejs tag to get argument(which is object) from res.render method %>
 <script>
-	const index_year = <%= index_year_ %>;
-	const index_month = <%= index_month_ %>;
-	const index_date = <%= index_date_ %>;
-	const user_id = <%= user_id_ %>;
+	const index_year = <%- JSON.stringify(index_year) %>;
+	const index_month = <%- JSON.stringify(index_month) %>;
+	const index_date = <%- JSON.stringify(index_date) %>;
+
+	const user_id = <%- JSON.stringify(user_id) %>;
+	const today_index = <%- JSON.stringify(today_index) %>;
+	const is_written = <%- JSON.stringify(is_written) %>;
 </script>
 
 
@@ -131,4 +103,4 @@
 <script type="text/javascript" src="/js/daily/navigation_dragdrop.js"></script>
 <script type="text/javascript" src="/js/daily/navigation_button.js"></script>
 <script type="text/javascript" src="/js/daily/navigation_keyboard.js"></script>
-<script type="text/javascript" src="/js/daily/writing_form.js"></script>
+<script type="text/javascript" src="/js/daily/writing_diary.js"></script>

@@ -1,23 +1,28 @@
-for(var i=0; i < arr_note_board.length; i++){
-	arr_note_board[i].style.display = 'none';
+const calendar_cards_array = [];
+for(var i=0; i<index[5]; i++){
+calendar_cards_array.push(document.getElementById(`calendar_card_${i+1}`));
 }
 
-for(let i=0; i<arr_note_sign.length; i++){
-	arr_note_sign[i].addEventListener("mouseenter", function(){
-		arr_note_board[i].style.display = 'block';
-	});
-	arr_note_sign[i].addEventListener("mouseleave", function(){
-		arr_note_board[i].style.display = 'none';
-	});
+// calendar cards read event
+// calendar cards read event
+function show_card(i){
+	document.getElementById('read_question').innerHTML = calendar_data[i].question;
+	document.getElementById('read_content').innerHTML = calendar_data[i].content;
 }
 
+for(var i=0; i<index[5]; i++){
+	//this is JS Closure. let's study!!
+	(function(m){
+		calendar_cards_array[m].addEventListener('mouseenter', function(){
+			show_card(m);
+			document.getElementById('read').style.display = 'block';
+		});
+	})(i);
+}
 
-keyboard_shortcut_help.addEventListener('mouseenter', () => {
-	keyboard_shortcut_help_result.style.display = 'block';
-	everything.style.opacity = '50%';
+document.getElementById('calendar_board').addEventListener('mouseleave', () => {
+	document.getElementById('read').style.display = 'none';
+
 });
 
-keyboard_shortcut_help.addEventListener('mouseleave', () => {
-	keyboard_shortcut_help_result.style.display = 'none';
-	everything.style.opacity = '100%';
-});
+

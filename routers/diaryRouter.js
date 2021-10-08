@@ -4,17 +4,13 @@ const diaryRouter = express.Router();
 
 diaryRouter.post('/gen/:id', diaryController.dummy);
 
-//read
-diaryRouter.post('/daily/:id', diaryController.daily);
-diaryRouter.post('/monthly/:id', diaryController.monthly);
-
-
-diaryRouter.post('/monthly_mode_B/:id', diaryController.monthly_mode_B);
-
-//write
+diaryRouter.post('/daily/:id', diaryController.read_and_write_daily);
 diaryRouter.post('/daily/post/:id/', diaryController.daily_post);
-diaryRouter.post('/monthly/post/:id/', diaryController.monthly_post);
 
+diaryRouter.post('/pickup_game_monthly/:id', diaryController.pickup_game_monthly);
+diaryRouter.post('/write_monthly', diaryController.write_monthly);
+diaryRouter.post('/monthly/post', diaryController.monthly_post);
+diaryRouter.post('/read_monthly', diaryController.read_monthly);
 
 
 //diaryRouter.post('/annualy/:id', diaryController.annualy);

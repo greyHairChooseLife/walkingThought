@@ -1,0 +1,52 @@
+<head>
+	<link rel="stylesheet" href="/css/write_monthly.css">
+</head>
+
+<div id="logo">
+걷는 생각들
+</div>
+
+<form action="/user/logout" method="post">
+	<button id="logout_button" type="submit">로그아웃</button>
+</form>
+
+<button type="button" id="keyboard_shortcut_help">* 단축키</button>
+<div id="keyboard_shortcut_help_result">
+<%- include('./parts_daily/keyboard_shortcut_explain.ejs') %>
+</div>
+
+<form action="/" method="get">
+	<button id="go_home" type="submit">처음으로</button>
+</form>
+
+<button id="diary_submit" type="button">등록하기</button>
+
+<form id="writing_board" action="/diary/monthly/post" method="post">
+</form>
+
+
+<div id="add_more">
+새 문단 추가하기
+	<div id="add_more_new">
+	새로운 질문
+	</div>
+	<div id="add_more_old">
+	가져온 질문들(5)
+	</div>
+</div>
+
+<div id="pickup_list_container">
+	<% for(var i=0; i<pickup_list.length; i++){ %>
+	<div id="question<%= i %>">
+	<%= pickup_list[i][0].question %>
+	</div>
+	<% } %>
+</div>
+
+
+
+<script>
+const pickup_list = <%- JSON.stringify(pickup_list) %>;
+</script>
+
+<script type="text/javascript" src="/js/monthly/write_monthly.js"></script>

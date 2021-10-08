@@ -1,16 +1,15 @@
 const db = require('../config/db.js').promise();
 const Joi = require('joi');
-
-//middleware
-const checkLoggedIn = require('../middleware/checkLoggedIn.js');
-const generateToken = require('../middleware/generateToken.js');
+const jwt = require('jsonwebtoken');
 
 
 // 회원 가입
 const post_register = async (req, res) => {
-	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+//check login status and if it is true then force to logged out as taking login_access_token away.
+	if(res.locals.isLogin === true){
 		res.clearCookie('login_access_token');
 	}
+
     const schema = Joi.object().keys({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
@@ -75,6 +74,24 @@ const post_setting = async (req, res) => {
 		res.redirect('/');
 }
 
+
+
+//token generator
+function generate_token(id, nickname, created_date){
+    const token = jwt.sign(
+        {
+            id: id,
+            nickname: nickname,
+			created_date: created_date,
+        },
+        process.env.JWT_SECREAT,
+        {
+            expiresIn: '30d',
+        }
+    )
+    return token;
+};
+
 const post_login = async (req, res) => {
 	const { email, password } = req.body;
 
@@ -88,7 +105,7 @@ const post_login = async (req, res) => {
 			return res.send("this password you entered is NOT matched with the email.");
 		// success login,
 		// generate token
-		const token = generateToken.generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
+		const token = generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
 		// send token as cookie(while there are various methods for different usages)
 		res.cookie('login_access_token', token, {
 			maxAge: 1000 * 60 * 60 * 24 * 30, //30days
@@ -104,12 +121,14 @@ const post_login = async (req, res) => {
 
 // 로그아웃
 const post_logout = (req, res) => {
-	if(checkLoggedIn.check_loggedIn(req)[1] == true){
+	const isLogin = res.locals.isLogin;
+	if(isLogin == true){
 		res.clearCookie('login_access_token');
 		res.redirect('/');
 	}
 	else{
-		console.log(`logout err: it tried logout while it's not logged i`);
+		console.log(`logout err: it tried logout while it's not logged in`);
+		res.redirect('/');
 	}
 }
 
@@ -127,19 +146,6 @@ const post_delete = async (req, res) => { // 계정 삭제
 //////////////////////////// cookie generation test
 //////////////////////////// cookie generation test
 //////////////////////////// cookie generation test
-const post_cookie_test = (req, res) => {
-	const user_obj = checkLoggedIn.check_loggedIn(req);
-	console.log(user_obj[0]);
-
-	const msg = `Yes, your cookie is generated like you can see at console.log`
-
-	let individualized_text = msg;
-	for(var i=0; i<1000; i++)
-		individualized_text += String(user_obj[0].id);
-
-	res.send(individualized_text);
-}
-
 
 module.exports = {
 	post_register,
@@ -147,8 +153,6 @@ module.exports = {
 	post_setting,
 
 	post_login,
-
-	post_cookie_test,
 
 	post_logout,
 	post_delete,
