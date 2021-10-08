@@ -1,0 +1,37 @@
+<div id="developing">
+<span>개발중...</span>
+</div>
+
+<style>
+#developing {
+	display: none;
+	width: 10%;
+	height: 10%;
+	background-color: red;
+	position: absolute;
+	top: 50%;
+	left: 65%;
+	font-family: 'logo';
+	font-size: 30px;
+	cursor: not-allowed;
+	z-index: 10;
+
+}
+</style>
+
+<script>
+const temp_selector = document.getElementById('sub_selector_4');
+const temp_elem = document.getElementById('developing');
+temp_selector.addEventListener('mouseenter', () => {
+	temp_elem.style.display = 'block';
+});
+temp_elem.addEventListener('mouseenter', () => {
+	temp_elem.style.display = 'block';
+});
+temp_selector.addEventListener('mouseleave', () => {
+	temp_elem.style.display = 'none';
+});
+temp_elem.addEventListener('mouseleave', () => {
+	temp_elem.style.display = 'none';
+});
+</script>

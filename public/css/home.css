@@ -1,2 +1,677 @@
-#register {
+
+
+@font-face {
+	font-family: 'system';
+	src: url('./fonts/IBMPlexSansKR-Text.ttf');
+}
+@font-face {
+	font-family: 'general';
+	src: url('./fonts/SDMiSaeng.ttf');
+}
+@font-face {
+	font-family: 'catchphrase';
+	src: url('./fonts/Eulyoo1945-Regular.ttf');
+}
+@font-face {
+    font-family: 'logo';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_one@1.0/HSSummer.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'general';
+}
+
+#logo {
+	font-family: 'logo';
+	font-size: 30px;
+	text-decoration: overline;
+	position: absolute;
+	left: 3%;
+	top: 5%;
+}
+
+
+#catchphrase_board {
+	font-family: 'catchphrase';
+	font-size: 40px;
+	text-align: center;
+	width: 55%;
+	height: 40vh;
+	position: absolute;
+	left: 22.5%;
+	top: 20%;
+}
+
+#login_button {
+	width: 5%;
+	height: 4%;
+	position: absolute;
+	left: 90%;
+	top: 5%;
+	background-color: #59886B;
+	border: none;
+	border-radius: 20px;
+	font-size: 15px;
+	color: white;
+}
+#register_button {
+	width: 5%;
+	height: 4%;
+	position: absolute;
+	left: 84%;
+	top: 5%;
+	background-color: white;
+	border: solid 1px #59886B;
+	border-radius: 20px;
+	font-size: 15px;
+	color: #59886B;
+}
+
+#introduction {
+	width: 15%;
+	height: 8%;
+	position: absolute;
+	left: 42.5%;
+	background-color: #59886B;
+	top: 75%;
+
+}
+#introduction > button{
+	font-family: 'general';
+	font-size: 50px;
+	background-color: #59886B;
+	color: white;
+	text-align: center;
+	border: none;
+	margin-top: 4%;
+	margin-left: 21%;
+}
+
+#login_board {
+	display: none;
+	width: 47%;
+	height: 45%;
+	background-color: #59886B;
+	position: absolute;
+	top: 20%;
+	left: 27%;
+	border-radius: 5px;
+}
+#login_logo {
+	font-family: 'logo';
+	font-size: 30px;
+	text-decoration: overline;
+	position: absolute;
+	left: 5%;
+	top: 8%;
+}
+#login_email {
+	width: 45%;
+	height: 12%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 40%;
+	left: 15%;
+	font-family: 'general';
+	font-size: 30px;
+	color: white;
+	padding-left: 2%;
+}
+#login_email::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#login_email_line {
+	width: 45%;
+	height: 0.5%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 52%;
+	left: 15%;
+}
+
+#login_password {
+	width: 45%;
+	height: 12%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 60%;
+	left: 15%;
+	font-family: 'general';
+	font-size: 30px;
+	color: white;
+	padding-left: 2%;
+}
+#login_password::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#login_password_line {
+	width: 45%;
+	height: 0.5%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 73%;
+	left: 15%;
+}
+
+#login_submit {
+	width: 14%;
+	height: 12%;
+	position: absolute;
+	left: 72%;
+	top: 62%;
+	background-color: white;
+	border: none;
+	border-radius: 2px;
+	font-size: 24px;
+	font-weight: bold;
+	color: #59886B;
+}
+#login_cancel {
+	width: 12%;
+	height: 20%;
+	position: absolute;
+	left: 101%;
+	background-color: white;
+	border: #59886B solid 5px;
+	border-radius: 6px;
+	font-size: 60px;
+	font-weight: bold;
+	color: #59886B;
+}
+
+
+#regi_board {
+	display: none;
+	width: 99%;
+	height: 95%;
+	background-color: #59886B;
+	position: absolute;
+	top: 3%;
+	left: 1%;
+	border-radius: 5px;
+}
+#regi_form {
+	font-family: 'general';
+}
+#regi_form > input{
+	font-family: 'general';
+}
+#regi_nickname {
+	width: 30%;
+	height: 8%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 30%;
+	left: 7%;
+	font-family: 'general';
+	font-size: 35px;
+	color: white;
+	padding-left:1%;
+}
+#regi_nickname::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#regi_nickname_line {
+	width: 25%;
+	height: 0.3%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 37%;
+	left: 7%;
+}
+#regi_email {
+	width: 25%;
+	height: 8%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 45%;
+	left: 7%;
+	font-family: 'general';
+	font-size: 35px;
+	color: white;
+	padding-left:1%;
+}
+#regi_email::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#regi_email_line {
+	width: 25%;
+	height: 0.3%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 52%;
+	left: 7%;
+}
+#regi_pw {
+	width: 25%;
+	height: 8%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 60%;
+	left: 7%;
+	font-family: 'general';
+	font-size: 35px;
+	color: white;
+	padding-left:1%;
+}
+#regi_pw::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#regi_pw_line {
+	width: 25%;
+	height: 0.3%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 67%;
+	left: 7%;
+}
+#regi_pw2 {
+	width: 25%;
+	height: 8%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 75%;
+	left: 7%;
+	font-family: 'general';
+	font-size: 35px;
+	color: white;
+	padding-left:1%;
+}
+#regi_pw2::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#regi_pw2_line {
+	width: 25%;
+	height: 0.3%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 82%;
+	left: 7%;
+}
+#regi_address {
+	width: 25%;
+	height: 8%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 30%;
+	left: 40%;
+	font-family: 'general';
+	font-size: 35px;
+	color: white;
+	padding-left: 1%;
+}
+#regi_address::placeholder {
+	color: white;
+	opacity: 70%;
+}
+#regi_address_line {
+	width: 25%;
+	height: 0.3%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 37%;
+	left: 40%;
+}
+#regi_sex_m {
+	width: 7%;
+	height: 8%;
+	border: none;
+	position: absolute;
+	background-color: #59886B;
+	top: 45%;
+	left: 40%;
+	font-family: 'general';
+	font-size: 45px;
+	color: white;
+
+	border: 3px solid white;
+	border-radius: 30px;
+	opacity: 70%;
+}
+#regi_sex_f {
+	width: 7%;
+	height: 8%;
+	border: none;
+	background-color: #59886B;
+	position: absolute;
+	top: 45%;
+	left: 49%;
+	font-family: 'general';
+	font-size: 45px;
+	color: white;
+
+	border: 3px solid white;
+	border-radius: 30px;
+	opacity: 70%;
+}
+
+#regi_birthday {
+	width: 16.5%;
+	height: 10%;
+	position: absolute;
+	top: 60%;
+	left: 40%;
+	font-family: 'general';
+	font-size: 40px;
+	color: white;
+	background-color: #59886B;
+	border: none;
+
+}
+#regi_birthday_line {
+	width: 12%;
+	height: 0.3%;
+	background-color: white;
+	border: none;
+	position: absolute;
+	top: 67.5%;
+	left: 40%;
+}
+#regi_birthday_label {
+	width: 12%;
+	height: 0.3%;
+	position: absolute;
+	top: 64%;
+	left: 58%;
+	font-size: 35px;
+	color: white;
+	opacity: 70%;
+}
+input[type="date"]::-webkit-calendar-picker-indicator {
+  cursor: pointer;
+  margin-top: 5%;
+  filter: invert(1);
+}
+
+#regi_submit {
+	width: 10%;
+	height: 10%;
+	position: absolute;
+	left: 70%;
+	top: 75%;
+	background-color: white;
+	border: none;
+	border-radius: 2px;
+	font-size: 35px;
+	font-weight: bold;
+	color: #59886B;
+
+}
+#regi_cancel {
+	width: 9%;
+	height: 15%;
+	position: absolute;
+	left: 90%;
+	background-color: white;
+	border: #59886B solid 5px;
+	border-radius: 6px;
+	font-size: 60px;
+	font-weight: bold;
+	color: #59886B;
+	z-index: 1;
+}
+#regi_cancel_background {
+	width: 11%;
+	height: 100%;
+	position: absolute;
+	left: 89%;
+	background-color: white;
+	z-index: 0;
+}
+#regi_logo {
+	font-family: 'logo';
+	font-size: 40px;
+	text-decoration: overline;
+	position: absolute;
+	left: 3%;
+	top: 4%;
+}
+
+
+
+
+#my_setting_button {
+	width: 5%;
+	height: 4%;
+	position: absolute;
+	left: 90%;
+	top: 5%;
+	background-color: #59886B;
+	border: none;
+	border-radius: 20px;
+	font-size: 15px;
+	color: white;
+}
+#logout_button {
+	width: 5%;
+	height: 4%;
+	position: absolute;
+	left: 84%;
+	top: 5%;
+	background-color: white;
+	border: solid 1px #59886B;
+	border-radius: 20px;
+	font-size: 15px;
+	color: #59886B;
+}
+
+.after_login_section {
+	font-size: 100px;
+	position: absolute;
+	top: 25%;
+	width: 10%;
+	text-align: center;
+}
+
+#daily_section {
+	left: 18%;
+}
+#monthly_section {
+	left: 45%;
+}
+#annually_section {
+	left: 72%;
+}
+
+.after_login_subsection {
+	font-family: 'general';
+	font-size: 70px;
+	position: absolute;
+	top: 50%;
+	width: 10%;
+	text-align: center;
+	background-color: transparent;
+	border: none;
+}
+#daily_read_write_button {
+	left: 18%;
+}
+#monthly_read_button {
+	left: 40%;
+}
+#monthly_write_button {
+	left: 50%;
+}
+#annually_read_button {
+	left: 67%;
+}
+#annually_write_button {
+	left: 77%;
+}
+.after_login_line {
+	position: absolute;
+	top: 40%;
+	width: 0.3%;
+	height: 25%;
+	background-color: black;
+	border-radius: 100px;
+	border: none;
+}
+#line_between_DM {
+	left: 35%;
+}
+#line_between_MA {
+	left: 64%;
+}
+.after_login_subline {
+	position: absolute;
+	top: 48%;
+	width: 0.3%;
+	height: 12%;
+	background-color: black;
+	border-radius: 100px;
+	border: none;
+	opacity: 15%;
+	z-index: 2;
+}
+#subline_M {
+	left: 50%;
+}
+#subline_A {
+	left: 77%;
+}
+
+#monthly_write_alert {
+	display: none;
+	font-size: 30px;
+	color: red;
+	position: absolute;
+	top: 70%;
+	left: 52%;
+}
+
+#annually_write_alert {
+	display: none;
+	font-size: 30px;
+	color: red;
+	position: absolute;
+	top: 70%;
+	left: 80%;
+}
+
+#section_indicator {
+	display: none;
+	background-color: #59886B;
+	width: 23%;
+	height: 70%;
+	border: none;
+	border-radius: 30px;
+	opacity: 20%;
+	position: absolute;
+	top: 15%;
+	left: 65.5%;
+	z-index: -1;
+}
+
+.sub_indicators {
+	display: none;
+	background-color: #bfd9c8;
+	height: 15%; 
+	position: absolute;
+	top: 46%;
+	border-radius: 20px;
+	border: #59886B solid 5px;
+	z-index: -1;
+}
+#sub_indicator_1 {
+	left: 15.7%;
+	width: 14%;
+}
+#sub_indicator_2 {
+	left: 39.6%;
+	width: 9.5%;
+}
+#sub_indicator_3 {
+	left: 50.7%;
+	width: 9.5%;
+}
+#sub_indicator_4 {
+	left: 66.5%;
+	width: 9.5%;
+}
+#sub_indicator_5 {
+	left: 77.7%;
+	width: 9.5%;
+}
+
+.section_selectors {
+	width: 23%;
+	height: 70%; 
+	position: absolute;
+	top: 15%;
+	z-index: 1;
+}
+#section_selector_1 {
+	left: 11%;
+}
+#section_selector_2 {
+	left: 39%;
+}
+#section_selector_3 {
+	left: 65.5%;
+}
+
+
+.sub_selectors {
+	height: 68%; 
+	position: absolute;
+	top: 16%;
+	z-index: 2;
+	cursor: pointer;
+}
+#sub_selector_1 {
+	left: 12%;
+	width: 21%;
+}
+#sub_selector_2 {
+	left: 38.5%;
+	width: 11%;
+}
+#sub_selector_3 {
+	left: 50.8%;
+	width: 9.5%;
+}
+#sub_selector_4 {
+	left: 66%;
+	width: 10.5%;
+}
+#sub_selector_5 {
+	left: 77.7%;
+	width: 10.5%;
+}
+
+
+#written_already_alert {
+	display: none;
+	font-size: 30px;
+	color: red;
+	position: absolute;
+	top: 70%;
+	left: 52%;
+}
+
+#dummy_maker {
+	display : ;
 }

@@ -7,79 +7,136 @@
 </head>
 <body>
 
-	<% if(checkLoggedIn === false){ %>
-	<div id="logged_out">
-
-		<%- include("./parts_user/login.ejs") %>
-
+	<div class="clicked_login clicked_register" id="logo">
+		걷는 생각들
 	</div>
+
+	<div class="clicked_login clicked_register" id="catchphrase_board">
+	<%- include("./catchphrase.ejs") %>
+	</div>
+
+	<button type="button" class="clicked_login clicked_register" id="register_button">회원가입</button>
+
+	<div id="regi_board">
+		<div id="regi_logo">걷는 생각들</div>
+		<form id="regi_form" action="/user/register" method="post">
+			<input id="regi_nickname" type="text" name="nickname" placeholder="사용할 별명">
+			<div id="regi_nickname_line"></div>
+			<input id="regi_email" type="email" name="email" placeholder="이메일">
+			<div id="regi_email_line"></div>
+			<input id="regi_pw" type="password" name="password" placeholder="비밀 번호">
+			<div id="regi_pw_line"></div>
+			<input id="regi_pw2" type="password" name="password_check" placeholder="비밀번호 확인">
+			<div id="regi_pw2_line"></div>
+			<input id="regi_address" type="text" name="address" placeholder='주소지,  (생각 모음) 책 받을 곳'>
+			<div id="regi_address_line"></div>
+
+			<input id="regi_sex" type="hidden" name="sex" value="">
+			<button id="regi_sex_m" type="button">남</button>
+			<button id="regi_sex_f" type="button">여</button>
+
+			<input id="regi_birthday" type="date" name="birthdate" placeholder="생년월일">
+			<div id="regi_birthday_line"></div>
+			<div id="regi_birthday_label">*생년월일</div>
+			<button id="regi_submit" type="submit">가입</button>
+		</form>
+		<button id="regi_cancel" type="button">X</button>
+		<div id="regi_cancel_background"></div>
+	</div>
+
+	<div id="login_board">
+		<div id="login_logo">걷는 생각들</div>
+		<form action="/user/login" method="post">
+			<input id="login_email" type="text" name="email" placeholder="이메일">
+			<div id="login_email_line"></div>
+			<input id="login_password" type="password" name="password" placeholder="비밀번호">
+			<div id="login_password_line"></div>
+			<button id="login_submit" type="submit">로그인</button>
+		</form>
+		<button id="login_cancel" type="button">X</button>
+	</div>
+
+	<% if(checkLoggedIn === false){ %>
+	<button type="button" class="clicked_login clicked_register" id="login_button">로그인</button>
 	<% } else { %>  
 
 	<div id="logged_in">
-	
-		<div>
-			welcome, <%= user_nickname %>!!
-		</div>
-		<br>
 		<form action="/user/logout" method="post">
-			<input type="submit" value="log out">
+			<button id="logout_button" type="submit">로그아웃</button>
 		</form>
 
 		<form action="/user/setting/<%= user_id %>" method="get">
-			<input type="submit" value="setting">
+			<button id="my_setting_button" type="submit">내정보</button>
 		</form>
-
-		<form action="/diary/daily/<%= user_id %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
-			<input type="submit" value="D diary">
-		</form>
-
-		<form action="/diary/pickup_game_monthly/<%= user_id %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
-			<input type="submit" value="M diary">
-		</form>
-
-		<form action="/diary/gen/<%= user_id %>" method="post">
-			<input type="submit" value="dummy data generate">
-		</form>
-
 	</div>
 	<% } %>  
 
-	<%- include("./parts_user/register.ejs") %>
 
-	<h1>service introduction</h1>
-		<%- include("./introduction.ejs") %>
+<div class="after_login after_login_section select_month select_year" id="daily_section">일간</div>
+<form id="daily_read_write_form" action="/diary/daily/<%= user_id %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+	<button class="after_login after_login_subsection select_month select_year" id="daily_read_write_button" type="submit">읽고 쓰기</button>
+</form>
+
+<div class="after_login after_login_line select_year" id="line_between_DM"></div>
+
+<div class="after_login after_login_section select_day select_year" id="monthly_section">월간</div>
+<div class="after_login after_login_subline select_day select_year" id="subline_M"></div>
+<form id="monthly_read_form" action="" method="post">
+	<button class="after_login after_login_subsection select_day select_year" id="monthly_read_button" type="button">읽기</button>
+</form>
 
 
+<form  id="monthly_write_form" action="/diary/pickup_game_monthly/<%= user_id %>?year=<%= index_year %>&month=<%= index_month %>&date=<%= index_date %>" method="post">
+	<button class="after_login after_login_subsection select_day select_year" id="monthly_write_button" type="submit">쓰기</button>
+</form>
 
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<br>
-	<p>from html: <%= index_year %></p>
+<div class="after_login after_login_line select_day" id="line_between_MA"></div>
+
+<div class="after_login after_login_section select_day select_month" id="annually_section">연간</div>
+<div class="after_login after_login_subline select_day select_month" id="subline_A"></div>
+<form  id="annually_read_form" action="" method="post">
+	<button class="after_login after_login_subsection select_day select_month" id="annually_read_button" type="reset">읽기</button>
+</form>
+
+<form  id="annually_write_form" action="" method="post">
+	<button class="after_login after_login_subsection select_day select_month" id="annually_write_button" type="reset">쓰기</button>
+</form>
+
+
+<div id="written_already_alert">
+이미 작성하셨습니다.
+</div>
+<div id="monthly_write_alert">
+당월 말일부터<br> 익월 1,2,3일 열립니다.
+</div>
+<div id="annually_write_alert">
+연말에 열립니다.
+</div>
+
+	
+<%- include("./parts_home/selectors_indicators.ejs") %>
+
+
+	<div class="clicked_login clicked_register" id="introduction">
+	<%- include("./introduction.ejs") %>
+	</div>
+
+<%- include("./parts_home/temp_developing.ejs") %>
+
+<form action="diary/gen/2" id="dummy_maker" method="post">
+	<input type="submit" value="dummy">
+</form>
+
 </body>
 </html>
 
-<style>
-	td {
-		border: solid; 1px;
-	}
-	#logged_in {
-		border: solid blue 2px;
-		margin: 5%;
-	}
-</style>
+<script>
+	const isLogin = <%= checkLoggedIn %>;
+	const index_year = <%- JSON.stringify(index_year) %>;
+	const index_month = <%- JSON.stringify(index_month) %>;
+	const monthly_write_period = <%= monthly_write_period %>;
+	const annually_write_period = <%= annually_write_period %>;
+	const is_monthly_written = <%- JSON.stringify(is_monthly_written) %>;
+</script>
 
+<script type="text/javascript" src="/js/home.js"></script>

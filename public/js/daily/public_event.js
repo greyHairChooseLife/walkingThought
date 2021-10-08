@@ -1,3 +1,10 @@
+if(is_written == false){
+	start_writing_button.style.display = 'block';
+	R4_start.style.display = 'none';
+	R4_board.style.display = 'none';
+	R4.style.display = 'none';
+} 
+
 for(var i=0; i < content_class.length; i++){
 	content_class[i].style.display = 'none';
 }

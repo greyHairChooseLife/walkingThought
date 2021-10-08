@@ -1,7 +1,8 @@
 //in the body tag
-const everything = document.getElementById('window');
+const everything = document.getElementById('drag_drop_section');
 
 //about navigation
+const go_home = document.getElementById("go_home");
 const keyboard_shortcut_help = document.getElementById("keyboard_shortcut_help");
 const keyboard_shortcut_help_result = document.getElementById("keyboard_shortcut_help_result");
 
@@ -9,8 +10,6 @@ const navigate_page = document.getElementById('navigate_page');
 
 
 //about writing_form
-const writing_form_trigger = document.getElementById('writing_form_trigger');
-const writing_form_closer = document.getElementById('writing_form_closer');
 const writing_form = document.getElementById('writing_form');
 
 
@@ -65,6 +64,4 @@ const R4_question = document.getElementById('R4_question');
 const arr_question = [L1_question, L2_question, L3_question, L4_question, R1_question, R2_question, R3_question, R4_question];
 
 const today_button = document.getElementById("today_button");
-const monthly_button = document.getElementById("monthly_button");
 
-const arr_button = [today_button, monthly_button];

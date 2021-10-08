@@ -28,7 +28,7 @@ function get_daily_diary(y, m, d, user_id){
 }
 
 //contents for monthly page. it need a proper function naming 
-function get_monthly_diary(y, m, user_id){
+function get_every_diary_of_month(y, m, user_id){
 	if(m === 0){
 		y = y-1;
 		m = 12;
@@ -94,20 +94,67 @@ function getDateName(year, month, day){
 
 const read_and_write_daily = async (req, res) => {
 
-	const user_id = req.params.id;
+	const user_id = res.locals.user.id;
 	const focused_year = Number(req.query.year);
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
 
+	const today_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
+
+	let is_written;
+	let checker = await get_daily_diary(today_index[0], today_index[1], today_index[2], user_id);
+
+	if(checker[0][0] != undefined)
+		is_written = true;
+	else
+		is_written = false;
+
+
 	let db_obj = [];
+	let index = 0;
 	for(var i=0; i<2; i++){
+		let a = '작년의 ';
+		let b = '2년 전 ';
+		let c = '3년 전 ';
+		let A = '어제';
+		let B = '오늘';
 		for(var j=0; j<4; j++){
 			let temp = await get_daily_diary(focused_year-j, focused_month, focused_date-i, user_id);
+			let indi;
+			switch(index) {
+				case 0:
+					indi = B;
+					break;
+				case 1:
+					indi = a + B;
+					break;
+				case 2:
+					indi = b + B;
+					break;
+				case 3:
+					indi = c + B;
+					break;
+				case 4:
+					indi = A;
+					break;
+				case 5:
+					indi = a + A;
+					break;
+				case 6:
+					indi = b + A;
+					break;
+				case 7:
+					indi = c + A;
+					break;
+			}
+			index++;
+
 			if(temp[0][0] == undefined){
 				temp[0][0] = {
-					created_date: `you missed this day`,
-					content: `empty :<`,
-					question: `empty :(`,
+					created_date: indi,
+					content: ``,
+					question: `기록이 없어요 :(`,
+
 				}
 			}
 			db_obj.push(temp[0][0]);
@@ -148,6 +195,8 @@ const read_and_write_daily = async (req, res) => {
 		index_month: focused_month,
 		index_date: focused_date,
 		user_id: user_id,
+		today_index: today_index,
+		is_written: is_written,
 	}
 
 	res.render('../views/diary/daily', db_obj_ejs);
@@ -165,24 +214,30 @@ const pickup_game_monthly = async (req, res) => {
 
 	const index = [user_id, focused_year, focused_month, focused_date, init_day, last_date_of_month];
 
-	let calendar_data = await get_monthly_diary(focused_year, focused_month, user_id);
+	let calendar_data = await get_every_diary_of_month(focused_year, focused_month, user_id);
 	calendar_data = calendar_data[0];
-	for(var i=0; i<last_date_of_month; i++){
-		if(calendar_data[i] == undefined){
-			calendar_data[i] = {
-				created_date: calendar_data[i-1].created_date.setDate(calendar_data[i-1].created_date.getDate()+1),
-				content: `empty :<`,
-				question: `empty :(`,
-			}
-		}
-	}
 
 	//sorting by order
 	const sorting_field = "created_date";
 	calendar_data.sort(function(a, b){
 		return a[sorting_field] - b[sorting_field];
 	});
-	
+
+	const missing_filler = {
+		created_date: `기록이 없어요 :(`,
+		content: ``,
+		question: `기록이 없어요 :(`,
+	}
+
+	for(var i=0; i<last_date_of_month; i++){
+		if(calendar_data[i] == undefined){				//if there is not enough data, it should return undefined before the loop finished. 
+			calendar_data.splice(i, 0, missing_filler);
+			continue;
+		}
+		if(calendar_data[i].created_date.getDate().toString() != i+1){
+			calendar_data.splice(i, 0, missing_filler);
+		}
+	}
 
 	//obj for ejs
 	const db_obj_ejs = {
@@ -194,12 +249,12 @@ const pickup_game_monthly = async (req, res) => {
 }
 
 const write_monthly = (req, res) => {
-	const index = 1;
+	//const index = 1;
 	const pickup_list = JSON.parse(req.body.pickup);
 
 	//obj for ejs
 	const obj_ejs = {
-		index: index,
+		//index: index,
 		pickup_list: pickup_list,
 	}
 	res.render('../views/diary/write_monthly', obj_ejs);
@@ -207,76 +262,88 @@ const write_monthly = (req, res) => {
 
 const read_monthly = async (req, res) => {
 	const user_id = res.locals.user.id;
-	//const index_year = req.query.year;
-	const index_year = 2021;
+	const index_year = req.query.year;
+	const index_month = req.query.month;
 
-	let db_obj = [];
+	const today_index = [new Date().getFullYear(), new Date().getMonth()+1];
+	const index = [user_id, index_year, index_month];
+
+	let raw_db_obj = [];
 	for(var i=0; i<12; i++){
-		let temp = await db.query(`SELECT * FROM monthly_diary WHERE (user_id=?)
+		let temp = await db.query(`SELECT * FROM diary WHERE (user_id=?)
+			AND (classes = 'm')
 			AND (YEAR(created_date) = ${index_year})
 			AND (MONTH(created_date) = ${i+1})
 			`, [user_id]);
-		db_obj.push(temp[0][0]);
+		
+		if(temp[0][0] == undefined){
+			temp[0][0] = {
+				created_date: `기록이 없어요 :(`,
+				content: ``,
+				question: `기록이 없어요 :(`,
+				forgot: true,
+			}
+		}
+		raw_db_obj.push(temp[0][0]);
+	}
+	
+	const key = '##@@##@@##';
+//converting
+	for(var i=0; i<raw_db_obj.length; i++){
+		raw_db_obj[i].question = raw_db_obj[i].question.split(key);
+		raw_db_obj[i].content = raw_db_obj[i].content.split(key);
 	}
 
 	const obj_ejs = {
-		db_obj: db_obj,
+		db_obj: raw_db_obj,
+		index: index,
+		today_index: today_index,
 	}
 	res.render('../views/diary/read_monthly', obj_ejs);
 }
 
 const daily_post = (req, res) => {
-	const { content, question, score, user_id, index_year, index_month, index_date } = req.body;
+	const { question, content } = req.body;
 	const classes = 'd';
 	const created_date = new Date();
+	const user_id = res.locals.user.id;
+	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
 
-	db.query(`INSERT INTO diary (classes, created_date, content, question, score, user_id) VALUES (?, ?, ?, ?, ?, ?)`, [classes, created_date, content, question, score, user_id]);
+	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, content, question, user_id]);
 
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
-	res.redirect(307, `/diary/daily/${user_id}?year=${index_year}&month=${index_month}&date=${index_date}`);
+	res.redirect(307, `/diary/daily/${user_id}?year=${redirect_index[0]}&month=${redirect_index[1]}&date=${redirect_index[2]}`);
 };
 
 const monthly_post = (req, res) => {
-	const { questions_title, questions_content, additions_title, additions_content  } = req.body;
-	console.log('questions_title: ',questions_title)
-	console.log('questions_content: ',questions_content)
-	console.log('additions_title: ',additions_title)
-	console.log('additions_content: ',additions_content)
-
+	const key = '##@@##@@##';
+	const classes = 'm';
 	const created_date = new Date();
 	const user_id = res.locals.user.id;
 
-	db.query(`INSERT INTO monthly_diary (created_date, 
-		question1_title,
-		question1_content,
-		question2_title,
-		question2_content,
-		question3_title,
-		question3_content,
-		question4_title,
-		question4_content,
-		question5_title,
-		question5_content,
-		addition1_title,
-		addition1_content,
-		addition2_title,
-		addition2_content,
-		addition3_title,
-		addition3_content,
-		user_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [created_date, 
-			questions_title[0], questions_content[0], 
-			questions_title[1], questions_content[1], 
-			questions_title[2], questions_content[2], 
-			questions_title[3], questions_content[3], 
-			questions_title[4], questions_content[4], 
-			additions_title[0], additions_content[0], 
-			additions_title[1], additions_content[1], 
-			additions_title[2], additions_content[2], 
-			user_id]);
+	const { titles, contents } = req.body;
+	let str_titles = '';
+	let str_contents = '';
+
+	for(var i=0; i<titles.length; i++){
+		str_titles += titles[i];
+		if(i+1 != titles.length)
+		str_titles += key;
+	}
+	for(var i=0; i<contents.length; i++){
+		str_contents += contents[i];
+		if(i+1 != contents.length)
+		str_contents += key;
+	}
+
+	db.query(`INSERT INTO diary (classes, question, content, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, str_titles, str_contents, user_id]);
+	
+	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1];
 	
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
-	res.redirect(307, `/diary/read_monthly/`);
+	res.redirect(307, `/diary/read_monthly?year=${redirect_index[0]}&month=${redirect_index[1]}`);
 };
+
 
 
 

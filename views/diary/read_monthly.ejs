@@ -1,47 +1,72 @@
 <head>
 	<link rel="stylesheet" href="/css/read_monthly.css">
 </head>
-<body>
-<div id="index">
-	<div id="year">
-		<div id="year2021">
-		2021
-		</div>
-	</div>
 
-	<div id="month">
-		<% for(var i=0; i<12; i++){ %>
-		<div class="" id="m<%= i+1 %>">
-		<%= i+1 %>월
-		</div>
-		<% } %>
+<body>
+
+<div id="logo">
+걷는 생각들
+</div>
+
+<form action="/user/logout" method="post">
+	<button id="logout_button" type="submit">로그아웃</button>
+</form>
+
+<button id="today_button" type="button">오늘로</button>
+
+<form action="" method="post">
+	<input id="search_input" type="text" name="search_input" placeholder="단어">
+	<button id="search_button" type="reset">검색</button>
+</form>
+
+<button type="button" id="keyboard_shortcut_help">* 단축키</button>
+<div id="keyboard_shortcut_help_result">
+<%- include('./parts_daily/keyboard_shortcut_explain.ejs') %>
+</div>
+
+<form action="/" method="get">
+	<button id="go_home" type="submit">처음으로</button>
+</form>
+
+
+
+<div id="focus_index">
+	<div id="focus_year_index">
+	</div>
+	<div id="focus_month_index">
 	</div>
 </div>
 
-<div id="diary">
-	<div class="title" id="question1_title"></div>
-	<div class="content" id="question1_content"></div>
-	<div class="title" id="question2_title"></div>
-	<div class="content" id="question2_content"></div>
-	<div class="title" id="question3_title"></div>
-	<div class="content" id="question3_content"></div>
-	<div class="title" id="question4_title"></div>
-	<div class="content" id="question4_content"></div>
-	<div class="title" id="question5_title"></div>
-	<div class="content" id="question5_content"></div>
+<button type="button" id="move_date_button">월별 보기</button>
 
-	<div class="title" id="addition1_title"></div>
-	<div class="content" id="addition1_content"></div>
-	<div class="title" id="addition2_title"></div>
-	<div class="content" id="addition2_content"></div>
-	<div class="title" id="addition3_title"></div>
-	<div class="content" id="addition3_content"></div>
+<div id="monthly_candi">
+	<% for(var i=0; i<12; i++){ %>
+	<button type="button" id="button<%= i %>"><%= i+1 %>월</button>
+	<% } %>
+</div>
+
+<button type="button" class="move_buttons" id="year_up">▲</button>
+<button type="button" class="move_buttons" id="year_down">▼</button>
+<button type="button" class="move_buttons" id="month_up">▲</button>
+<button type="button" class="move_buttons" id="month_down">▼</button>
+
+<form id="navigator" action="" method="post">
+</form>
+
+<div id="diary">
 </div>
 
 </body>
 
+
+
+
+
+
 <script>
 const db_obj = <%- JSON.stringify(db_obj) %>;
+const index = <%- JSON.stringify(index) %>;
+const today_index = <%- JSON.stringify(today_index) %>;
 </script>
 
 <script type="text/javascript" src="/js/monthly/read_monthly.js"></script>

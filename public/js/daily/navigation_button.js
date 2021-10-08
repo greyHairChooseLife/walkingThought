@@ -1,9 +1,4 @@
-today_button.addEventListener("click", function(){
-	const plus_month = new Date().getMonth() + 1;
-	navigate_page.action = "/diary/daily/" + user_id + "?year=" + new Date().getFullYear() + "&month=" + plus_month + "&date=" + new Date().getDate();
-	navigate_page.submit();
-});
-monthly_button.addEventListener("click", function(){
-	navigate_page.action = "/diary/pickup_game_monthly/" + user_id + "?year=" + index_year + "&month=" + index_month + "&date=" + index_date;
+today_button.addEventListener('click', () => {
+	navigate_page.action = "/diary/daily/" + user_id + "?year=" + today_index[0] + "&month=" + today_index[1] + "&date=" + today_index[2];
 	navigate_page.submit();
 });
