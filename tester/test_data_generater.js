@@ -17,7 +17,7 @@ module.exports = {
 		for(var y=2010; y <= 2030; y++){
 			for(var m=1; m<=12; m++){
 				for(var d=1; d<=32; d++){
-					user_id = req.params.id;
+					user_id = res.locals.user.id;
 					classes = 'd'
 					created_date = y + ':' + m + ':' + d;
 					content = `${y}-${m}-${d}'s content`;

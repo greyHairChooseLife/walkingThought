@@ -54,6 +54,7 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
 #today_button {
@@ -67,6 +68,7 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
 #search_input {
@@ -92,6 +94,7 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: not-allowed;
 }
 
 #move_date_field {
@@ -117,6 +120,7 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: not-allowed;
 }
 
 #keyboard_shortcut_help {
@@ -156,6 +160,7 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
 
