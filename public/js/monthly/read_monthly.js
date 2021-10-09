@@ -9,20 +9,20 @@ const navigator = document.getElementById('navigator');
 
 function show_move_button(key1, key2) {
 	if(key1 == 'y' && key2 == 'show'){
-		year_up.style.display = 'block';
-		year_down.style.display = 'block';
+		year_up.style.opacity = '1.0';
+		year_down.style.opacity = '1.0';
 	}
 	if(key1 == 'y' && key2 == 'hide'){
-		year_up.style.display = 'none';
-		year_down.style.display = 'none';
+		year_up.style.opacity = '0.3';
+		year_down.style.opacity = '0.3';
 	}
 	if(key1 == 'm' && key2 == 'show'){
-		month_up.style.display = 'block';
-		month_down.style.display = 'block';
+		month_up.style.opacity = '1.0';
+		month_down.style.opacity = '1.0';
 	}
 	if(key1 == 'm' && key2 == 'hide'){
-		month_up.style.display = 'none';
-		month_down.style.display = 'none';
+		month_up.style.opacity = '0.3';
+		month_down.style.opacity = '0.3';
 	}
 };
 

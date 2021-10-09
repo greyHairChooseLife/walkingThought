@@ -55,6 +55,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 #register_button {
 	width: 5%;
@@ -67,6 +68,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
 #introduction {
@@ -87,6 +89,7 @@ body {
 	border: none;
 	margin-top: 4%;
 	margin-left: 21%;
+	cursor: pointer;
 }
 
 #login_board {
@@ -463,6 +466,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: not-allowed;
 }
 #logout_button {
 	width: 5%;
@@ -475,6 +479,7 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
 .after_login_section {

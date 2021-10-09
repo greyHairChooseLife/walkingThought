@@ -143,6 +143,7 @@ textarea {
 	position: absolute;
 	top: 30%;
 	right: 1%;
+	cursor: pointer;
 }
 #add_more_old {
 	background-color: transparent;
@@ -155,6 +156,7 @@ textarea {
 	position: absolute;
 	top: 30%;
 	left: 1%;
+	cursor: pointer;
 }
 
 
@@ -179,20 +181,9 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
-#today_button {
-	width: 5%;
-	height: 4%;
-	position: absolute;
-	left: 94%;
-	top: 13%;
-	background-color: #59886B;
-	border: none;
-	border-radius: 20px;
-	font-size: 15px;
-	color: white;
-}
 
 #keyboard_shortcut_help {
 	width: 5%;
@@ -231,6 +222,7 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
 #diary_submit {
@@ -244,6 +236,17 @@ textarea {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
+.pickuped_list {
+	cursor: pointer;
+	margin-top: 2%;
+	padding-top: 1%;
+	background-color: rgba(255, 255, 255, 0.3);
+	height: 7%;
+}
 
+.pickuped_list:hover {
+	background-color: white;
+}

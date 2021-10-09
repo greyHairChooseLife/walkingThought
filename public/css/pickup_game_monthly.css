@@ -43,6 +43,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
 
@@ -83,6 +84,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
 
@@ -155,6 +157,9 @@ body {
 	text-align: center;
 }
 
+.filled_cards {
+	cursor: pointer;
+}
 .empty_cards {
 	visibility: hidden;
 }
@@ -228,6 +233,7 @@ body {
 	position: absolute;
 	left: 35%;
 	top: 12%;
+	cursor: pointer;
 }
 #sub_word {
 	font-size: 40px;

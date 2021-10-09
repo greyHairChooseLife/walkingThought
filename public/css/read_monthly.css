@@ -41,6 +41,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: #59886B;
+	cursor: pointer;
 }
 
 #today_button {
@@ -54,6 +55,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
 #search_input {
@@ -80,6 +82,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: not-allowed;
 }
 
 #keyboard_shortcut_help {
@@ -120,6 +123,7 @@ body {
 	border-radius: 20px;
 	font-size: 15px;
 	color: white;
+	cursor: pointer;
 }
 
 
@@ -166,7 +170,8 @@ body {
 	border: none;
 	font-size: 60px;
 	color: #59886B;
-	display: none;
+	cursor: pointer;
+	opacity: 0.3;
 }
 #year_up {
 	left: 9%;
