@@ -160,11 +160,38 @@ const read_and_write_daily = async (req, res) => {
 			db_obj.push(temp[0][0]);
 		}
 	}
+//사람이 읽기 편한게 날짜 표시방식을 바꿔준다.
+	function convert_date(original) {
+		let converted = [];
+		converted[0] = original.getFullYear();
+		converted[1] = original.getMonth() + 1;
+		converted[2] = original.getDate();
+		converted[3] = original.getDay();
+		if(converted[3] == 0)
+			converted[3] = "일요일";
+		else if(converted[3] == 1)
+			converted[3] = "월요일";
+		else if(converted[3] == 2)
+			converted[3] = "화요일";
+		else if(converted[3] == 3)
+			converted[3] = "수요일";
+		else if(converted[3] == 4)
+			converted[3] = "목요일";
+		else if(converted[3] == 5)
+			converted[3] = "금요일";
+		else if(converted[3] == 6)
+			converted[3] = "토요일";
+		return converted;
+	}
+	function call_converted_date(converted_date) {
+		return converted_date[0]+'. '+converted_date[1]+'. '+converted_date[2]+'. '+converted_date[3];
+	}
+
 	const db_obj_ejs = {
-		L1_date : db_obj[7].created_date,
-		L2_date : db_obj[6].created_date,
-		L3_date : db_obj[5].created_date,
-		L4_date : db_obj[4].created_date,
+		L1_date : call_converted_date(convert_date(db_obj[7].created_date)),
+		L2_date : call_converted_date(convert_date(db_obj[6].created_date)),
+		L3_date : call_converted_date(convert_date(db_obj[5].created_date)),
+		L4_date : call_converted_date(convert_date(db_obj[4].created_date)),
  
 		L1_content : db_obj[7].content,
 		L2_content : db_obj[6].content,
@@ -176,10 +203,10 @@ const read_and_write_daily = async (req, res) => {
 		L3_question : db_obj[5].question,
 		L4_question : db_obj[4].question,
 
-		R1_date : db_obj[3].created_date,
-		R2_date : db_obj[2].created_date,
-		R3_date : db_obj[1].created_date,
-		R4_date : db_obj[0].created_date,
+		R1_date : call_converted_date(convert_date(db_obj[3].created_date)),
+		R2_date : call_converted_date(convert_date(db_obj[2].created_date)),
+		R3_date : call_converted_date(convert_date(db_obj[1].created_date)),
+		R4_date : call_converted_date(convert_date(db_obj[0].created_date)),
  
 		R1_content : db_obj[3].content,
 		R2_content : db_obj[2].content,
@@ -197,7 +224,7 @@ const read_and_write_daily = async (req, res) => {
 		user_id: user_id,
 		today_index: today_index,
 		is_written: is_written,
-	}
+	}	
 
 	res.render('../views/diary/daily', db_obj_ejs);
 }
