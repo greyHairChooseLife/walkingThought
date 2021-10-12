@@ -111,47 +111,12 @@ const read_and_write_daily = async (req, res) => {
 
 
 	let db_obj = [];
-	let index = 0;
 	for(var i=0; i<2; i++){
-		let a = '작년의 ';
-		let b = '2년 전 ';
-		let c = '3년 전 ';
-		let A = '어제';
-		let B = '오늘';
 		for(var j=0; j<4; j++){
 			let temp = await get_daily_diary(focused_year-j, focused_month, focused_date-i, user_id);
-			let indi;
-			switch(index) {
-				case 0:
-					indi = B;
-					break;
-				case 1:
-					indi = a + B;
-					break;
-				case 2:
-					indi = b + B;
-					break;
-				case 3:
-					indi = c + B;
-					break;
-				case 4:
-					indi = A;
-					break;
-				case 5:
-					indi = a + A;
-					break;
-				case 6:
-					indi = b + A;
-					break;
-				case 7:
-					indi = c + A;
-					break;
-			}
-			index++;
-
 			if(temp[0][0] == undefined){
 				temp[0][0] = {
-					created_date: indi,
+					created_date: null,
 					content: ``,
 					question: `기록이 없어요 :(`,
 
@@ -162,6 +127,8 @@ const read_and_write_daily = async (req, res) => {
 	}
 //사람이 읽기 편한게 날짜 표시방식을 바꿔준다.
 	function convert_date(original) {
+		if(original == null)
+			return null;
 		let converted = [];
 		converted[0] = original.getFullYear();
 		converted[1] = original.getMonth() + 1;
@@ -184,6 +151,8 @@ const read_and_write_daily = async (req, res) => {
 		return converted;
 	}
 	function call_converted_date(converted_date) {
+		if(converted_date == null)
+			return '';
 		return converted_date[0]+'. '+converted_date[1]+'. '+converted_date[2]+'. '+converted_date[3];
 	}
 
