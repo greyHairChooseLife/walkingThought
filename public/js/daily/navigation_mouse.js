@@ -1,3 +1,31 @@
+let is_fixed = [];			//8개의 다이어리 콘텐츠가 각각 보여짐으로 고정되었는지 아닌지 판별
+for(var i=0; i<8; i++){
+	is_fixed[i] = false;
+}
+
+
+// MOUSE ENTER & LEAVE & CLICK EVENT
+
+for(let i=0; i<arr_note.length; i++){
+	arr_note[i].addEventListener("mouseenter", function(){
+		arr_content[i].style.display = 'block';
+	});
+	arr_note[i].addEventListener("mouseleave", function(){
+		if(is_fixed[i] == false)
+			arr_content[i].style.display = 'none';
+	});
+
+	arr_note[i].addEventListener('click', function(){
+		if(is_fixed[i] == true)
+			is_fixed[i] = false;
+		else
+			is_fixed[i] = true;
+	});
+}
+
+
+// DRAG & DROP EVENT
+
 //set variable;
 let x1;
 let x2;

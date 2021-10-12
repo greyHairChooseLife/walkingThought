@@ -172,9 +172,18 @@ textarea {
 	position: absolute;
 	left: 3%;
 	width: 38%;
-	height: 19.5%;
+	height: 19%;
 	padding-left: 2%;
 	padding-top: 1%;
+	box-shadow: 5px 5px 10px #59886B;
+	transition: 0.1s;
+	cursor: pointer;
+}
+.L-note:active {
+	margin-left: 5px;
+	margin-top: 5px;
+	box-shadow: none;
+
 }
 .R-note {
 	font-family: 'general';
@@ -182,9 +191,18 @@ textarea {
 	position: absolute;
 	left: 46%;
 	width: 38%;
-	height: 19.5%;
+	height: 19%;
 	padding-left: 2%;
 	padding-top: 1%;
+	box-shadow: 5px 5px 10px #59886B;
+	transition: 0.1s;
+	cursor: pointer;
+}
+.R-note:active {
+	margin-left: 5px;
+	margin-top: 5px;
+	box-shadow: none;
+
 }
 
 
