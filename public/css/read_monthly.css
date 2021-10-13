@@ -204,7 +204,7 @@ body {
 }
 
 .p_question {
-	text-decoration: underline dashed #59886B;
+	text-shadow: 1px 1px 10px green;
 	margin-top: 3%;
 	padding-left: 3%;
 }
