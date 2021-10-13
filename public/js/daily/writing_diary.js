@@ -77,6 +77,7 @@ post_diary_button.addEventListener('click', () => {
 })
 
 
+// 보여줄 데이터의 index로 사용되는 쿼리스트링의 날짜와 오늘 날짜를 비교하여 일일일기 작성칸의 위치를 결정한다.
 switch (writing_board_index) {
 	case 'L1' :
 		writing_board_wrapper.style.top = '3%'

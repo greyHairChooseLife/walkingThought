@@ -338,7 +338,6 @@ const read_monthly = async (req, res) => {
 const daily_post = (req, res) => {
 	const { question, content } = req.body;
 	const classes = 'd';
-	const created_date = new Date();
 	const user_id = res.locals.user.id;
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
 
@@ -351,7 +350,6 @@ const daily_post = (req, res) => {
 const monthly_post = (req, res) => {
 	const key = '##@@##@@##';
 	const classes = 'm';
-	const created_date = new Date();
 	const user_id = res.locals.user.id;
 
 	const { titles, contents } = req.body;
