@@ -99,6 +99,7 @@ const read_and_write_daily = async (req, res) => {
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
 
+	const focused_index = [focused_year, focused_month, focused_date];
 	const today_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
 
 	let is_written;
@@ -156,6 +157,41 @@ const read_and_write_daily = async (req, res) => {
 		return converted_date[0]+'. '+converted_date[1]+'. '+converted_date[2]+'. '+converted_date[3];
 	}
 
+	let writing_board_index;
+	function get_writing_board_index(focused_index, today_index) {
+		if(focused_index[1] != today_index[1]){
+			writing_board_index = null;
+			return;
+		}
+		const date_gap = focused_index[2] - today_index[2];
+		switch (date_gap) {
+			case 0 :
+				writing_board_index = 'R';
+				break;
+			case 1 :
+				writing_board_index = 'L';
+				break;
+		}
+		const year_gap = focused_index[0] - today_index[0];
+		switch (year_gap) {
+			case 0 :
+				writing_board_index += '4';
+				break;
+			case 1 :
+				writing_board_index += '3';
+				break;
+			case 2 :
+				writing_board_index += '2';
+				break;
+			case 3 :
+				writing_board_index += '1';
+				break;
+		}
+	}
+	get_writing_board_index(focused_index, today_index);
+	console.log(writing_board_index);
+	
+
 	const db_obj_ejs = {
 		L1_date : call_converted_date(convert_date(db_obj[7].created_date)),
 		L2_date : call_converted_date(convert_date(db_obj[6].created_date)),
@@ -193,6 +229,7 @@ const read_and_write_daily = async (req, res) => {
 		user_id: user_id,
 		today_index: today_index,
 		is_written: is_written,
+		writing_board_index: writing_board_index,
 	}	
 
 	res.render('../views/diary/daily', db_obj_ejs);

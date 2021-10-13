@@ -2,8 +2,8 @@
 
 <button type="button" id="start_writing_button">오늘의 생각 쓰기</button>
 
+<div class="zac" id="writing_board_background"></div>
 <form id="daily_diary" action="/diary/daily/post/<%= user_id %>" method="post">
-	<div class="zac" id="writing_board_background"></div>
 	<textarea class="zac" id="paragraph_title" name="question" rows="2" placeholder="오늘의 나에게 하는 질문"></textarea>
 	<textarea class="zac" id="paragraph_content" name="content" rows="4" placeholder="어떻게 그런 질문을 하게 되었나요?"></textarea>
 </form>

@@ -241,16 +241,15 @@ textarea {
 
 #writing_board_wrapper {
 	position: absolute;
-	top: 75%;
-	left: 46%;
+	/*
+	 * top, left properties set by js [writing_diary.js]
+	 * */
+
 	width: 45%;
 	height: 21%;
 	display: grid;
 	grid-template-columns: 9fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
-}
-#enlarged_writing_board_wrapper {
-	z-index: -2;
 }
 
 
@@ -284,6 +283,7 @@ textarea {
 
 	background-color: #59886B;
 	opacity: 0.2;
+	z-index: -2;
 
 	display: none;
 }

@@ -75,3 +75,40 @@ post_diary_button.addEventListener('click', () => {
 	else
 		return;
 })
+
+
+switch (writing_board_index) {
+	case 'L1' :
+		writing_board_wrapper.style.top = '3%'
+		writing_board_wrapper.style.left = '3%'
+		break;
+	case 'L2' :
+		writing_board_wrapper.style.top = '27%'
+		writing_board_wrapper.style.left = '3%'
+		break;
+	case 'L3' :
+		writing_board_wrapper.style.top = '51%'
+		writing_board_wrapper.style.left = '3%'
+		break;
+	case 'L4' :
+		writing_board_wrapper.style.top = '75%'
+		writing_board_wrapper.style.left = '3%'
+		break;
+	case 'R1' :
+		writing_board_wrapper.style.top = '3%'
+		writing_board_wrapper.style.left = '46%'
+		break;
+	case 'R2' :
+		writing_board_wrapper.style.top = '27%'
+		writing_board_wrapper.style.left = '46%'
+		break;
+	case 'R3' :
+		writing_board_wrapper.style.top = '51%'
+		writing_board_wrapper.style.left = '46%'
+		break;
+	case 'R4' :
+		writing_board_wrapper.style.top = '75%'
+		writing_board_wrapper.style.left = '46%'
+		break;
+}
+
