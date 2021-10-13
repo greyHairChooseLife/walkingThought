@@ -3,6 +3,7 @@ for(var i=0; i<8; i++){
 	is_fixed[i] = false;
 }
 
+const diary_start = document.getElementsByClassName('diary_start');
 
 // MOUSE ENTER & LEAVE & CLICK EVENT
 
@@ -16,10 +17,14 @@ for(let i=0; i<arr_note.length; i++){
 	});
 
 	arr_note[i].addEventListener('click', function(){
-		if(is_fixed[i] == true)
+		if(is_fixed[i] == true){
 			is_fixed[i] = false;
-		else
+			diary_start[i].style.backgroundColor = 'transparent';
+		}
+		else{
 			is_fixed[i] = true;
+			diary_start[i].style.backgroundColor = '#59886B';
+		}
 	});
 }
 

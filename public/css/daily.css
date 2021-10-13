@@ -238,24 +238,28 @@ textarea {
 	padding-top: 3%;
 }
 
-#writing_form {
+
+#writing_board_wrapper {
 	position: absolute;
-	height: 60vh;
-	width: 40%;
-	top: 50px;
-	left: 50px;
+	top: 75%;
+	left: 46%;
+	width: 45%;
+	height: 21%;
+	display: grid;
+	grid-template-columns: 9fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr;
 }
 
+
+
 #start_writing_button {
+	grid-column: 1/2;
+	grid-row: 1/4;
+
 	font-family: 'general';
 	font-size: 70px;
-	width: 40%;
-	height: 21%;
 	background-color: transparent;
 	border: 8px dashed #59886B;
-	position: absolute;
-	bottom: 4%;
-	left: 46%;
 	color: #59886B;
 	cursor: pointer;
 
@@ -272,94 +276,49 @@ textarea {
 }
 
 #writing_board_background {
-	position: absolute;
-	bottom: 4%;
-	left: 46%;
-	width: 40%;
-	height: 21%;
+	grid-column: 1/2;
+	grid-row: 1/4;
+
 	background-color: #59886B;
 	opacity: 0.2;
 
 	display: none;
 }
+#daily_diary {
+	grid-column: 1/2;
+	grid-row: 1/4;
+}
 
 #paragraph_title {
+	grid-column: 1/2;
+	grid-row: 1/2;
+
 	font-size: 20px;
-	width: 37%;
-	height: 6%;
 	background-color: transparent;
 	border: none;
-	position: absolute;
-	top: 76%;
-	left: 47.5%;
 	outline: none;
 
 	display: none;
 }
 #paragraph_content {
+	grid-column: 1/2;
+	grid-row: 3/4;
+
 	font-size: 20px;
-	width: 37%;
-	height: 12%;
 	background-color: transparent;
 	border: none;
-	position: absolute;
-	top: 83%;
-	left: 47.5%;
 	outline: none;
 	
 	display: none;
 }
 
-#enlarged_writing_board_background {
-	position: absolute;
-	top: 0%;
-	left: 0%;
-	width: 100%;
-	height: 100%;
-	background-color: #59886B;
-}
-
-#enlarged_paragraph_title {
-	font-size: 30px;
-	width: 45%;
-	height: 10%;
-	background-color: transparent;
-	border: none;
-	position: absolute;
-	top: 20%;
-	left: 20%;
-	color: black;
-	outline: none;
-}
-#enlarged_paragraph_title::placeholder {
-	color: white;
-	opacity: 0.7;
-}
-#enlarged_paragraph_content {
-	font-size: 30px;
-	width: 45%;
-	height: 40%;
-	background-color: transparent;
-	border: none;
-	position: absolute;
-	top: 33%;
-	left: 20%;
-	color: black;
-	outline: none;
-}
-#enlarged_paragraph_content::placeholder {
-	color: white;
-	opacity: 0.7;
-}
 
 
 
 #enlarge_button {
-	width: 5%;
-	height: 4%;
-	position: absolute;
-	left: 86.5%;
-	top: 76%;
+	grid-column: 2/3;
+	grid-row: 1/2;
+
 	background-color: transparent;
 	border: solid 1px #59886B;
 	border-radius: 20px;
@@ -373,14 +332,12 @@ textarea {
 	border: none;
 	color: white;
 	font-size: 25px;
-	transform: scale(1.3, 1.3);
+	transform: scale(1.2, 1.2);
 }
 #post_diary_button {
-	width: 5%;
-	height: 4%;
-	position: absolute;
-	left: 86.5%;
-	top: 80.5%;
+	grid-column: 2/3;
+	grid-row: 2/3;
+
 	background-color: transparent;
 	border: solid 1px #59886B;
 	border-radius: 20px;
@@ -396,11 +353,9 @@ textarea {
 }
 
 #cancel_button {
-	width: 5%;
-	height: 4%;
-	position: absolute;
-	left: 86.5%;
-	top: 85%;
+	grid-column: 2/3;
+	grid-row: 3/4;
+
 	background-color: transparent;
 	border: solid 1px #FF7777;
 	border-radius: 20px;
@@ -418,9 +373,6 @@ textarea {
 #enlarged_decrease_button {
 	width: 8%;
 	height: 7%;
-	position: absolute;
-	left: 75%;
-	top: 50%;
 	background-color: transparent;
 	border: solid 2px white;
 	border-radius: 30px;
@@ -437,12 +389,49 @@ textarea {
 	transform: scale(0.8, 0.8);
 }
 
+
+#enlarged_writing_board_background {
+	position: absolute;
+	top: 0%;
+	left: 0%;
+	width: 100%;
+	height: 100%;
+	background-color: #59886B;
+}
+
+#enlarged_paragraph_title {
+	font-size: 30px;
+	width: 45%;
+	height: 10%;
+	background-color: transparent;
+	border: none;
+	color: black;
+	outline: none;
+}
+#enlarged_paragraph_title::placeholder {
+	color: white;
+	opacity: 0.7;
+}
+#enlarged_paragraph_content {
+	font-size: 30px;
+	width: 45%;
+	height: 40%;
+	background-color: transparent;
+	border: none;
+	color: black;
+	outline: none;
+}
+#enlarged_paragraph_content::placeholder {
+	color: white;
+	opacity: 0.7;
+}
+
+
+
+
 #enlarged_post_diary_button {
 	width: 8%;
 	height: 7%;
-	position: absolute;
-	left: 75%;
-	top: 58%;
 	background-color: transparent;
 	border: solid 2px white;
 	border-radius: 30px;
@@ -459,9 +448,6 @@ textarea {
 #enlarged_cancel_button {
 	width: 8%;
 	height: 7%;
-	position: absolute;
-	left: 75%;
-	top: 66%;
 	background-color: transparent;
 	border: solid 2px #FF7777;
 	border-radius: 30px;
