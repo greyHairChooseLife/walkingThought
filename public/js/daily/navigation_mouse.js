@@ -10,10 +10,15 @@ const diary_start = document.getElementsByClassName('diary_start');
 for(let i=0; i<arr_note.length; i++){
 	arr_note[i].addEventListener("mouseenter", function(){
 		arr_content[i].style.display = 'block';
+		arr_date[i].style.display = 'none';
+		question_class[i].style.paddingTop = '0';
 	});
 	arr_note[i].addEventListener("mouseleave", function(){
-		if(is_fixed[i] == false)
+		if(is_fixed[i] == false){
 			arr_content[i].style.display = 'none';
+			arr_date[i].style.display = 'block';
+			question_class[i].style.paddingTop = '6%';
+		}
 	});
 
 	arr_note[i].addEventListener('click', function(){

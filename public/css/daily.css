@@ -231,11 +231,12 @@ textarea {
 	top: 75%;
 }
 
+.question {
+	padding-top: 6%;
+	text-shadow: 1px 1px 10px green;
+}
 .content {
 	padding-top: 1%;
-}
-.question {
-	padding-top: 3%;
 }
 
 
