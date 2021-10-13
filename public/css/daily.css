@@ -247,14 +247,17 @@ textarea {
 	height: 21%;
 	display: grid;
 	grid-template-columns: 9fr 1fr;
-	grid-template-rows: 1fr 1fr 1fr;
+	grid-template-rows: 1fr 1fr 1fr 1fr;
+}
+#enlarged_writing_board_wrapper {
+	z-index: -2;
 }
 
 
 
 #start_writing_button {
 	grid-column: 1/2;
-	grid-row: 1/4;
+	grid-row: 1/5;
 
 	font-family: 'general';
 	font-size: 70px;
@@ -277,7 +280,7 @@ textarea {
 
 #writing_board_background {
 	grid-column: 1/2;
-	grid-row: 1/4;
+	grid-row: 1/5;
 
 	background-color: #59886B;
 	opacity: 0.2;
@@ -286,14 +289,18 @@ textarea {
 }
 #daily_diary {
 	grid-column: 1/2;
-	grid-row: 1/4;
+	grid-row: 1/5;
+
 }
 
 #paragraph_title {
-	grid-column: 1/2;
-	grid-row: 1/2;
+	margin-top: 2%;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 96%; 
+	height: 23%;
 
-	font-size: 20px;
+	font-size: 18px;
 	background-color: transparent;
 	border: none;
 	outline: none;
@@ -301,10 +308,13 @@ textarea {
 	display: none;
 }
 #paragraph_content {
-	grid-column: 1/2;
-	grid-row: 3/4;
+	margin-top: 3%;
+	margin-left: 2%;
+	margin-right: 2%;
+	width: 96%; 
+	height: 72%;
 
-	font-size: 20px;
+	font-size: 18px;
 	background-color: transparent;
 	border: none;
 	outline: none;
@@ -319,6 +329,7 @@ textarea {
 	grid-column: 2/3;
 	grid-row: 1/2;
 
+	height: 80%;
 	background-color: transparent;
 	border: solid 1px #59886B;
 	border-radius: 20px;
@@ -332,12 +343,12 @@ textarea {
 	border: none;
 	color: white;
 	font-size: 25px;
-	transform: scale(1.2, 1.2);
 }
 #post_diary_button {
 	grid-column: 2/3;
 	grid-row: 2/3;
 
+	height: 80%;
 	background-color: transparent;
 	border: solid 1px #59886B;
 	border-radius: 20px;
@@ -356,6 +367,7 @@ textarea {
 	grid-column: 2/3;
 	grid-row: 3/4;
 
+	height: 80%;
 	background-color: transparent;
 	border: solid 1px #FF7777;
 	border-radius: 20px;
@@ -371,6 +383,9 @@ textarea {
 }
 
 #enlarged_decrease_button {
+	position: absolute;
+	left: 75%;
+	top: 50%;
 	width: 8%;
 	height: 7%;
 	background-color: transparent;
@@ -400,6 +415,9 @@ textarea {
 }
 
 #enlarged_paragraph_title {
+	position: absolute;
+	top: 20%;
+	left: 20%;
 	font-size: 30px;
 	width: 45%;
 	height: 10%;
@@ -413,6 +431,9 @@ textarea {
 	opacity: 0.7;
 }
 #enlarged_paragraph_content {
+	position: absolute;
+	top: 33%;
+	left: 20%;
 	font-size: 30px;
 	width: 45%;
 	height: 40%;
@@ -430,6 +451,9 @@ textarea {
 
 
 #enlarged_post_diary_button {
+	position: absolute;
+	left: 75%;
+	top: 58%;
 	width: 8%;
 	height: 7%;
 	background-color: transparent;
@@ -446,6 +470,9 @@ textarea {
 }
 
 #enlarged_cancel_button {
+	position: absolute;
+	left: 75%;
+	top: 66%;
 	width: 8%;
 	height: 7%;
 	background-color: transparent;

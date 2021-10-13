@@ -1,3 +1,4 @@
+const writing_board_wrapper = document.getElementById('writing_board_wrapper');
 const start_writing_button = document.getElementById('start_writing_button');
 const paragraph_title = document.getElementById('paragraph_title');
 const paragraph_content = document.getElementById('paragraph_content');
@@ -33,31 +34,36 @@ cancel_button.addEventListener('click', () => {
 	post_diary_button.style.display = 'none';
 	writing_board_background.style.display = 'none';
 	enlarged_decrease_button.style.display = 'none';
-	zac[0].id = "writing_board_background";
-	zac[1].id = "paragraph_title";
-	zac[2].id = "paragraph_content";
-	zac[3].id = "cancel_button";
-	zac[4].id = "post_diary_button";
+	zac[0].id = "writing_board_wrapper";
+	zac[1].id = "writing_board_background";
+	zac[2].id = "paragraph_title";
+	zac[3].id = "paragraph_content";
+	zac[4].id = "cancel_button";
+	zac[5].id = "post_diary_button";
 })
 
 //enlarge
 enlarge_button.addEventListener('click', () => {
+	writing_board_wrapper.id = 'enlarged_writing_board_wrapper';
 	post_diary_button.id = "enlarged_post_diary_button";
 	cancel_button.id = "enlarged_cancel_button";
 	writing_board_background.id = "enlarged_writing_board_background";
 	paragraph_title.id = "enlarged_paragraph_title";
 	paragraph_content.id = "enlarged_paragraph_content";
 	enlarged_decrease_button.style.display = 'block';
+	enlarge_button.style.display = "none";
 })
 
 //decrease
 enlarged_decrease_button.addEventListener('click', () => {
-	zac[0].id = "writing_board_background";
-	zac[1].id = "paragraph_title";
-	zac[2].id = "paragraph_content";
-	zac[3].id = "cancel_button";
-	zac[4].id = "post_diary_button";
+	zac[0].id = "writing_board_wrapper";
+	zac[1].id = "writing_board_background";
+	zac[2].id = "paragraph_title";
+	zac[3].id = "paragraph_content";
+	zac[4].id = "cancel_button";
+	zac[5].id = "post_diary_button";
 	enlarged_decrease_button.style.display = 'none';
+	enlarge_button.style.display = "block";
 })
 
 
