@@ -8,6 +8,10 @@ const keyboard_shortcut_help_result = document.getElementById("keyboard_shortcut
 
 const navigate_page = document.getElementById('navigate_page');
 
+const move_up = document.getElementById('move_up');
+const move_down = document.getElementById('move_down');
+const move_left = document.getElementById('move_left');
+const move_right = document.getElementById('move_right');
 
 //about writing_form
 const writing_form = document.getElementById('writing_form');

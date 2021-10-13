@@ -13,7 +13,6 @@
 	<button id="logout_button" type="submit">로그아웃</button>
 </form>
 
-<button id="today_button" type="button">오늘로</button>
 
 <form action="" method="post">
 	<input id="search_input" type="text" name="search_input" placeholder="단어">
@@ -33,6 +32,14 @@
 <form action="/" method="get">
 	<button id="go_home" type="submit">처음으로</button>
 </form>
+
+<button type="button" class="remote_con" id="move_up">▼</button>
+<button type="button" class="remote_con" id="move_down">▲</button>
+<button type="button" class="remote_con" id="move_left">▶</button>
+<button type="button" class="remote_con" id="move_right">◀</button>
+<button type="button" class="remote_con" id="today_button">오늘</button>
+
+
 
 
 <%- include('./parts_daily/diary_board_indicator.ejs') %>
