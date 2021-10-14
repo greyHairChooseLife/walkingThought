@@ -12,11 +12,26 @@ const enlarged_decrease_button = document.getElementById('enlarged_decrease_butt
 const daily_diary = document.getElementById('daily_diary');
 
 const zac = document.getElementsByClassName('zac');
+const remote_con = document.getElementsByClassName('remote_con');
+
+function switch_remote_con(value){
+	if(value == 'show'){
+		for(var i=0; i<remote_con.length; i++){
+			remote_con[i].style.display = 'block';
+		}
+	} else if(value == 'hide'){
+		for(var i=0; i<remote_con.length; i++){
+			remote_con[i].style.display = 'none';
+		}
+	}
+}
+
 
 // start writing button
 start_writing_button.addEventListener('click', () => {
 	start_writing_button.style.display = 'none';
 	paragraph_title.style.display = 'block';
+	paragraph_title.focus();
 	paragraph_content.style.display = 'block';
 	enlarge_button.style.display = 'block';
 	cancel_button.style.display = 'block';
@@ -49,9 +64,11 @@ enlarge_button.addEventListener('click', () => {
 	cancel_button.id = "enlarged_cancel_button";
 	writing_board_background.id = "enlarged_writing_board_background";
 	paragraph_title.id = "enlarged_paragraph_title";
+	enlarged_paragraph_title.focus();
 	paragraph_content.id = "enlarged_paragraph_content";
 	enlarged_decrease_button.style.display = 'block';
 	enlarge_button.style.display = "none";
+	switch_remote_con('hide');
 })
 
 //decrease
@@ -64,6 +81,7 @@ enlarged_decrease_button.addEventListener('click', () => {
 	zac[5].id = "post_diary_button";
 	enlarged_decrease_button.style.display = 'none';
 	enlarge_button.style.display = "block";
+	switch_remote_con('show');
 })
 
 

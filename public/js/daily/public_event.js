@@ -47,6 +47,7 @@ if(is_written == false){
 
 
 
+
 for(var i=0; i < content_class.length; i++){
 	content_class[i].style.display = 'none';
 }

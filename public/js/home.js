@@ -5,6 +5,7 @@ const clicked_register = document.getElementsByClassName('clicked_register');
 const login_board = document.getElementById('login_board');
 const login_button = document.getElementById('login_button');
 const login_cancel = document.getElementById('login_cancel');
+const login_email = document.getElementById('login_email');
 
 if(isLogin === false){
 	login_button.addEventListener('click', () => {
@@ -12,6 +13,7 @@ if(isLogin === false){
 			clicked_login[i].style.opacity = '15%';
 		}
 		login_board.style.display = 'block';
+		login_email.focus();
 	});
 
 	login_cancel.addEventListener('click', () => {
@@ -26,6 +28,7 @@ if(isLogin === false){
 const regi_board = document.getElementById('regi_board');
 const regi_button = document.getElementById('register_button');
 const regi_cancel = document.getElementById('regi_cancel');
+const regi_nickname = document.getElementById('regi_nickname');
 
 if(isLogin === false){
 	regi_button.addEventListener('click', () => {
@@ -33,6 +36,7 @@ if(isLogin === false){
 			clicked_register[i].style.opacity = '0';
 		}
 		regi_board.style.display = 'block';
+		regi_nickname.focus();
 	});
 
 	regi_cancel.addEventListener('click', () => {

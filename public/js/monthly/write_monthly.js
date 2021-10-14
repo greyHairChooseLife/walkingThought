@@ -42,6 +42,7 @@ add_more_new.addEventListener('click', () => {
 		writing_board.appendChild(tag_title);
 		writing_board.appendChild(tag_textarea);
 
+		document.getElementById('paragraph_title_'+number_of_paragraph).focus();
 //		document.getElementById('paragraph_title_'+number_of_paragraph).addEventListener('click', () => {
 //			pickup_list_container.style.display = 'block';
 //			pickup_list_container.style.right = "5%";
@@ -132,6 +133,7 @@ for(var i=0; i<pickup_list.length; i++){
 				writing_board.appendChild(tag_title);
 				writing_board.appendChild(tag_textarea);
 				writing_board.appendChild(tag_hidden);
+				document.getElementById('paragraph_content_'+number_of_paragraph).focus();
 
 				switch(number_of_paragraph){
 					case 0:

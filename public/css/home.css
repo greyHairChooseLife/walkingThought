@@ -22,6 +22,12 @@
 body {
 	font-family: 'general';
 }
+input {
+	outline: none;
+}
+textarea {
+	outline: none;
+}
 
 #logo {
 	font-family: 'logo';

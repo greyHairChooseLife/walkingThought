@@ -16,8 +16,11 @@
     font-weight: normal;
     font-style: normal;
 }
-
+input {
+	outline: none;
+}
 textarea {
+	outline: none;
 	resize: none;
 }
 
