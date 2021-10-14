@@ -162,6 +162,7 @@ textarea {
 	z-index: 1;
 	font-size: 20px;
 	color: white;
+	cursor: pointer;
 }
 .remote_con:active {
 	margin-top: 2px;
