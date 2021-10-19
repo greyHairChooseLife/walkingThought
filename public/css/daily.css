@@ -234,13 +234,15 @@ textarea {
 	color: grey;
 }
 .question {
-	padding: 4% 5% 5% 5%;
+	padding: 4% 5% 3% 5%;
+	white-space: pre-wrap;
 	overflow: auto;
 	overflow-x: hidden;
 	text-shadow: 1px 1px 10px green;
 }
 .content {
-	padding: 2% 4% 4% 4%;
+	padding: 0% 4% 4% 4%;
+	white-space: pre-wrap;
 }
 
 
