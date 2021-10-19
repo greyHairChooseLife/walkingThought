@@ -3,3 +3,6 @@ green, general,
 
 #C05555
 red, special,
+
+
+background-color: rgba(89, 136, 107, 0.9);

@@ -194,23 +194,26 @@ body {
 	position: absolute;
 	top: 23%;
 	left: 5%;
-	height: 70%;
 	width: 75%;
 	background-color: transparent;
+
+	border: 2px solid black;
+
 	word-break: break-all;
 
 	font-family: 'general';
 	font-size: 30px;
 }
 
-.p_question {
-	text-shadow: 1px 1px 10px green;
-	margin-top: 3%;
-	padding-left: 3%;
-}
 .p_content {
-	margin-top: 1%;
-	padding-left: 2%;
+	background-color: rgba(89, 136, 107, 0.2);
+	border-radius: 30px;
+	margin: 2%;
+	padding: 1% 2%;
+}
+.p_question {
+	color: grey;
+	text-shadow: 3px 3px 10px grey;
 }
 
 #navigator {

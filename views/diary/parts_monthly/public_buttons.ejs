@@ -1,0 +1,19 @@
+<form action="/user/logout" method="post">
+	<button id="logout_button" type="submit">로그아웃</button>
+</form>
+
+<button id="today_button" type="button">오늘로</button>
+
+<form action="" method="post">
+	<input id="search_input" type="text" name="search_input" placeholder="단어">
+	<button id="search_button" type="reset">검색</button>
+</form>
+
+<button type="button" id="keyboard_shortcut_help">* 단축키</button>
+<div id="keyboard_shortcut_help_result">
+<%- include('./keyboard_shortcut_explain.ejs') %>
+</div>
+
+<form action="/" method="get">
+	<button id="go_home" type="submit">처음으로</button>
+</form>

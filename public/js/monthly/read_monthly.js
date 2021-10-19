@@ -106,8 +106,8 @@ function spread_diary(how_many_paragraph) {
 		p_content.setAttribute("class","p_content");
 		p_content.innerText = db_obj[focused_period-1].content[i];
 
-		diary.appendChild(p_question);
 		diary.appendChild(p_content);
+		diary.appendChild(p_question);
 	}
 }
 function remove_spreaded() {

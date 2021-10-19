@@ -353,8 +353,7 @@ const monthly_post = (req, res) => {
 		str_titles = titles;
 	else{
 		for(var i=0; i<titles.length; i++){
-			str_titles += titles[i];
-			console.log(str_titles);
+			str_titles += '☞ ' + titles[i];
 			if(i+1 != titles.length)
 			str_titles += key;
 		}
