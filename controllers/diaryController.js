@@ -41,7 +41,7 @@ function get_every_diary_of_month(y, m, user_id){
 		`, [user_id]);
 }
 
-function getDateName(year, month, day){
+function getDateName(year, month, day, type){
 	var a;
 	var b;
 	var c = Number(month);
@@ -72,6 +72,9 @@ function getDateName(year, month, day){
 		c = parseInt(c*(-1))+1;
 
 	answer = (a+b+c+d-1) % 7;
+
+	if(type == 'number')
+		return answer;
 
 	if(answer == 0)
 		return("일요일");
@@ -180,9 +183,9 @@ const read_and_write_daily = async (req, res) => {
 	get_writing_board_index(focused_index, today_index);
 	
 	const dates = [];
-	dates[0] = focused_year + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year, focused_month, focused_date);
-	dates[1] = (focused_year-1) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-1, focused_month, focused_date);
-	dates[2] = (focused_year-2) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-2, focused_month, focused_date);
+	dates[0] = focused_year + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year, focused_month, focused_date, 'string');
+	dates[1] = (focused_year-1) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-1, focused_month, focused_date, 'string');
+	dates[2] = (focused_year-2) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-2, focused_month, focused_date, 'string');
 
 	const regex_for_decode = /<br>/g;
 	const touched_content = [];
@@ -225,8 +228,11 @@ const pickup_game_monthly = async (req, res) => {
 	const focused_month = Number(req.query.month);
 	const focused_date = Number(req.query.date);
 	//get a name of day. the day of the first date of the month.
-	const init_day = getDateName(focused_year, focused_month, focused_date-focused_date+1);
+	const init_day = getDateName(focused_year, focused_month, focused_date-focused_date+1, 'number');
 	const last_date_of_month = new Date(focused_year, focused_month, 0).getDate();
+
+	console.log(init_day);
+	console.log(last_date_of_month);
 
 	const index = [user_id, focused_year, focused_month, focused_date, init_day, last_date_of_month];
 
