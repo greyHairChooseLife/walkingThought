@@ -73,8 +73,6 @@ function getDateName(year, month, day){
 
 	answer = (a+b+c+d-1) % 7;
 
-	return(answer);
-	/*
 	if(answer == 0)
 		return("일요일");
 	else if(answer == 1)
@@ -89,7 +87,6 @@ function getDateName(year, month, day){
 		return("금요일");
 	else if(answer == 6)
 		return("토요일");
-	*/
 }
 
 const read_and_write_daily = async (req, res) => {
@@ -112,19 +109,17 @@ const read_and_write_daily = async (req, res) => {
 
 
 	let db_obj = [];
-	for(var i=0; i<2; i++){
-		for(var j=0; j<4; j++){
-			let temp = await get_daily_diary(focused_year-j, focused_month, focused_date-i, user_id);
-			if(temp[0][0] == undefined){
-				temp[0][0] = {
-					created_date: null,
-					content: ``,
-					question: `기록이 없어요 :(`,
+	for(var j=0; j<3; j++){
+		let temp = await get_daily_diary(focused_year-j, focused_month, focused_date, user_id);
+		if(temp[0][0] == undefined){
+			temp[0][0] = {
+				created_date: null,
+				content: ``,
+				question: `기록이 없어요 :(`,
 
-				}
 			}
-			db_obj.push(temp[0][0]);
 		}
+		db_obj.push(temp[0][0]);
 	}
 //사람이 읽기 편한게 날짜 표시방식을 바꿔준다.
 	function convert_date(original) {
@@ -163,65 +158,46 @@ const read_and_write_daily = async (req, res) => {
 			writing_board_index = null;
 			return;
 		}
-		const date_gap = focused_index[2] - today_index[2];
-		switch (date_gap) {
-			case 0 :
-				writing_board_index = 'R';
-				break;
-			case 1 :
-				writing_board_index = 'L';
-				break;
+		if(focused_index[2] != today_index[2]){
+			writing_board_index = null;
+			return;
 		}
 		const year_gap = focused_index[0] - today_index[0];
 		switch (year_gap) {
 			case 0 :
-				writing_board_index += '4';
+				writing_board_index = 3;
 				break;
 			case 1 :
-				writing_board_index += '3';
+				writing_board_index = 2;
 				break;
 			case 2 :
-				writing_board_index += '2';
+				writing_board_index = 1;
 				break;
-			case 3 :
-				writing_board_index += '1';
-				break;
+			default :
+				writing_board_index = null;
 		}
 	}
 	get_writing_board_index(focused_index, today_index);
-	console.log(writing_board_index);
 	
+	const dates = [];
+	dates[0] = focused_year + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year, focused_month, focused_date);
+	dates[1] = (focused_year-1) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-1, focused_month, focused_date);
+	dates[2] = (focused_year-2) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-2, focused_month, focused_date);
 
 	const db_obj_ejs = {
-		L1_date : call_converted_date(convert_date(db_obj[7].created_date)),
-		L2_date : call_converted_date(convert_date(db_obj[6].created_date)),
-		L3_date : call_converted_date(convert_date(db_obj[5].created_date)),
-		L4_date : call_converted_date(convert_date(db_obj[4].created_date)),
- 
-		L1_content : db_obj[7].content,
-		L2_content : db_obj[6].content,
-		L3_content : db_obj[5].content,
-		L4_content : db_obj[4].content,
+		top_date : call_converted_date(convert_date(db_obj[2].created_date)),
+		mid_date : call_converted_date(convert_date(db_obj[1].created_date)),
+		bot_date : call_converted_date(convert_date(db_obj[0].created_date)),
+ 		
+		dates : dates,
 
-		L1_question : db_obj[7].question,
-		L2_question : db_obj[6].question,
-		L3_question : db_obj[5].question,
-		L4_question : db_obj[4].question,
+		top_content : db_obj[2].content,
+		mid_content : db_obj[1].content,
+		bot_content : db_obj[0].content,
 
-		R1_date : call_converted_date(convert_date(db_obj[3].created_date)),
-		R2_date : call_converted_date(convert_date(db_obj[2].created_date)),
-		R3_date : call_converted_date(convert_date(db_obj[1].created_date)),
-		R4_date : call_converted_date(convert_date(db_obj[0].created_date)),
- 
-		R1_content : db_obj[3].content,
-		R2_content : db_obj[2].content,
-		R3_content : db_obj[1].content,
-		R4_content : db_obj[0].content,
-
-		R1_question : db_obj[3].question,
-		R2_question : db_obj[2].question,
-		R3_question : db_obj[1].question,
-		R4_question : db_obj[0].question,
+		top_question : db_obj[2].question,
+		mid_question : db_obj[1].question,
+		bot_question : db_obj[0].question,
 
 		index_year: focused_year,
 		index_month: focused_month,

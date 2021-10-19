@@ -29,7 +29,7 @@ textarea {
 
 #drag_drop_section {
 	width: 90%;
-	height: 98%;
+	height: 100%;
 	background-color: transparent;
 	z-index: 100;
 }
@@ -193,19 +193,39 @@ textarea {
 
 
 
-.R-note {
+
+
+.L-note {
 	font-family: 'general';
-	font-size: 30px;
+	font-size: 25px;
 	position: absolute;
-	left: 25%;
-	width: 50%;
-	height: 28%;
-	background-color: rgba(89, 136, 107, 0.3);
+	left: 3%;
+	width: 38%;
+	height: 19%;
+	padding-left: 2%;
+	padding-top: 1%;
 	box-shadow: 5px 5px 10px #59886B;
 	transition: 0.1s;
 	cursor: pointer;
-	overflow: auto;
-	overflow-x: hidden;
+}
+.L-note:active {
+	margin-left: 5px;
+	margin-top: 5px;
+	box-shadow: none;
+
+}
+.R-note {
+	font-family: 'general';
+	font-size: 25px;
+	position: absolute;
+	left: 46%;
+	width: 38%;
+	height: 19%;
+	padding-left: 2%;
+	padding-top: 1%;
+	box-shadow: 5px 5px 10px #59886B;
+	transition: 0.1s;
+	cursor: pointer;
 }
 .R-note:active {
 	margin-left: 5px;
@@ -215,29 +235,40 @@ textarea {
 }
 
 
+#L1 {
+	top: 3%;
+}
+#L2 {
+	top: 27%;
+}
+#L3 {
+	top: 51%;
+}
+#L4 {
+	top: 75%;
+}
+#R1 {
+	top: 3%;
+}
 #R2 {
-	top: 5%;
+	top: 27%;
 }
 #R3 {
-	top: 36%;
+	top: 51%;
 }
 #R4 {
-	top: 67%;
+	top: 75%;
 }
 
 .date {
-	padding-top: 5%;
-	text-align: center;
 	color: grey;
 }
 .question {
-	padding: 4% 5% 5% 5%;
-	overflow: auto;
-	overflow-x: hidden;
+	padding-top: 6%;
 	text-shadow: 1px 1px 10px green;
 }
 .content {
-	padding: 2% 4% 4% 4%;
+	padding-top: 1%;
 }
 
 
@@ -247,14 +278,12 @@ textarea {
 	 * top, left properties set by js [writing_diary.js]
 	 * */
 
-	left: 25%;
-	width: 56%;
-	height: 28%;
-	display: none;
+	width: 45%;
+	height: 21%;
+	display: grid;
 	grid-template-columns: 9fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
-
-	
+	visibility: hidden;
 }
 
 
@@ -278,7 +307,7 @@ textarea {
 	border: none;
 	border-radius: 20px;
 	color: white;
-	transform: scale(1.04, 1.04);
+	transform: scale(1.1, 1.1);
 	transition: 0.5s;
 }
 
@@ -299,11 +328,11 @@ textarea {
 }
 
 #paragraph_title {
-	margin-top: 1%;
+	margin-top: 2%;
 	margin-left: 2%;
 	margin-right: 2%;
 	width: 96%; 
-	height: 22%;
+	height: 23%;
 
 	font-size: 18px;
 	background-color: transparent;
@@ -317,7 +346,7 @@ textarea {
 	margin-left: 2%;
 	margin-right: 2%;
 	width: 96%; 
-	height: 70%;
+	height: 72%;
 
 	font-size: 18px;
 	background-color: transparent;
@@ -331,7 +360,6 @@ textarea {
 
 
 #enlarge_button {
-	margin-left: 15%;
 	grid-column: 2/3;
 	grid-row: 1/2;
 
@@ -351,7 +379,6 @@ textarea {
 	font-size: 25px;
 }
 #post_diary_button {
-	margin-left: 15%;
 	grid-column: 2/3;
 	grid-row: 2/3;
 
@@ -371,7 +398,6 @@ textarea {
 }
 
 #cancel_button {
-	margin-left: 15%;
 	grid-column: 2/3;
 	grid-row: 3/4;
 
@@ -495,4 +521,3 @@ textarea {
 	border: none;
 	color: white;
 }
-

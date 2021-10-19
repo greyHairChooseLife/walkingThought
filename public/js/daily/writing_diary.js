@@ -97,37 +97,14 @@ post_diary_button.addEventListener('click', () => {
 
 // 보여줄 데이터의 index로 사용되는 쿼리스트링의 날짜와 오늘 날짜를 비교하여 일일일기 작성칸의 위치를 결정한다.
 switch (writing_board_index) {
-	case 'L1' :
-		writing_board_wrapper.style.top = '3%'
-		writing_board_wrapper.style.left = '3%'
+	case 1 :
+		writing_board_wrapper.style.top = '5%'
 		break;
-	case 'L2' :
-		writing_board_wrapper.style.top = '27%'
-		writing_board_wrapper.style.left = '3%'
+	case 2 :
+		writing_board_wrapper.style.top = '36%'
 		break;
-	case 'L3' :
-		writing_board_wrapper.style.top = '51%'
-		writing_board_wrapper.style.left = '3%'
-		break;
-	case 'L4' :
-		writing_board_wrapper.style.top = '75%'
-		writing_board_wrapper.style.left = '3%'
-		break;
-	case 'R1' :
-		writing_board_wrapper.style.top = '3%'
-		writing_board_wrapper.style.left = '46%'
-		break;
-	case 'R2' :
-		writing_board_wrapper.style.top = '27%'
-		writing_board_wrapper.style.left = '46%'
-		break;
-	case 'R3' :
-		writing_board_wrapper.style.top = '51%'
-		writing_board_wrapper.style.left = '46%'
-		break;
-	case 'R4' :
-		writing_board_wrapper.style.top = '75%'
-		writing_board_wrapper.style.left = '46%'
+	case 3 :
+		writing_board_wrapper.style.top = '67%'
 		break;
 }
 
