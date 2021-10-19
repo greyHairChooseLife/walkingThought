@@ -348,15 +348,26 @@ const monthly_post = (req, res) => {
 	let str_titles = '';
 	let str_contents = '';
 
-	for(var i=0; i<titles.length; i++){
-		str_titles += titles[i];
-		if(i+1 != titles.length)
-		str_titles += key;
+	// 같은 name을 통해 받은 input data가 여럿이라면 배열로 받는다. 그런데 단 하나라면 string으로 받는다. 따라서 req.body로 가져온 input data의 length를 활용하고 싶다면, 가져온 데이터의 타입이 배열인지 문자열인지 확인하는 과정이 반드시 필요하다.
+	if(Array.isArray(titles) == false)
+		str_titles = titles;
+	else{
+		for(var i=0; i<titles.length; i++){
+			str_titles += titles[i];
+			console.log(str_titles);
+			if(i+1 != titles.length)
+			str_titles += key;
+		}
 	}
-	for(var i=0; i<contents.length; i++){
-		str_contents += contents[i];
-		if(i+1 != contents.length)
-		str_contents += key;
+
+	if(Array.isArray(contents) == false)
+		str_contents = contents;
+	else{
+		for(var i=0; i<contents.length; i++){
+			str_contents += contents[i];
+			if(i+1 != contents.length)
+			str_contents += key;
+		}
 	}
 
 	db.query(`INSERT INTO diary (classes, question, content, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, str_titles, str_contents, user_id]);
