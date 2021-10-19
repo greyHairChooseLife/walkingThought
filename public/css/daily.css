@@ -427,7 +427,7 @@ textarea {
 
 #enlarged_paragraph_title {
 	position: absolute;
-	top: 20%;
+	top: 67%;
 	left: 20%;
 	font-size: 30px;
 	width: 45%;
@@ -443,7 +443,7 @@ textarea {
 }
 #enlarged_paragraph_content {
 	position: absolute;
-	top: 33%;
+	top: 20%;
 	left: 20%;
 	font-size: 30px;
 	width: 45%;

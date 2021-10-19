@@ -231,9 +231,6 @@ const pickup_game_monthly = async (req, res) => {
 	const init_day = getDateName(focused_year, focused_month, focused_date-focused_date+1, 'number');
 	const last_date_of_month = new Date(focused_year, focused_month, 0).getDate();
 
-	console.log(init_day);
-	console.log(last_date_of_month);
-
 	const index = [user_id, focused_year, focused_month, focused_date, init_day, last_date_of_month];
 
 	let calendar_data = await get_every_diary_of_month(focused_year, focused_month, user_id);
