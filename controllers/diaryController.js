@@ -184,6 +184,13 @@ const read_and_write_daily = async (req, res) => {
 	dates[1] = (focused_year-1) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-1, focused_month, focused_date);
 	dates[2] = (focused_year-2) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-2, focused_month, focused_date);
 
+	const regex_for_decode = /<br>/g;
+	const touched_content = [];
+	touched_content[0] = db_obj[0].content.replace(regex_for_decode, '\n');	//bot
+	touched_content[1] = db_obj[1].content.replace(regex_for_decode, '\n');	//mid
+	touched_content[2] = db_obj[2].content.replace(regex_for_decode, '\n');	//top
+
+
 	const db_obj_ejs = {
 		top_date : call_converted_date(convert_date(db_obj[2].created_date)),
 		mid_date : call_converted_date(convert_date(db_obj[1].created_date)),
@@ -191,9 +198,9 @@ const read_and_write_daily = async (req, res) => {
  		
 		dates : dates,
 
-		top_content : db_obj[2].content,
-		mid_content : db_obj[1].content,
-		bot_content : db_obj[0].content,
+		top_content : touched_content[2],
+		mid_content : touched_content[1],
+		bot_content : touched_content[0],
 
 		top_question : db_obj[2].question,
 		mid_question : db_obj[1].question,
@@ -317,7 +324,13 @@ const daily_post = (req, res) => {
 	const user_id = res.locals.user.id;
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
 
-	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, content, question, user_id]);
+	const regex_for_encode1 = /\r\n/g;	//ms-window
+	//const regex_for_encode2 = /\n/g;	//unix
+	//const regex_for_encode3 = /\r/g;	//mac
+
+	const touched_content = content.replace(regex_for_encode1, '<br>');
+
+	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, touched_content, question, user_id]);
 
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
 	res.redirect(307, `/diary/daily/${user_id}?year=${redirect_index[0]}&month=${redirect_index[1]}&date=${redirect_index[2]}`);

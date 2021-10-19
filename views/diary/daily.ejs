@@ -14,21 +14,20 @@
 <%- include("./parts_daily/remote_con.ejs") %>
 
 
-
 <div class="R-note" id="R2">
 	<div class="R2_class date" id="R2_date"><%= dates[2] %></div>
-	<div class="R2_class question" id="R2_question"><%= top_question %></div>
-	<div class="R2_class content" id="R2_content"><%= top_content %></div>
+	<pre class="R2_class question" id="R2_question"><%= top_question %></pre>
+	<pre class="R2_class content" id="R2_content"><%= top_content %></pre>
 </div>
 <div class="R-note" id="R3">
 	<div class="R3_class date" id="R3_date"><%= dates[1] %></div>
-	<div class="R3_class question" id="R3_question"><%= mid_question %></div>
-	<div class="R3_class content" id="R3_content"><%= mid_content %></div>
+	<pre class="R3_class question" id="R3_question"><%= mid_question %></pre>
+	<pre class="R3_class content" id="R3_content"><%= mid_content %></pre>
 </div>
 <div class="R-note" id="R4">
 	<div class="R4_class date" id="R4_date"><%= dates[0] %></div>
-	<div class="R4_class question" id="R4_question"><%= bot_question %></div>
-	<div class="R4_class content" id="R4_content"><%= bot_content %></div>
+	<pre class="R4_class question" id="R4_question"><%= bot_question %></pre>
+	<pre class="R4_class content" id="R4_content"><%= bot_content %></pre>
 </div>
 
 <%- include("./parts_daily/writing_form.ejs") %>
