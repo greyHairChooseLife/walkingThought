@@ -37,6 +37,79 @@ textarea {
 	display: none;
 }
 
+.pickup_paragraph_content {
+	position: relative;
+	left: 20%;
+	width: 60%;
+	background-color: rgba(89, 136, 107, 0.15);
+	border: none;
+	border-radius: 20px;
+	margin-top: 20px;
+	padding: 30px 20px;
+	font-size: 32px;
+	font-family: 'general';
+	white-space: pre-wrap;
+	color: #515f69;
+}
+#pickup_paragraph_content_0 {
+	margin-top: 5%;
+}
+.pickup_paragraph_title {
+	position: relative;
+	left: 20%;
+	width: 60%;
+	border: none;
+	text-shadow: 5px 5px 10px #59886B;
+	font-size: 32px;
+	padding: 0px 20px 0px 40px;
+	font-family: 'general';
+	white-space: pre-wrap;
+	margin-bottom: 0;
+}
+.pickup_paragraph_date {
+	position: relative;
+	left: 20%;
+	width: 60%;
+	border: none;
+	font-size: 32px;
+	padding: 0px 20px 0px 80px;
+	font-family: 'general';
+	color: #515f69;
+	margin-top: 10px;
+}
+.pickup_paragraph_coment {
+	position: relative;
+	left: 20%;
+	width: 60%;
+	border: 1px solid #59886B;
+	padding: 15px;
+	font-size: 32px;
+	font-family: 'general';
+	color: ;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .paragraph_title {
 	position: absolute;
 	width: 40%;
@@ -55,6 +128,8 @@ textarea {
 	font-family: 'general';
 }
 
+/*
+ * not in use
 #paragraph_title_0{
 	left: 5%;
 	top: 5%;
@@ -122,27 +197,34 @@ textarea {
 	left: 47%;
 	top: 81%;
 }
+*/
 
 #add_more {
 	position: absolute;
 	background-color: transparent;
 	border: 2px dashed #59886B;
-	font-size: 30px;
 	font-family: 'general';
 	text-align: center;
 	width: 39.5%;
 	height: 21%;
 	left: 5%;
 	top: 5%;
+	font-size: 40px;
+	padding-top: 10px;
+}
+.small_word {
+	padding-top: 20px;
+	font-size: 25px;
+}
+.big_word {
+	font-size: 40px;
+	margin-top: 10px;
 }
 #add_more_new {
 	background-color: transparent;
 	border: 2px dashed #59886B;
-	font-size: 30px;
-	font-family: 'general';
-	text-align: center;
 	width: 48%;
-	height: 60%;
+	height: 50%;
 	position: absolute;
 	top: 30%;
 	right: 1%;
@@ -151,11 +233,8 @@ textarea {
 #add_more_old {
 	background-color: transparent;
 	border: 2px dashed #59886B;
-	font-size: 30px;
-	font-family: 'general';
-	text-align: center;
 	width: 48%;
-	height: 60%;
+	height: 50%;
 	position: absolute;
 	top: 30%;
 	left: 1%;

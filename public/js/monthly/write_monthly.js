@@ -16,31 +16,29 @@ let counter_pickup_arr = 5;
 
 let number_of_paragraph = 0;
 let type_of_paragraph;
-let tag_title;
-let tag_textarea;
-let tag_hidden;
+
+let tag_maker;
 
 
 add_more_new.addEventListener('click', () => {
 	type_of_paragraph = 'addtion';
 	if(number_of_paragraph < 8){
-		tag_title = document.createElement('input');
-		tag_title.setAttribute("class", "paragraph_title");
-		tag_title.setAttribute("id", "paragraph_title_"+number_of_paragraph);
-		tag_title.setAttribute("type", "text");
-		tag_title.setAttribute("name", "titles");
-		tag_title.setAttribute("placeholder", "제목을 입력하십시오.");
+		tag_maker = document.createElement('input');
+		tag_maker.setAttribute("class", "paragraph_title");
+		tag_maker.setAttribute("id", "paragraph_title_"+number_of_paragraph);
+		tag_maker.setAttribute("type", "text");
+		tag_maker.setAttribute("name", "titles");
+		tag_maker.setAttribute("placeholder", "제목을 입력하십시오.");
+		writing_board.appendChild(tag_maker);
 
-		tag_textarea = document.createElement('textarea');
-		tag_textarea.setAttribute("class", "paragraph_content");
-		tag_textarea.setAttribute("id", "paragraph_content_"+number_of_paragraph);
-		tag_textarea.setAttribute("name", "contents");
-		tag_textarea.setAttribute("placeholder", "내용을 입력하세요.");
-		tag_textarea.setAttribute("cols", "68");
-		tag_textarea.setAttribute("rows", "5");
+		tag_maker = document.createElement('textarea');
+		tag_maker.setAttribute("class", "paragraph_content");
+		tag_maker.setAttribute("id", "paragraph_content_"+number_of_paragraph);
+		tag_maker.setAttribute("name", "contents");
+		tag_maker.setAttribute("placeholder", "내용을 입력하세요.");
+		tag_maker.setAttribute("cols", "68");
+		writing_board.appendChild(tag_maker);
 
-		writing_board.appendChild(tag_title);
-		writing_board.appendChild(tag_textarea);
 
 		document.getElementById('paragraph_title_'+number_of_paragraph).focus();
 //		document.getElementById('paragraph_title_'+number_of_paragraph).addEventListener('click', () => {
@@ -89,7 +87,7 @@ add_more_new.addEventListener('click', () => {
 add_more_old.addEventListener('click', () => {
 	if(counter_pickup_arr > 0){
 		pickup_list_container.style.display = 'block';
-		add_more_old.innerHTML = '가져온 질문들(' + (counter_pickup_arr-1) + ')';
+		add_more_old.innerHTML = '가져온 일간 생각에,<p class="big_word">덧붙이기(' + (counter_pickup_arr-1) +  ')</p>'
 	}
 })
 
@@ -112,28 +110,45 @@ for(var i=0; i<pickup_list.length; i++){
 		pickup_arr[m].addEventListener('click', () => {
 			type_of_paragraph = 'pickup';
 			if(number_of_paragraph < 8){
-				tag_title = document.createElement('div');
-				tag_title.setAttribute("class", "paragraph_title");
-				tag_title.setAttribute("id", "paragraph_title_"+number_of_paragraph);
-				tag_title.innerHTML = pickup_list[m][0].question;
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class", "pickup_paragraph_content");
+				tag_maker.setAttribute("id", "pickup_paragraph_content_"+number_of_paragraph);
+				tag_maker.innerHTML = pickup_list[m][0].content;
+				writing_board.appendChild(tag_maker);
 
-				tag_textarea = document.createElement('textarea');
-				tag_textarea.setAttribute("class", "paragraph_content");
-				tag_textarea.setAttribute("id", "paragraph_content_"+number_of_paragraph);
-				tag_textarea.setAttribute("name", "contents");
-				tag_textarea.setAttribute("placeholder", "내용을 입력하세요.");
-				tag_textarea.setAttribute("cols", "68");
-				tag_textarea.setAttribute("rows", "5");
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class", "pickup_paragraph_title");
+				tag_maker.setAttribute("id", "pickup_paragraph_title_"+number_of_paragraph);
+				tag_maker.innerHTML = '☞ ' + pickup_list[m][0].question;
+				writing_board.appendChild(tag_maker);
 
-				tag_hidden = document.createElement('input');
-				tag_hidden.setAttribute("type", "hidden");
-				tag_hidden.setAttribute("name", "titles");
-				tag_hidden.setAttribute("value", pickup_list[m][0].question);
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class", "pickup_paragraph_date");
+				tag_maker.setAttribute("id", "pickup_paragraph_date_"+number_of_paragraph);
+				let date_ = pickup_list[m][0].created_date.split('T');
+				tag_maker.innerHTML = date_[0];
+				writing_board.appendChild(tag_maker);
 
-				writing_board.appendChild(tag_title);
-				writing_board.appendChild(tag_textarea);
-				writing_board.appendChild(tag_hidden);
-				document.getElementById('paragraph_content_'+number_of_paragraph).focus();
+				tag_maker = document.createElement('textarea');
+				tag_maker.setAttribute("class", "pickup_paragraph_coment");
+				tag_maker.setAttribute("id", "pickup_paragraph_coment"+number_of_paragraph);
+				tag_maker.setAttribute("onkeydown", "alert('hello')");
+				tag_maker.setAttribute("name", "coments");
+				tag_maker.setAttribute("placeholder", "내용을 입력하세요.");
+				writing_board.appendChild(tag_maker);
+
+				tag_maker = document.createElement('input');
+				tag_maker.setAttribute("type", "hidden");
+				tag_maker.setAttribute("name", "titles");
+				tag_maker.setAttribute("value", pickup_list[m][0].question);
+
+
+				tag_maker = document.createElement('input');
+				tag_maker.setAttribute("type", "hidden");
+				tag_maker.setAttribute("name", "contents");
+				tag_maker.setAttribute("value", pickup_list[m][0].content);
+
+				//document.getElementById('old_paragraph_content_'+number_of_paragraph).focus();
 
 				switch(number_of_paragraph){
 					case 0:
