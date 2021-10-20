@@ -104,6 +104,10 @@ add_more_old.addEventListener('mouseleave', () => {
 	add_more_old.style.backgroundColor = 'transparent';
 })
 
+function resize(obj){
+	obj.style.height = '1px';
+	obj.style.height = (50 + obj.scrollHeight) + 'px';
+}
 
 for(var i=0; i<pickup_list.length; i++){
 	(function(m){
@@ -132,9 +136,9 @@ for(var i=0; i<pickup_list.length; i++){
 				tag_maker = document.createElement('textarea');
 				tag_maker.setAttribute("class", "pickup_paragraph_coment");
 				tag_maker.setAttribute("id", "pickup_paragraph_coment"+number_of_paragraph);
-				tag_maker.setAttribute("onkeydown", "alert('hello')");
+				tag_maker.setAttribute("onkeydown", "resize(this)");
 				tag_maker.setAttribute("name", "coments");
-				tag_maker.setAttribute("placeholder", "내용을 입력하세요.");
+				tag_maker.setAttribute("placeholder", "지금 읽어보기엔 어떤가요? 여전한가요, 달리 보이나요?");
 				writing_board.appendChild(tag_maker);
 
 				tag_maker = document.createElement('input');
