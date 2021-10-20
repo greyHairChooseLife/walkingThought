@@ -24,18 +24,68 @@ textarea {
 	resize: none;
 }
 
-#pickup_list_container {
-	width: 70%;
-	height: 60%;
-	background-color: rgba(89, 136, 107, 0.7);
-	position: absolute;
-	left: 15%;
-	top: 20%;
+#add_more {
+	position: relative;
+	top: 5%;
+	left: 30%;
+	background-color: transparent;
+	border: 4px double #59886B;
 	font-family: 'general';
-	font-size: 30px;
 	text-align: center;
-	display: none;
+	width: 39.5%;
+	height: 30%;
+	font-size: 40px;
+	padding-top: 20px;
 }
+.small_word {
+	padding-top: 20px;
+	font-size: 25px;
+}
+.big_word {
+	font-size: 40px;
+	margin-top: 10px;
+}
+#add_more_new {
+	background-color: transparent;
+	border: 2px dotted #59886B;
+	width: 48%;
+	height: 35%;
+	position: absolute;
+	top: 25%;
+	right: 1%;
+	cursor: pointer;
+}
+#add_more_new:hover {
+	background-color: rgba(89, 136, 107, 0.2);
+}
+#add_more_old {
+	background-color: transparent;
+	border: 2px dotted #59886B;
+	width: 48%;
+	height: 35%;
+	position: absolute;
+	top: 25%;
+	left: 1%;
+	cursor: pointer;
+}
+#add_more_old:hover {
+	background-color: rgba(89, 136, 107, 0.2);
+}
+#submit_button {
+	background-color: transparent;
+	border: 2px solid #59886B;
+	width: 97.5%;
+	height: 20%;
+	position: absolute;
+	top: 67%;
+	left: 1%;
+	cursor: pointer;
+	padding-top: 15px;
+}
+#submit_button:hover {
+	background-color: #59886B;
+}
+
 
 .pickup_paragraph_content {
 	position: relative;
@@ -65,6 +115,7 @@ textarea {
 	font-family: 'general';
 	white-space: pre-wrap;
 	margin-bottom: 0;
+	color: #515f69;
 }
 .pickup_paragraph_date {
 	position: relative;
@@ -82,13 +133,25 @@ textarea {
 	left: 20%;
 	width: 56%;
 	height: 100px;
-	border: 3px dashed #59886B;
+	border: 2px dashed #59886B;
 	margin-left: 77px;
 	font-size: 32px;
 	font-family: 'general';
 	color: ;
 }
 
+#pickup_list_container {
+	width: 70%;
+	height: 60%;
+	background-color: rgba(89, 136, 107, 0.7);
+	position: absolute;
+	left: 15%;
+	top: 20%;
+	font-family: 'general';
+	font-size: 30px;
+	text-align: center;
+	display: none;
+}
 
 
 
@@ -127,119 +190,6 @@ textarea {
 	border: none;
 	font-size: 30px;
 	font-family: 'general';
-}
-
-/*
- * not in use
-#paragraph_title_0{
-	left: 5%;
-	top: 5%;
-}
-#paragraph_title_1{
-	left: 5%;
-	top: 29%;
-}
-#paragraph_title_2{
-	left: 5%;
-	top: 53%;
-}
-#paragraph_title_3{
-	left: 5%;
-	top: 77%;
-}
-
-#paragraph_title_4{
-	left: 47%;
-	top: 5%;
-}
-#paragraph_title_5{
-	left: 47%;
-	top: 29%;
-}
-#paragraph_title_6{
-	left: 47%;
-	top: 53%;
-}
-#paragraph_title_7{
-	left: 47%;
-	top: 77%;
-}
-
-#paragraph_content_0{
-	left: 5%;
-	top: 9%;
-}
-#paragraph_content_1 {
-	left: 5%;
-	top: 33%;
-}
-#paragraph_content_2 {
-	left: 5%;
-	top: 57%;
-}
-#paragraph_content_3 {
-	left: 5%;
-	top: 81%;
-}
-
-#paragraph_content_4{
-	left: 47%;
-	top: 9%;
-}
-#paragraph_content_5 {
-	left: 47%;
-	top: 33%;
-}
-#paragraph_content_6 {
-	left: 47%;
-	top: 57%;
-}
-#paragraph_content_7 {
-	left: 47%;
-	top: 81%;
-}
-*/
-
-#add_more {
-	position: absolute;
-	background-color: transparent;
-	border: 2px dashed #59886B;
-	font-family: 'general';
-	text-align: center;
-	width: 39.5%;
-	height: 21%;
-	left: 5%;
-	top: 5%;
-	font-size: 40px;
-	padding-top: 10px;
-}
-.small_word {
-	padding-top: 20px;
-	font-size: 25px;
-}
-.big_word {
-	font-size: 40px;
-	margin-top: 10px;
-}
-#add_more_new {
-	background-color: transparent;
-	border: 2px dashed #59886B;
-	width: 48%;
-	height: 50%;
-	position: absolute;
-	top: 30%;
-	right: 1%;
-	cursor: pointer;
-}
-#add_more_old {
-	background-color: transparent;
-	border: 2px dashed #59886B;
-	width: 48%;
-	height: 50%;
-	position: absolute;
-	top: 30%;
-	left: 1%;
-	cursor: pointer;
 }
 
 

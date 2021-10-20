@@ -3,7 +3,7 @@ const add_more = document.getElementById('add_more');
 const add_more_new = document.getElementById('add_more_new');
 const add_more_old = document.getElementById('add_more_old');
 const pickup_list_container = document.getElementById('pickup_list_container');
-const diary_submit = document.getElementById('diary_submit');
+const diary_submit = document.getElementById('submit_button');
 
 const question0 = document.getElementById('question0');
 const question1 = document.getElementById('question1');
@@ -91,19 +91,6 @@ add_more_old.addEventListener('click', () => {
 	}
 })
 
-add_more_new.addEventListener('mouseenter', () => {
-	add_more_new.style.backgroundColor = 'rgba(89, 136, 107, 0.2)';
-})
-add_more_new.addEventListener('mouseleave', () => {
-	add_more_new.style.backgroundColor = 'transparent';
-})
-add_more_old.addEventListener('mouseenter', () => {
-	add_more_old.style.backgroundColor = 'rgba(89, 136, 107, 0.2)';
-})
-add_more_old.addEventListener('mouseleave', () => {
-	add_more_old.style.backgroundColor = 'transparent';
-})
-
 function resize(obj){
 	obj.style.height = '1px';
 	obj.style.height = (50 + obj.scrollHeight) + 'px';
@@ -135,7 +122,7 @@ for(var i=0; i<pickup_list.length; i++){
 
 				tag_maker = document.createElement('textarea');
 				tag_maker.setAttribute("class", "pickup_paragraph_coment");
-				tag_maker.setAttribute("id", "pickup_paragraph_coment"+number_of_paragraph);
+				tag_maker.setAttribute("id", "pickup_paragraph_coment_"+number_of_paragraph);
 				tag_maker.setAttribute("onkeydown", "resize(this)");
 				tag_maker.setAttribute("name", "coments");
 				tag_maker.setAttribute("placeholder", "지금 읽어보기엔 어떤가요? 여전한가요, 달리 보이나요?");
@@ -152,38 +139,8 @@ for(var i=0; i<pickup_list.length; i++){
 				tag_maker.setAttribute("name", "contents");
 				tag_maker.setAttribute("value", pickup_list[m][0].content);
 
-				//document.getElementById('old_paragraph_content_'+number_of_paragraph).focus();
+				document.getElementById('pickup_paragraph_coment_'+number_of_paragraph).focus();
 
-				switch(number_of_paragraph){
-					case 0:
-						add_more.style.left = "5%";
-						add_more.style.top = "29%";
-						break;
-					case 1:
-						add_more.style.left = "5%";
-						add_more.style.top = "53%";
-						break;
-					case 2:
-						add_more.style.left = "5%";
-						add_more.style.top = "77%";
-						break;
-					case 3:
-						add_more.style.left = "47%";
-						add_more.style.top = "5%";
-						break;
-					case 4:
-						add_more.style.left = "47%";
-						add_more.style.top = "29%";
-						break;
-					case 5:
-						add_more.style.left = "47%";
-						add_more.style.top = "53%";
-						break;
-					case 6:
-						add_more.style.left = "47%";
-						add_more.style.top = "77%";
-						break;
-				}
 				pickup_arr[m].remove();
 				counter_pickup_arr--;
 				number_of_paragraph++;
