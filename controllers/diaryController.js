@@ -297,10 +297,10 @@ const read_monthly = async (req, res) => {
 		
 		if(temp[0][0] == undefined){
 			temp[0][0] = {
-				created_date: `기록이 없어요 :(`,
+				created_date: ``,
 				content: ``,
 				question: `기록이 없어요 :(`,
-				forgot: true,
+				coment: ``,
 			}
 		}
 		raw_db_obj.push(temp[0][0]);
@@ -311,6 +311,7 @@ const read_monthly = async (req, res) => {
 	for(var i=0; i<raw_db_obj.length; i++){
 		raw_db_obj[i].question = raw_db_obj[i].question.split(key);
 		raw_db_obj[i].content = raw_db_obj[i].content.split(key);
+		raw_db_obj[i].coment = raw_db_obj[i].coment.split(key);
 	}
 
 	const obj_ejs = {
@@ -344,15 +345,18 @@ const monthly_post = (req, res) => {
 	const classes = 'm';
 	const user_id = res.locals.user.id;
 
-	const { titles, contents } = req.body;
+	const { titles, contents, coments } = req.body;
+
 	let str_titles = '';
 	let str_contents = '';
+	let str_coments = '';
 
 	// 같은 name을 통해 받은 input data가 여럿이라면 배열로 받는다. 그런데 단 하나라면 string으로 받는다. 따라서 req.body로 가져온 input data의 length를 활용하고 싶다면, 가져온 데이터의 타입이 배열인지 문자열인지 확인하는 과정이 반드시 필요하다.
 	if(Array.isArray(titles) == false)
 		str_titles = titles;
 	else{
 		for(var i=0; i<titles.length; i++){
+			//str_titles += '☞ ' + titles[i];     apply this act at reading section
 			str_titles += '☞ ' + titles[i];
 			if(i+1 != titles.length)
 			str_titles += key;
@@ -369,11 +373,20 @@ const monthly_post = (req, res) => {
 		}
 	}
 
-	db.query(`INSERT INTO diary (classes, question, content, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, str_titles, str_contents, user_id]);
+	if(Array.isArray(coments) == false)
+		str_coments = coments;
+	else{
+		for(var i=0; i<coments.length; i++){
+			str_coments += coments[i];
+			if(i+1 != coments.length)
+			str_coments += key;
+		}
+	}
+
+	db.query(`INSERT INTO diary (classes, question, content, coment, user_id, created_date) VALUES (?, ?, ?, ?, ?, NOW())`, [classes, str_titles, str_contents, str_coments, user_id]);
 	
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1];
 	
-	//without first argument 307, redirect askes GET method. 307 make it POST method.
 	res.redirect(307, `/diary/read_monthly?year=${redirect_index[0]}&month=${redirect_index[1]}`);
 };
 

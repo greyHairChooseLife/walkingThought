@@ -70,6 +70,7 @@ month_down.addEventListener('mouseleave', () => {
 const diary = document.getElementById('diary');
 let p_question;
 let p_content;
+let p_coment;
 
 let focused_period = index[2];
 let how_many_paragraph = db_obj[focused_period-1].question.length;
@@ -106,8 +107,14 @@ function spread_diary(how_many_paragraph) {
 		p_content.setAttribute("class","p_content");
 		p_content.innerText = db_obj[focused_period-1].content[i];
 
+		p_coment = document.createElement('div');
+		p_coment.setAttribute("id","cm"+i);
+		p_coment.setAttribute("class","p_coment");
+		p_coment.innerText = db_obj[focused_period-1].coment[i];
+
 		diary.appendChild(p_content);
 		diary.appendChild(p_question);
+		diary.appendChild(p_coment);
 	}
 }
 function remove_spreaded() {
