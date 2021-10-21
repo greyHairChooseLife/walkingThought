@@ -19,11 +19,27 @@ let type_of_paragraph;
 
 let tag_maker;
 
+let abc;
+function del_paragraph(obj){
+	const what_to_delete = obj.className.split(' ')[1];
+	const del_arr = document.getElementsByClassName(what_to_delete);
+	abc = del_arr.length;
+	while(del_arr[0] != undefined)
+		del_arr[0].remove();
+	number_of_paragraph--;
+}
 
 add_more_new.addEventListener('click', () => {
 	type_of_paragraph = 'addtion';
+
+	tag_maker = document.createElement('div');
+	tag_maker.setAttribute("class", `new_cancel new_del_index_${number_of_paragraph}`);
+	tag_maker.setAttribute("onclick", "del_paragraph(this)");
+	tag_maker.innerHTML = "취소";
+	writing_board.appendChild(tag_maker);
+
 	tag_maker = document.createElement('textarea');
-	tag_maker.setAttribute("class", "new_paragraph_coment");
+	tag_maker.setAttribute("class", `new_paragraph_coment new_del_index_${number_of_paragraph}`);
 	tag_maker.setAttribute("id", "new_paragraph_coment_"+number_of_paragraph);
 	tag_maker.setAttribute("onkeydown", "resize(this)");
 	tag_maker.setAttribute("name", "coments");
@@ -31,12 +47,14 @@ add_more_new.addEventListener('click', () => {
 	writing_board.appendChild(tag_maker);
 
 	tag_maker = document.createElement('input');
+	tag_maker.setAttribute("class", `new_del_index_${number_of_paragraph}`);
 	tag_maker.setAttribute("type", "hidden");
 	tag_maker.setAttribute("name", "titles");
 	tag_maker.setAttribute("value", "");
 	writing_board.appendChild(tag_maker);
 
 	tag_maker = document.createElement('input');
+	tag_maker.setAttribute("class", `new_del_index_${number_of_paragraph}`);
 	tag_maker.setAttribute("type", "hidden");
 	tag_maker.setAttribute("name", "contents");
 	tag_maker.setAttribute("value", "");

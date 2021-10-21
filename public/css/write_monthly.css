@@ -101,9 +101,6 @@ textarea {
 	white-space: pre-wrap;
 	color: #515f69;
 }
-#pickup_paragraph_content_0 {
-	margin-top: 150px;
-}
 .pickup_paragraph_title {
 	position: relative;
 	left: 20%;
@@ -153,8 +150,24 @@ textarea {
 	font-family: 'general';
 	padding: 30px 20px;
 }
-#new_paragraph_coment_0 {
-	margin-top: 150px;
+.new_cancel {
+	width: 5%;
+	position: relative;
+	left: 78%;
+	top: 103px;
+	background-color: rgba(89, 136, 107, 1);
+	border-radius: 3px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	font-size: 32px;
+	font-family: 'general';
+}
+.new_cancel:hover {
+	background-color: rgba(89, 136, 107, 0.3);
+	color: black;
 }
 
 #pickup_list_container {
