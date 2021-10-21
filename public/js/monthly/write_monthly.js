@@ -16,17 +16,25 @@ let counter_pickup_arr = 5;
 
 let number_of_paragraph = 0;
 let type_of_paragraph;
+let temp_element_pickup_arr = [];
 
 let tag_maker;
 
-let abc;
-function del_paragraph(obj){
+function del_new_paragraph(obj){
 	const what_to_delete = obj.className.split(' ')[1];
 	const del_arr = document.getElementsByClassName(what_to_delete);
-	abc = del_arr.length;
 	while(del_arr[0] != undefined)
 		del_arr[0].remove();
 	number_of_paragraph--;
+}
+function del_pickup_paragraph(obj, number){
+	const what_to_delete = obj.className.split(' ')[1];
+	const del_arr = document.getElementsByClassName(what_to_delete);
+	while(del_arr[0] != undefined)
+		del_arr[0].remove();
+	number_of_paragraph--;
+	add_more_old.innerHTML = '가져온 일간 생각에,<p class="big_word">덧붙이기(' + (++counter_pickup_arr) +  ')</p>'
+	pickup_list_container.appendChild(temp_element_pickup_arr[number]);
 }
 
 add_more_new.addEventListener('click', () => {
@@ -34,7 +42,7 @@ add_more_new.addEventListener('click', () => {
 
 	tag_maker = document.createElement('div');
 	tag_maker.setAttribute("class", `new_cancel new_del_index_${number_of_paragraph}`);
-	tag_maker.setAttribute("onclick", "del_paragraph(this)");
+	tag_maker.setAttribute("onclick", "del_new_paragraph(this)");
 	tag_maker.innerHTML = "취소";
 	writing_board.appendChild(tag_maker);
 
@@ -72,9 +80,8 @@ add_more_old.addEventListener('click', () => {
 	} 
 });
 add_more_old.addEventListener('mouseenter', () => {
-	if(counter_pickup_arr == 0){
+	if(counter_pickup_arr == 0)
 		add_more_old.style.cursor = 'not-allowed';
-	}
 });
 pickup_list_container_cancel.addEventListener('click', () => {
 	pickup_list_container.style.display = 'none';
@@ -90,27 +97,34 @@ for(var i=0; i<pickup_list.length; i++){
 	(function(m){
 		pickup_arr[m].addEventListener('click', () => {
 			type_of_paragraph = 'pickup';
+			
 			tag_maker = document.createElement('pre');
-			tag_maker.setAttribute("class", "pickup_paragraph_content");
+			tag_maker.setAttribute("class", `pickup_paragraph_content pickup_del_index_${number_of_paragraph}`);
 			tag_maker.setAttribute("id", "pickup_paragraph_content_"+number_of_paragraph);
 			tag_maker.innerHTML = pickup_list[m][0].content;
 			writing_board.appendChild(tag_maker);
 
 			tag_maker = document.createElement('pre');
-			tag_maker.setAttribute("class", "pickup_paragraph_title");
+			tag_maker.setAttribute("class", `pickup_paragraph_title pickup_del_index_${number_of_paragraph}`);
 			tag_maker.setAttribute("id", "pickup_paragraph_title_"+number_of_paragraph);
 			tag_maker.innerHTML = '☞ ' + pickup_list[m][0].question;
 			writing_board.appendChild(tag_maker);
 
 			tag_maker = document.createElement('pre');
-			tag_maker.setAttribute("class", "pickup_paragraph_date");
+			tag_maker.setAttribute("class", `pickup_paragraph_date pickup_del_index_${number_of_paragraph}`);
 			tag_maker.setAttribute("id", "pickup_paragraph_date_"+number_of_paragraph);
 			let date_ = pickup_list[m][0].created_date.split('T');
 			tag_maker.innerHTML = date_[0];
 			writing_board.appendChild(tag_maker);
 
+			tag_maker = document.createElement('div');
+			tag_maker.setAttribute("class", `pickup_cancel pickup_del_index_${number_of_paragraph}`);
+			tag_maker.setAttribute("onclick", `del_pickup_paragraph(this, ${m})`);
+			tag_maker.innerHTML = "취소";
+			writing_board.appendChild(tag_maker);
+
 			tag_maker = document.createElement('textarea');
-			tag_maker.setAttribute("class", "pickup_paragraph_coment");
+			tag_maker.setAttribute("class", `pickup_paragraph_coment pickup_del_index_${number_of_paragraph}`);
 			tag_maker.setAttribute("id", "pickup_paragraph_coment_"+number_of_paragraph);
 			tag_maker.setAttribute("onkeydown", "resize(this)");
 			tag_maker.setAttribute("name", "coments");
@@ -118,6 +132,7 @@ for(var i=0; i<pickup_list.length; i++){
 			writing_board.appendChild(tag_maker);
 
 			tag_maker = document.createElement('input');
+			tag_maker.setAttribute("class", `pickup_del_index_${number_of_paragraph}`);
 			tag_maker.setAttribute("type", "hidden");
 			tag_maker.setAttribute("name", "titles");
 			tag_maker.setAttribute("value", pickup_list[m][0].question);
@@ -125,6 +140,7 @@ for(var i=0; i<pickup_list.length; i++){
 
 
 			tag_maker = document.createElement('input');
+			tag_maker.setAttribute("class", `pickup_del_index_${number_of_paragraph}`);
 			tag_maker.setAttribute("type", "hidden");
 			tag_maker.setAttribute("name", "contents");
 			tag_maker.setAttribute("value", pickup_list[m][0].content);
@@ -132,6 +148,7 @@ for(var i=0; i<pickup_list.length; i++){
 
 			document.getElementById('pickup_paragraph_coment_'+number_of_paragraph).focus();
 
+			temp_element_pickup_arr[m] = pickup_arr[m];
 			pickup_arr[m].remove();
 			counter_pickup_arr--;
 			number_of_paragraph++;

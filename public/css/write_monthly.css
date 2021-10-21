@@ -136,7 +136,25 @@ textarea {
 	margin-left: 77px;
 	font-size: 32px;
 	font-family: 'general';
-	color: ;
+}
+.pickup_cancel {
+	width: 5%;
+	position: relative;
+	left: 72%;
+	top: 53px;
+	background-color: rgba(89, 136, 107, 1);
+	border-radius: 3px;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	text-align: center;
+	color: white;
+	cursor: pointer;
+	font-size: 32px;
+	font-family: 'general';
+}
+.pickup_cancel:hover {
+	background-color: rgba(89, 136, 107, 0.3);
+	color: black;
 }
 
 .new_paragraph_coment {
