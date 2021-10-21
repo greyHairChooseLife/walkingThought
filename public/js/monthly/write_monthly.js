@@ -4,7 +4,7 @@ const add_more_new = document.getElementById('add_more_new');
 const add_more_old = document.getElementById('add_more_old');
 const pickup_list_container = document.getElementById('pickup_list_container');
 const diary_submit = document.getElementById('submit_button');
-
+const pickup_list_container_cancel = document.getElementById('pickup_list_container_cancel');
 const question0 = document.getElementById('question0');
 const question1 = document.getElementById('question1');
 const question2 = document.getElementById('question2');
@@ -52,12 +52,16 @@ add_more_old.addEventListener('click', () => {
 		pickup_list_container.style.display = 'block';
 		add_more_old.innerHTML = '가져온 일간 생각에,<p class="big_word">덧붙이기(' + (counter_pickup_arr-1) +  ')</p>'
 	} 
-})
+});
 add_more_old.addEventListener('mouseenter', () => {
 	if(counter_pickup_arr == 0){
 		add_more_old.style.cursor = 'not-allowed';
 	}
-})
+});
+pickup_list_container_cancel.addEventListener('click', () => {
+	pickup_list_container.style.display = 'none';
+	add_more_old.innerHTML = '가져온 일간 생각에,<p class="big_word">덧붙이기(' + (counter_pickup_arr) +  ')</p>'
+});
 
 function resize(obj){
 	obj.style.height = '1px';

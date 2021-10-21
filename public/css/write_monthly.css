@@ -169,6 +169,7 @@ textarea {
 	text-align: center;
 	padding-top: 50px;
 	display: none;
+	border-radius: 3px;
 }
 .pickuped_list {
 	cursor: pointer;
@@ -177,9 +178,24 @@ textarea {
 	background-color: rgba(255, 255, 255, 0.5);
 	height: 7%;
 }
-
 .pickuped_list:hover {
 	background-color: white;
+}
+#pickup_list_container_cancel {
+	position: absolute;
+	left: 101%;
+	top: 0%;
+	width: 5%;
+	background-color: rgba(89, 136, 107, 1);
+	border-radius: 3px;
+	padding-top: 13px;
+	padding-bottom: 13px;
+	color: white;
+	cursor: pointer;
+}
+#pickup_list_container_cancel:hover {
+	background-color: rgba(89, 136, 107, 0.3);
+	color: black;
 }
 
 
