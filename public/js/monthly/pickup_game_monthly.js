@@ -125,6 +125,7 @@ function show_answer_arr(length){
 
 start_button.addEventListener('click', () => {
 	start_button.style.display = 'none';
+	how_many_question_left.style.display = 'none';
 	left.style.display = 'block';
 	right.style.display = 'block';
 
@@ -148,6 +149,7 @@ left.addEventListener('click', () => {
 	} else {
 		answer_arr.push(temp_arr[0]);
 		show_answer_arr(answer_arr.length);
+		how_many_question_left.style.display = 'block';
 		if(answer_arr.length < how_many_questions){
 			start_button.style.display = 'block';
 			left.style.display = 'none';
@@ -178,6 +180,7 @@ right.addEventListener('click', () => {
 	} else {
 		answer_arr.push(temp_arr[0]);
 		show_answer_arr(answer_arr.length);
+		how_many_question_left.style.display = 'block';
 		if(answer_arr.length < how_many_questions){
 			start_button.style.display = 'block';
 			left.style.display = 'none';
