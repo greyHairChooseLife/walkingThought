@@ -208,7 +208,7 @@ for(var i=0; i<12; i++){
 			remove_spreaded();
 			focused_period = m+1;
 			spread_focused_period(focused_period);
-			how_many_paragraph = db_obj[focused_period-1].question.length;
+			how_many_paragraph = db_obj[focused_period-1].content.length;
 			spread_diary(how_many_paragraph);
 		});
 	})(i);
@@ -217,7 +217,8 @@ for(var i=0; i<12; i++){
 	(function(m){
 		if(db_obj[m].forgot == true){
 			buttons_arr[m].style.opacity = '0.2';
-		}
+		} else
+			buttons_arr[m].style.cursor = 'pointer';
 	})(i);
 }
 

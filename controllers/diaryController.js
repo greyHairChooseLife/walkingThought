@@ -307,6 +307,7 @@ const read_monthly = async (req, res) => {
 				content: ``,
 				question: `기록이 없어요 :(`,
 				coment: ``,
+				forgot: true,
 			}
 		}
 		raw_db_obj.push(temp[0][0]);
