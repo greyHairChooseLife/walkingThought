@@ -188,11 +188,16 @@ const read_and_write_daily = async (req, res) => {
 	dates[2] = (focused_year-2) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-2, focused_month, focused_date, 'string');
 
 	const regex_for_decode = /<br>/g;
-	const touched_content = [];
+	let touched_content = [];
+	let touched_question = [];
+
 	touched_content[0] = db_obj[0].content.replace(regex_for_decode, '\n');	//bot
 	touched_content[1] = db_obj[1].content.replace(regex_for_decode, '\n');	//mid
 	touched_content[2] = db_obj[2].content.replace(regex_for_decode, '\n');	//top
 
+	touched_question[0] = db_obj[0].question.replace(regex_for_decode, '\n');	//bot
+	touched_question[1] = db_obj[1].question.replace(regex_for_decode, '\n');	//mid
+	touched_question[2] = db_obj[2].question.replace(regex_for_decode, '\n');	//top
 
 	const db_obj_ejs = {
 		top_date : call_converted_date(convert_date(db_obj[2].created_date)),
@@ -205,9 +210,9 @@ const read_and_write_daily = async (req, res) => {
 		mid_content : touched_content[1],
 		bot_content : touched_content[0],
 
-		top_question : db_obj[2].question,
-		mid_question : db_obj[1].question,
-		bot_question : db_obj[0].question,
+		top_question : touched_question[2],
+		mid_question : touched_question[1],
+		bot_question : touched_question[0],
 
 		index_year: focused_year,
 		index_month: focused_month,
@@ -279,6 +284,7 @@ const write_monthly = (req, res) => {
 	res.render('../views/diary/write_monthly', obj_ejs);
 }
 
+
 const read_monthly = async (req, res) => {
 	const user_id = res.locals.user.id;
 	const index_year = req.query.year;
@@ -314,6 +320,16 @@ const read_monthly = async (req, res) => {
 		raw_db_obj[i].coment = raw_db_obj[i].coment.split(key);
 	}
 
+	const regex_for_decode = /<br>/g;
+
+	for(var i=0; i<raw_db_obj.length; i++){
+		for(var j=0; j<raw_db_obj[i].question.length; j++){
+			raw_db_obj[i].question[j] = raw_db_obj[i].question[j].replace(regex_for_decode, '\n');
+			raw_db_obj[i].content[j] = raw_db_obj[i].content[j].replace(regex_for_decode, '\n');
+			raw_db_obj[i].coment[j] = raw_db_obj[i].coment[j].replace(regex_for_decode, '\n');
+		}
+	}
+
 	const obj_ejs = {
 		db_obj: raw_db_obj,
 		index: index,
@@ -333,8 +349,9 @@ const daily_post = (req, res) => {
 	//const regex_for_encode3 = /\r/g;	//mac
 
 	const touched_content = content.replace(regex_for_encode1, '<br>');
+	const touched_question = question.replace(regex_for_encode1, '<br>');
 
-	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, touched_content, question, user_id]);
+	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, touched_content, touched_question, user_id]);
 
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
 	res.redirect(307, `/diary/daily/${user_id}?year=${redirect_index[0]}&month=${redirect_index[1]}&date=${redirect_index[2]}`);
@@ -356,8 +373,7 @@ const monthly_post = (req, res) => {
 		str_titles = titles;
 	else{
 		for(var i=0; i<titles.length; i++){
-			//str_titles += '☞ ' + titles[i];     apply this act at reading section
-			str_titles += '☞ ' + titles[i];
+			str_titles += titles[i];
 			if(i+1 != titles.length)
 			str_titles += key;
 		}
@@ -383,7 +399,15 @@ const monthly_post = (req, res) => {
 		}
 	}
 
-	db.query(`INSERT INTO diary (classes, question, content, coment, user_id, created_date) VALUES (?, ?, ?, ?, ?, NOW())`, [classes, str_titles, str_contents, str_coments, user_id]);
+	const regex_for_encode1 = /\r\n/g;	//ms-window
+	//const regex_for_encode2 = /\n/g;	//unix
+	//const regex_for_encode3 = /\r/g;	//mac
+
+	const touched_str_titles = str_titles.replace(regex_for_encode1, '<br>');
+	const touched_str_contents = str_contents.replace(regex_for_encode1, '<br>');
+	const touched_str_coments = str_coments.replace(regex_for_encode1, '<br>');
+
+	db.query(`INSERT INTO diary (classes, question, content, coment, user_id, created_date) VALUES (?, ?, ?, ?, ?, NOW())`, [classes, touched_str_titles, touched_str_contents, touched_str_coments, user_id]);
 	
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1];
 	

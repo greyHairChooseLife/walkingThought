@@ -68,12 +68,17 @@ month_down.addEventListener('mouseleave', () => {
 
 //spread out data according to the period selection
 const diary = document.getElementById('diary');
-let p_question;
-let p_content;
-let p_coment;
+let tag_maker;
 
 let focused_period = index[2];
 let how_many_paragraph = db_obj[focused_period-1].question.length;
+
+//월간 생각 작성여부 판단
+let is_written = false;
+if(how_many_paragraph > 1)
+	is_written = true;
+if(db_obj[focused_period-1].question[0] == '' && db_obj[focused_period-1].coment[0] == '')
+	is_written = true;
 
 focus_year_index.innerText = index[1]+'.';
 
@@ -96,26 +101,52 @@ function spread_focused_period(focused_period) {
 }
 
 function spread_diary(how_many_paragraph) {
+	tag_maker = document.createElement('div');
+	tag_maker.setAttribute("id","start_spacer");
+	tag_maker.innerHTML = '작성일 : ' + db_obj[focused_period-1].created_date.split('T')[0];
+	diary.appendChild(tag_maker);
 	for(var i=0; i<how_many_paragraph; i++){
-		p_question = document.createElement('div');
-		p_question.setAttribute("id","q"+i);
-		p_question.setAttribute("class","p_question");
-		p_question.innerText = db_obj[focused_period-1].question[i];
+		if(is_written == false){									// ERROR !!!!!!!!!!  ERROR !!!!!!!!
+			tag_maker = document.createElement('div');
+			tag_maker.setAttribute("id","notice_empty");
+			tag_maker.innerText = '작성된 내용이 없습니다.';
+			diary.appendChild(tag_maker);
+		} else{
+			if(db_obj[focused_period-1].content[i] == ''){
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class","new_coment");
+				tag_maker.innerText = db_obj[focused_period-1].coment[i];
+				diary.appendChild(tag_maker);
+			} else{
+				tag_maker = document.createElement('div');
+				tag_maker.setAttribute("class","top_spacer");
+				diary.appendChild(tag_maker);
 
-		p_content = document.createElement('div');
-		p_content.setAttribute("id","c"+i);
-		p_content.setAttribute("class","p_content");
-		p_content.innerText = db_obj[focused_period-1].content[i];
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class","pickup_content");
+				tag_maker.innerText = db_obj[focused_period-1].content[i];
+				diary.appendChild(tag_maker);
 
-		p_coment = document.createElement('div');
-		p_coment.setAttribute("id","cm"+i);
-		p_coment.setAttribute("class","p_coment");
-		p_coment.innerText = db_obj[focused_period-1].coment[i];
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class","pickup_question");
+				tag_maker.innerText = '☞ ' + db_obj[focused_period-1].question[i];
+				diary.appendChild(tag_maker);
 
-		diary.appendChild(p_content);
-		diary.appendChild(p_question);
-		diary.appendChild(p_coment);
+				tag_maker = document.createElement('pre');
+				tag_maker.setAttribute("class","pickup_coment");
+				tag_maker.innerText = '☞ ' + db_obj[focused_period-1].coment[i];
+				diary.appendChild(tag_maker);
+
+				tag_maker = document.createElement('div');
+				tag_maker.setAttribute("class","bottom_spacer");
+				diary.appendChild(tag_maker);
+			}
+		}
 	}
+	tag_maker = document.createElement('div');
+	tag_maker.setAttribute("id","end_spacer");
+	tag_maker.innerHTML = '끝.'
+	diary.appendChild(tag_maker);
 }
 function remove_spreaded() {
 	diary.innerHTML = '';
