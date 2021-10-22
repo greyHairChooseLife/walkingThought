@@ -22,5 +22,3 @@ right.addEventListener('mouseenter', () => {
 	left.style.backgroundColor = 'white';
 	left.style.color = 'grey';
 });
-
-
