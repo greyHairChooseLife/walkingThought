@@ -74,11 +74,13 @@ let focused_period = index[2];
 let how_many_paragraph = db_obj[focused_period-1].question.length;
 
 //월간 생각 작성여부 판단
-let is_written = false;
-if(how_many_paragraph > 1)
-	is_written = true;
-if(db_obj[focused_period-1].question[0] == '' && db_obj[focused_period-1].coment[0] == '')
-	is_written = true;
+let is_written = [];
+for(var i=0; i<12; i++){
+	if(db_obj[i].content.length <= 1 && db_obj[i].content[0] == '' && db_obj[i].coment[0] == '')
+		is_written[i] = false;
+	else
+		is_written[i] = true;
+}
 
 focus_year_index.innerText = index[1]+'.';
 
@@ -106,7 +108,7 @@ function spread_diary(how_many_paragraph) {
 	tag_maker.innerHTML = '작성일 : ' + db_obj[focused_period-1].created_date.split('T')[0];
 	diary.appendChild(tag_maker);
 	for(var i=0; i<how_many_paragraph; i++){
-		if(is_written == false){									// ERROR !!!!!!!!!!  ERROR !!!!!!!!
+		if(is_written[focused_period-1] == false){
 			tag_maker = document.createElement('div');
 			tag_maker.setAttribute("id","notice_empty");
 			tag_maker.innerText = '작성된 내용이 없습니다.';
