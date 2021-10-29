@@ -1,5 +1,5 @@
 <head>
-	<link rel="stylesheet" href="/css/pickup_game_monthly.css">
+	<link rel="stylesheet" href="/css/monthly/pickup_game_monthly.css">
 </head>
 
 <div id="logo">
@@ -8,7 +8,7 @@
 
 <button type="button" id="keyboard_shortcut_help">* 단축키</button>
 <div id="keyboard_shortcut_help_result">
-<%- include('./parts_daily/keyboard_shortcut_explain.ejs') %>
+<%- include('./partitial/keyboard_shortcut_explain.ejs') %>
 </div>
 
 <form action="/user/logout" method="post">
@@ -32,7 +32,7 @@
 		</div>
 	</div>
 	<div id='calendar_board'>
-	<%- include('../diary/parts_monthly/calendar.ejs') %>
+	<%- include('./partitial/calendar.ejs') %>
 	</div>
 	<div id='left'>
 		<div id='left_question'>

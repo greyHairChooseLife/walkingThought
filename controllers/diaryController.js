@@ -223,7 +223,7 @@ const read_and_write_daily = async (req, res) => {
 		writing_board_index: writing_board_index,
 	}	
 
-	res.render('../views/diary/daily', db_obj_ejs);
+	res.render('../views/diary/daily/daily', db_obj_ejs);
 }
 
 const pickup_game_monthly = async (req, res) => {
@@ -269,7 +269,7 @@ const pickup_game_monthly = async (req, res) => {
 		calendar_data: calendar_data,
 	}
 
-	res.render('../views/diary/pickup_game_monthly', db_obj_ejs);
+	res.render('../views/diary/monthly/pickup_game_monthly', db_obj_ejs);
 }
 
 const write_monthly = (req, res) => {
@@ -281,7 +281,7 @@ const write_monthly = (req, res) => {
 		//index: index,
 		pickup_list: pickup_list,
 	}
-	res.render('../views/diary/write_monthly', obj_ejs);
+	res.render('../views/diary/monthly/write_monthly', obj_ejs);
 }
 
 
@@ -336,7 +336,7 @@ const read_monthly = async (req, res) => {
 		index: index,
 		today_index: today_index,
 	}
-	res.render('../views/diary/read_monthly', obj_ejs);
+	res.render('../views/diary/monthly/read_monthly', obj_ejs);
 }
 
 const daily_post = (req, res) => {

@@ -43,7 +43,7 @@ const post_register = async (req, res) => {
 // 회원 정보 수정
 const get_setting = (req, res) => {
 	const id = req.params.id;
-	res.render('parts_user/setting', {id: id});
+	res.render('user/setting', {id: id});
 }
 const post_setting = async (req, res) => {
     const schema = Joi.object().keys({

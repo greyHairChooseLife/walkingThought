@@ -2,15 +2,15 @@
 
 @font-face {
 	font-family: 'system';
-	src: url('./fonts/IBMPlexSansKR-Text.ttf');
+	src: url('./public/fonts/IBMPlexSansKR-Text.ttf');
 }
 @font-face {
 	font-family: 'general';
-	src: url('./fonts/SDMiSaeng.ttf');
+	src: url('./public/fonts/SDMiSaeng.ttf');
 }
 @font-face {
 	font-family: 'catchphrase';
-	src: url('./fonts/Eulyoo1945-Regular.ttf');
+	src: url('./public/fonts/Eulyoo1945-Regular.ttf');
 }
 @font-face {
     font-family: 'logo';
@@ -683,6 +683,20 @@ input[type="date"]::-webkit-calendar-picker-indicator {
 	left: 52%;
 }
 
+
+#catch_1 {
+margin-top: 4%;
+margin-bottom: 3%;
+}
+#catch_2 {
+margin-bottom: 3%;
+}
+#catch_3 {
+margin-bottom: 3%;
+}
+
+
 #dummy_maker {
 	display : none;
 }
+
