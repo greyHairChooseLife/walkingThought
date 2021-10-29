@@ -25,12 +25,15 @@ for(var i=0; i < content_class.length; i++){
 }
 
 
-keyboard_shortcut_help.addEventListener('mouseenter', () => {
-	keyboard_shortcut_help_result.style.display = 'block';
-	everything.style.opacity = '50%';
-});
+//keyboard_shortcut_help.addEventListener('mouseenter', () => {
+//	keyboard_shortcut_help_result.style.display = 'block';
+//	everything.style.opacity = '50%';
+//});
+//
+//keyboard_shortcut_help.addEventListener('mouseleave', () => {
+//	keyboard_shortcut_help_result.style.display = 'none';
+//	everything.style.opacity = '100%';
+//});
 
-keyboard_shortcut_help.addEventListener('mouseleave', () => {
-	keyboard_shortcut_help_result.style.display = 'none';
-	everything.style.opacity = '100%';
-});
+//temperally added
+keyboard_shortcut_help.style.cursor = 'not-allowed';
