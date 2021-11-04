@@ -11,7 +11,7 @@ const post_register = async (req, res) => {
 	}
 
     const schema = Joi.object().keys({
-        email: Joi.string().email().required(),
+        mobile_number: Joi.string().required(),
         password: Joi.string().required(),
         password_check: Joi.string().required(),
         nickname: Joi.string().required(),
@@ -30,14 +30,15 @@ const post_register = async (req, res) => {
 	if(req.body.password != req.body.password_check)
 		return res.send('"check your password!!"');
 
-    const { email, password, nickname, birthdate, sex, address } = req.body;
+    const { mobile_number, password, nickname, birthdate, sex, address } = req.body;
 
-    const db_email = await db.query(`SELECT email FROM user WHERE email=?`, [email]);
-        if (db_email[0].length > 0) { return res.status(409).send('이미 존재하는 이메일입니다.'); }
-		else{
-			db.query(`INSERT INTO user (email, pw, nickname, birthdate, sex, address, created_date) VALUES(?,?,?,?,?,?,NOW())`, [email, password, nickname, birthdate, sex, address]);
-			res.redirect('/');
-		}
+    const db_mobile_number = await db.query(`SELECT mobile_number FROM user WHERE mobile_number=?`, [mobile_number]);
+	if (db_mobile_number[0].length > 0)
+		return res.status(409).send('이미 가입된 전화번호입니다.');
+	else{
+		db.query(`INSERT INTO user (mobile_number, pw, nickname, birthdate, sex, address, created_date) VALUES(?,?,?,?,?,?,NOW())`, [mobile_number, password, nickname, birthdate, sex, address]);
+		res.redirect('/');
+	}
 }
 
 // 회원 정보 수정
@@ -93,16 +94,16 @@ function generate_token(id, nickname, created_date){
 };
 
 const post_login = async (req, res) => {
-	const { email, password } = req.body;
+	const { mobile_number, password } = req.body;
 
 	try{
-		const [db_taken] = await db.query(`SELECT id, email, pw, nickname, created_date FROM user WHERE email=?`, [email]);
+		const [db_taken] = await db.query(`SELECT id, mobile_number, pw, nickname, created_date FROM user WHERE mobile_number=?`, [mobile_number]);
 		// not registered
 		if(db_taken.length == 0)
-			return res.send("this email isn't registered yet.");
+			return res.send("가입되지 않은 전화번호입니다.");
 		// password not match
 		if(password != db_taken[0].pw)
-			return res.send("this password you entered is NOT matched with the email.");
+			return res.send("틀린 비밀번호입니다.");
 		// success login,
 		// generate token
 		const token = generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
@@ -139,13 +140,6 @@ const post_delete = async (req, res) => { // 계정 삭제
 }
 
 
-//////////////////////////// cookie generation test
-//////////////////////////// cookie generation test
-//////////////////////////// cookie generation test
-//////////////////////////// cookie generation test
-//////////////////////////// cookie generation test
-//////////////////////////// cookie generation test
-//////////////////////////// cookie generation test
 
 module.exports = {
 	post_register,

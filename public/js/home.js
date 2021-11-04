@@ -5,7 +5,7 @@ const clicked_register = document.getElementsByClassName('clicked_register');
 const login_board = document.getElementById('login_board');
 const login_button = document.getElementById('login_button');
 const login_cancel = document.getElementById('login_cancel');
-const login_email = document.getElementById('login_email');
+const login_mobile_number = document.getElementById('login_mobile_number');
 
 if(isLogin === false){
 	login_button.addEventListener('click', () => {
@@ -13,7 +13,7 @@ if(isLogin === false){
 			clicked_login[i].style.opacity = '15%';
 		}
 		login_board.style.display = 'block';
-		login_email.focus();
+		login_mobile_number.focus();
 	});
 
 	login_cancel.addEventListener('click', () => {

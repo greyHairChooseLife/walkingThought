@@ -31,15 +31,15 @@
 	<div id="regi_board">
 		<div id="regi_logo">걷는 생각들</div>
 		<form id="regi_form" action="/user/register" method="post">
-			<input id="regi_nickname" type="text" name="nickname" placeholder="사용할 별명">
+			<input id="regi_nickname" type="text" name="nickname" placeholder="이름 대신 사용할 별명">
 			<div id="regi_nickname_line"></div>
-			<input id="regi_email" type="email" name="email" placeholder="이메일">
-			<div id="regi_email_line"></div>
-			<input id="regi_pw" type="password" name="password" placeholder="비밀 번호">
+			<input id="regi_mobile_number" type="text" name="mobile_number" placeholder="전화번호 (로그인 할 때 사용합니다.)">
+			<div id="regi_mobile_number_line"></div>
+			<input id="regi_pw" type="password" name="password" placeholder="비밀번호">
 			<div id="regi_pw_line"></div>
 			<input id="regi_pw2" type="password" name="password_check" placeholder="비밀번호 확인">
 			<div id="regi_pw2_line"></div>
-			<input id="regi_address" type="text" name="address" placeholder='주소지,  (생각 모음) 책 받을 곳'>
+			<input id="regi_address" type="text" name="address" placeholder='주소지 (제작된 수제다이어리 받을 곳)'>
 			<div id="regi_address_line"></div>
 
 			<input id="regi_sex" type="hidden" name="sex" value="">
@@ -58,8 +58,8 @@
 	<div id="login_board">
 		<div id="login_logo">걷는 생각들</div>
 		<form action="/user/login" method="post">
-			<input id="login_email" type="text" name="email" placeholder="이메일">
-			<div id="login_email_line"></div>
+			<input id="login_mobile_number" type="text" name="mobile_number" placeholder="전화번호">
+			<div id="login_mobile_number_line"></div>
 			<input id="login_password" type="password" name="password" placeholder="비밀번호">
 			<div id="login_password_line"></div>
 			<button id="login_submit" type="submit">로그인</button>

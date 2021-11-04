@@ -116,7 +116,7 @@ textarea {
 	left: 5%;
 	top: 8%;
 }
-#login_email {
+#login_mobile_number {
 	width: 45%;
 	height: 12%;
 	border: none;
@@ -129,11 +129,11 @@ textarea {
 	color: white;
 	padding-left: 2%;
 }
-#login_email::placeholder {
+#login_mobile_number::placeholder {
 	color: white;
 	opacity: 70%;
 }
-#login_email_line {
+#login_mobile_number_line {
 	width: 45%;
 	height: 0.5%;
 	background-color: white;
@@ -239,7 +239,7 @@ textarea {
 	top: 37%;
 	left: 7%;
 }
-#regi_email {
+#regi_mobile_number {
 	width: 25%;
 	height: 8%;
 	border: none;
@@ -252,11 +252,11 @@ textarea {
 	color: white;
 	padding-left:1%;
 }
-#regi_email::placeholder {
+#regi_mobile_number::placeholder {
 	color: white;
 	opacity: 70%;
 }
-#regi_email_line {
+#regi_mobile_number_line {
 	width: 25%;
 	height: 0.3%;
 	background-color: white;
