@@ -1,0 +1,84 @@
+<div id="title">
+베타테스터를 위한 개발●운영자의 약속과 정보이용 및 제공 동의
+</div>
+
+
+<div id="promise_agreement_board">
+	<div id="">
+	약속 하나,<br><br>베타테스터 여러분(이하 여러분)은 <span class="font-red">언제나</span> 입력하신 모든 정보와 기록의 <span class="font-red">영구삭제를 요청</span>할 수 있습니다.
+	</div>
+
+	<div id="">
+	약속 둘,<br><br>여러분의 신원을 파악할 수 있는 정보인 <span class="font-red">전화번호</span>는 베타테스트 기간이 종료되는 시점(2022년 1월 초)에 <span class="font-red">영구삭제</span>됩니다. 
+	</div>
+
+	<div id="">
+	약속 셋,<br><br>여러분이 작성하신 일기들은 오직 웹 어플리케이션의 사용성 분석을 위한 통계 데이터로써만 사용됩니다. 이 때 사용성이란 여러분이 개발자가 의도한 대로 웹사이트를 이용하였는지, 여러분의 필요에 비해 미흡한 점은 무엇인지를 파악하는 것입니다. 예를들면 매일 꾸준히 썼는지, 입력하는 글자수에 비해 입력란이 충분히 넓은지 등을 파악합니다.
+	</div>
+
+	<div id="checker_label">
+	위 내용에 따른 정보 이용과 제공에 동의하신다면 체크해주세요.
+	</div>
+	<button id="agreement_button" type="button"></button>
+</div>
+
+<form id='agreement_form' action="/user/agreement" method="post">
+	<input id="agreement" type="hidden" name="agreement" value="">
+</form>
+
+
+<style>
+.font-red {
+	color: red;
+}
+
+#title {
+	text-align: center;
+	margin-top: 10vh;
+	margin-bottom: 15vh;
+	font-size: 40px;
+	
+}
+
+#promise_agreement_board {
+	width: 1200;
+	margin: auto;
+	font-size: 20px;
+}
+
+#promise_agreement_board > div {
+	margin-bottom: 50px;
+}
+
+#checker_label {
+	font-size: 30px;
+	margin-top: 150px;
+	text-align: center;
+}
+
+#agreement_button {
+	width: 50px;
+	height: 50px;
+	border: 2px solid black;
+	margin-left: 90%;
+	margin-top: -100px;
+	cursor: pointer;
+	font-size: 25px;
+}
+#agreement_button:hover {
+	background-color: grey;
+}
+
+</style>
+
+<script>
+	const agreement_button = document.getElementById('agreement_button');
+	const agreement = document.getElementById('agreement');
+	const agreement_form = document.getElementById('agreement_form');
+	agreement_button.addEventListener('click', ()=>{
+		agreement_button.innerText = 'V';
+		agreement.value = 'T';
+		agreement_form.submit();
+
+	});
+</script>

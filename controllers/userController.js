@@ -93,6 +93,9 @@ function generate_token(id, nickname, created_date){
     return token;
 };
 
+function is_agreed(user_id){
+	return db.query(`select agreement from data_use_agreement where user_id=${user_id}`);
+}
 const post_login = async (req, res) => {
 	const { mobile_number, password } = req.body;
 
@@ -113,11 +116,22 @@ const post_login = async (req, res) => {
 			httpOnly: true
 		});
 
+		const check_agreed = await is_agreed(db_taken[0].id);
+		if(check_agreed[0].length == 0)
+			return res.render('../views/parts_home/user_agreement')
 		return res.redirect('/');
 	}
 	catch(err){
 		console.log(err);
 	}
+}
+
+//정보제공이용동의
+const post_agreement = (req, res) => {
+	const user_id = res.locals.user.id;
+	const agreement = 'Y';
+	db.query(`INSERT INTO data_use_agreement (user_id, agreement, created_date) VALUES(?,?,NOW())`, [user_id, agreement]);
+	return res.redirect('/');
 }
 
 // 로그아웃
@@ -147,6 +161,8 @@ module.exports = {
 	post_setting,
 
 	post_login,
+
+	post_agreement,
 
 	post_logout,
 	post_delete,
