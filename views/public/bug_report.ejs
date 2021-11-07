@@ -1,0 +1,43 @@
+<head>
+	<link rel="stylesheet" href="/css/bug_report.css">
+</head>
+
+<div id="bug_report">
+버그신고
+</div>
+
+<form action="/report" method="post" id="report_form">
+	<input type="hidden" name="page_id" id="page_id">
+	<input type="hidden" name="screen_size" id="screen_size">
+	<div id='messages'>조심하십시오. 보내기 하면 첫화면으로 이동합니다. 쓰던 것 있으면 복사 해 두세요.</div>
+	<textarea id="reporting_content" name="reporting_content" placeholder="버그 뿐만 아니라 디자인이나 설계에 대해서도 지적해주시면 좋아요 :D"></textarea>
+	<div id='hide_report_form'>취소</div>
+	<div id='send_report_form'>보내기</div>
+</form>
+
+<script>
+	const bug_report = document.getElementById('bug_report');
+	const report_form = document.getElementById('report_form');
+	const page_id = document.getElementById('page_id');
+	const present_url = window.location.href;
+	const get_screen_size = screen.width + 'x' + screen.height;
+	const screen_size = document.getElementById('screen_size');
+	const reporting_content = document.getElementById('reporting_content');
+	const hide_report_form = document.getElementById('hide_report_form');
+	const send_report_form = document.getElementById('send_report_form');
+
+	bug_report.addEventListener('click', () => {
+		page_id.value = present_url;
+		screen_size.value = get_screen_size;
+		report_form.style.display = 'block';
+		reporting_content.focus();
+	});
+
+	hide_report_form.addEventListener('click', () => {
+		report_form.style.display = 'none';
+	});
+	send_report_form.addEventListener('click', () => {
+		report_form.submit();
+	});
+
+</script>

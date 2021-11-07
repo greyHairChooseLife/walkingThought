@@ -1,11 +1,9 @@
 <!doctype html>
-<html>
 <head>
 	<title>5y diary</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="/css/home.css">
 </head>
-<body>
 
 	<div class="clicked_login clicked_register" id="logo">
 		걷는 생각들
@@ -26,7 +24,6 @@
 		 </div>
 	</div>
 
-	<button type="button" class="clicked_login clicked_register" id="register_button">회원가입</button>
 
 	<div id="regi_board">
 		<div id="regi_logo">걷는 생각들</div>
@@ -68,8 +65,11 @@
 	</div>
 
 	<% if(checkLoggedIn === false){ %>
+	<button type="button" class="clicked_login clicked_register" id="register_button">회원가입</button>
 	<button type="button" class="clicked_login clicked_register" id="login_button">로그인</button>
 	<% } else { %>  
+
+	<%- include("./public/bug_report.ejs") %>
 
 	<div id="logged_in">
 		<form action="/user/logout" method="post">
@@ -142,8 +142,6 @@
 	<input type="submit" value="dummy">
 </form>
 
-</body>
-</html>
 
 <script>
 	const isLogin = <%= checkLoggedIn %>;

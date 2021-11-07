@@ -1,0 +1,93 @@
+@font-face {
+	font-family: 'bug_report';
+	src: url('./public/fonts/YdestreetB.ttf');
+}
+
+#bug_report {
+	font-family: bug_report;
+	font-size: 30px;
+	color: red;
+	position: absolute;
+	top: 82%;
+	left: 90%;
+	background-color: red;
+	color: white;
+	padding-left: 10px;
+	padding-right: 10px;
+	border: none;
+	cursor: pointer;
+}
+#bug_report:hover {
+	color: red;
+	background-color: white;
+	border: 2px solid red;
+	transition: 0.2s;
+
+}
+
+#report_form {
+	display: none;
+	font-family: none;
+}
+#report_form > textarea {
+	position: absolute;
+	background-color: white;
+	top: 25vh;
+	left: 20vw;
+	width: 60vw;
+	height: 50vh;
+	margin: auto;
+	z-index: 1000;
+	font-size: 20px;
+	padding: 40px 20px 20px 20px;
+	border: #59886B solid 15px;
+	outline: none;
+}
+
+#hide_report_form {
+	width: 7vw;
+	height: 5vh;
+	position: absolute;
+	left: 60vw;
+	top: 64vh;
+	background-color: white;
+	border: 2px solid #59886B;
+	border-radius: 20px;
+	font-size: 25px;
+	color: #59886B;
+	cursor: pointer;
+	z-index: 1001;
+	text-align: center;
+	padding-top: 17px;
+}
+#send_report_form {
+	width: 7vw;
+	height: 5vh;
+	position: absolute;
+	left: 70vw;
+	top: 64vh;
+	background-color: #59886B;
+	border: none;
+	border-radius: 20px;
+	font-size: 25px;
+	color: white;
+	cursor: pointer;
+	z-index: 1001;
+	text-align: center;
+	padding-top: 17px;
+}
+
+#messages {
+	position: absolute;
+	background-color: #59886B;
+	color: white;
+	top: 17vh;
+	left: 20vw;
+	width: 60vw;
+	height: 8vh;
+	margin: auto;
+	z-index: 1000;
+	text-align: center;
+	font-size: 25px;
+	padding-top: 3vh;
+}

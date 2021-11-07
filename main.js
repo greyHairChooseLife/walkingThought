@@ -28,10 +28,12 @@ const adminRouter = require('./routers/adminRouter.js');
 const homeRouter = require('./routers/homeRouter.js');
 const userRouter = require('./routers/userRouter.js');
 const diaryRouter = require('./routers/diaryRouter.js');
+const reportRouter = require('./routers/reportRouter.js');
 
 app.use('/', homeRouter);
 app.use('/user', userRouter);
 app.use('/diary', diaryRouter);
+app.use('/report', reportRouter);
 
 app.use('/admin', adminRouter);
 
