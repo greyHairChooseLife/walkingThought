@@ -259,7 +259,6 @@ textarea {
 	grid-template-columns: 9fr 1fr;
 	grid-template-rows: 1fr 1fr 1fr 1fr;
 
-	
 }
 
 
@@ -276,6 +275,7 @@ textarea {
 	cursor: pointer;
 
 	display: none;
+	z-index: 1;
 }
 #start_writing_button:hover {
 	background-color: #59886B;
@@ -300,7 +300,6 @@ textarea {
 #daily_diary {
 	grid-column: 1/2;
 	grid-row: 1/5;
-
 }
 
 #paragraph_title {
