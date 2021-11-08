@@ -1,0 +1,11 @@
+#feedback_notice_board {
+	font-family: none;
+	position: absolute;
+	left: 20vw;
+	top:  1vh;
+	width: 60vw;
+	height: 10vh;
+}
+.noticed_msg {
+	color: grey;
+}
