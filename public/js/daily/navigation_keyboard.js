@@ -6,7 +6,9 @@ let selected_content_status = 'none';
 // judge a 'mod' key(like shift or alt or ctrl etc...) is being activated
 document.addEventListener("keydown", e => {
 	if(e.shiftKey == true)
-		trigger = true;
+		// 사용자 피드백 : 쉬프트키와 방향키 조합은 텍스트 에디터 사용시 자주 사용하는 단축키다. 페이지 네비게이션 컨트롤로 쓰기엔 부적절함. 일단 기능 막아두고 이슈에 추가함.
+		//trigger = true;
+		trigger = false;
 })
 document.addEventListener("keyup", e => {
 	if(e.shiftKey == false)
