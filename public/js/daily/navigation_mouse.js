@@ -57,9 +57,12 @@ everything.addEventListener("mousedown", function(e){
 everything.addEventListener("mouseup", function(e){
 	x2 = e.clientX;
 	y2 = e.clientY;
-	compare_coordinates(x1, x2, y1, y2);
-	select_direction(compared_x, compared_y);
-	move(selected_direction);
+
+	// 완성된 기능 아니기 때문에 아래 3줄을 주석처리하여 일단 기능 정지
+	//compare_coordinates(x1, x2, y1, y2);
+	//select_direction(compared_x, compared_y);
+	//move(selected_direction);
+	
 });
 
 
