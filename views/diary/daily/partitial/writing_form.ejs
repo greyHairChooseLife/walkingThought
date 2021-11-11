@@ -4,6 +4,7 @@
 
 <div class="zac" id="writing_board_background"></div>
 <form id="daily_diary" action="/diary/daily/post/<%= user_id %>" method="post">
+	<input type='hidden' name='writing_datetime' id='writing_datetime'>
 	<textarea class="zac" id="paragraph_content" name="content" rows="4" placeholder="오늘 했던 크고 작은 생각들"></textarea>
 	<textarea class="zac" id="paragraph_title" name="question" rows="2" placeholder="생각에 대한 생각, 한줄 평"></textarea>
 </form>

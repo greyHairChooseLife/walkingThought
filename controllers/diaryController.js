@@ -340,7 +340,7 @@ const read_monthly = async (req, res) => {
 }
 
 const daily_post = (req, res) => {
-	const { question, content } = req.body;
+	const { question, content, writing_datetime } = req.body;
 	const classes = 'd';
 	const user_id = res.locals.user.id;
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
@@ -352,7 +352,7 @@ const daily_post = (req, res) => {
 	const touched_content = content.replace(regex_for_encode1, '<br>');
 	const touched_question = question.replace(regex_for_encode1, '<br>');
 
-	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, NOW())`, [classes, touched_content, touched_question, user_id]);
+	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, ?)`, [classes, touched_content, touched_question, user_id, writing_datetime]);
 
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
 	res.redirect(307, `/diary/daily/${user_id}?year=${redirect_index[0]}&month=${redirect_index[1]}&date=${redirect_index[2]}`);

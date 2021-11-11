@@ -26,6 +26,13 @@ function switch_remote_con(value){
 	}
 }
 
+// 일기쓰기 버튼을 누른 시간을 기준으로 일기 작성일이 결정될 수 있도록 한다. 
+const writing_datetime = document.getElementById('writing_datetime');
+function toss_writing_datetime_to_server(){
+	writing_datetime.value = new Date().toISOString().slice(0, 19).replace('T', ' ');
+}
+
+
 
 // start writing button
 start_writing_button.addEventListener('click', () => {
@@ -37,6 +44,7 @@ start_writing_button.addEventListener('click', () => {
 	cancel_button.style.display = 'block';
 	post_diary_button.style.display = 'block';
 	writing_board_background.style.display = 'block';
+	toss_writing_datetime_to_server();
 })
 
 //cancel_button
