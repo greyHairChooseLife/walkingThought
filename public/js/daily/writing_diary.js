@@ -29,7 +29,9 @@ function switch_remote_con(value){
 // 일기쓰기 버튼을 누른 시간을 기준으로 일기 작성일이 결정될 수 있도록 한다. 
 const writing_datetime = document.getElementById('writing_datetime');
 function toss_writing_datetime_to_server(){
-	writing_datetime.value = new Date().toISOString().slice(0, 19).replace('T', ' ');
+	const now = new Date();
+	now.setHours(now.getHours() + 9);
+	writing_datetime.value = now.toISOString().slice(0, 19).replace('T', ' ');
 }
 
 
