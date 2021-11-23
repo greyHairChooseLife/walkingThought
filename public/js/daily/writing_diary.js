@@ -29,9 +29,13 @@ function switch_remote_con(value){
 // 일기쓰기 버튼을 누른 시간을 기준으로 일기 작성일이 결정될 수 있도록 한다. 
 const writing_datetime = document.getElementById('writing_datetime');
 function toss_writing_datetime_to_server(){
-	const now = new Date();
-	now.setHours(now.getHours() + 9);
+	let now = new Date();
+	if(now.getHours() <= 3)		//일기 작성 시점이 03시 이전이라면 전날 일기라고 봐야한다.  그러니까 날짜에서 하루 빼 준다.
+		now.setDate(now.getDate() - 1);
+	
+	now.setHours(now.getHours() + 9);	//toISOString() 이놈은 utc기준시를 사용하느라고 9시간 전으로 돌려버린다.
 	writing_datetime.value = now.toISOString().slice(0, 19).replace('T', ' ');
+
 }
 
 
