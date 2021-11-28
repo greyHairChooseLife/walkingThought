@@ -15,7 +15,7 @@ const betatest_survey = (req, res) => {
 	const user_id = res.locals.user.id;
 	const body = req.body;
 
-	db.query(`INSERT INTO betatest_survey (user_id, created_date, ) VALUES (?, NOW(), )`, [user_id, body.subject]);
+	db.query(`INSERT INTO betatest_survey (created_date, user_id, q1, q2, q3, q4, q5, q6, q7, q8) VALUES (NOW(), ?, ?, ?, ?, ?, ?, ?, ?, ? )`, [user_id, body.q1, body.q2, body.q3, body.q4, body.q5, body.q6, body.q7, body.q8]);
 	
 	alert('1차 설문조사가 완료되었습니다.');
 
