@@ -1,6 +1,6 @@
 const db = require('../config/db.js').promise();
 
-const bugs = (req, res) => {
+const post_bugs = (req, res) => {
 
 	const user_id = res.locals.user.id;
 	const body = req.body;
@@ -10,7 +10,12 @@ const bugs = (req, res) => {
 	return res.redirect('/');
 }
 
-const betatest_survey = (req, res) => {
+const get_betatest_survey = (req, res) => {
+
+	return res.render('../views/public/betatest_survey1')
+
+}
+const post_betatest_survey = (req, res) => {
 
 	const user_id = res.locals.user.id;
 	const body = req.body;
@@ -23,6 +28,7 @@ const betatest_survey = (req, res) => {
 }
 
 module.exports = {
-	bugs,
-	betatest_survey,
+	post_bugs,
+	get_betatest_survey,
+	post_betatest_survey,
 };

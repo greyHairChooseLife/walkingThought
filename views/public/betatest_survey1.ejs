@@ -1,0 +1,66 @@
+<head>
+	<link rel="stylesheet" href="/css/betatest_survey1.css">
+</head>
+
+<div id="">
+베타테스터 설문조사(1차)
+</div>
+
+<form action="/report/betatest_survey" method="post" id="survey_form">
+	<div id='question1'>일기란 무엇인가요?(글자 수 제한)</div>
+	<textarea id='answer1' name='a1'></textarea>
+
+	<div id='question2'>일기 쓰기는 갈수록 쉬워졌나요, 힘들어졌나요?</div>
+	<input type='hidden' id='answer2' name='a2' value=''>
+	<div class='answer2'>쉬워졌다></div>
+	<div class='answer2'>힘들어졌다</div>
+	<div class='answer2'>그냥 똑같다</div>
+
+	<div id='question3'>일기 쓰기는 득실을 종합적으로 따져 봤을 때, </div>
+	<input type='hidden' id='answer3' name='a3' value=''>
+	<div class='answer3'>꾸준히 쓸 만한 가치가 있고 그렇게 하고 싶다</div>
+	<div class='answer3'>특별한 날이라면 써볼 만 하다</div>
+	<div class='answer3'>좋은 점은 있지만 쓰지 않게 되는 이유가 더 강했다</div>
+	<div class='answer3'>힘들고 시간만 쓰지 얻을게 있는지 모르겠다</div>
+
+	<div class='question4'>꾸준히 써서 얻을 수 있는 것은 무엇이었나요?</div>
+	<div class='question4'>일기를 써서 얻을 수 있는 것은 무엇이었나요?</div>
+	<div class='question4'>좋은 점은 무엇이었나요?</div>
+	<div class='question4'>시무룩 짤</div>
+	<textarea id='answer4' name='a4'></textarea>
+
+	<div id='question5'>무엇이 일기 쓰기를 힘들고, 어렵게 만들었나요? 생각나는 대로 모두 적어주세요.</div>
+	<div id='answer5_srcA_label'>힘들게 만든 요소</div>
+	<textarea id='answer5_src_hard'></textarea>
+	<div id='answer5_srcB_label'>어렵게 만든 요소</div>
+	<textarea id='answer5_src_diffi'></textarea>
+	<input type='hidden' id='answer5' name='a5' value=''>
+
+	<div id='question6'>일기에 쓴 내용은,</div>
+	<input type='hidden' id='answer6' name='a6' value=''>
+	<div class='answer6'>사실 위주였다></div>
+	<div class='answer6'>느낌이나 생각, 마음 위주였다</div>
+
+	<div id='question7'>일기는,</div>
+	<input type='hidden' id='answer7' name='a7' value=''>
+	<div class='answer7'>기록에 의미가 있다</div>
+	<div class='answer7'>사고*에 의미가 있다(*생각하고 궁리함)</div>
+
+	<div id='question8'></div>
+	<input type='hidden' id='answer8' name='a8' value=''>
+	<div class='answer8'>그렇다</div>
+	<div class='answer8'>그런 면이 없진 않지만 너무 미약하다</div>
+	<div class='answer8'>일기 쓰기와는 상관이 없는 것 같다</div>
+</form>
+
+<div id='send_survey'>완료</div>
+
+<script>
+	const survey_form = document.getElementById('survey_form');
+	const send_survey = document.getElementById('send_survey');
+
+
+	send_survey.addEventListener('click', () => {
+		survey_form.submit();
+	});
+</script>
