@@ -7,57 +7,178 @@
 </div>
 
 <form action="/report/betatest_survey" method="post" id="survey_form">
+	<div class='page'>
 	<div id='question1'>일기란 무엇인가요?(글자 수 제한)</div>
 	<textarea id='answer1' name='a1'></textarea>
+	</div>
 
+	<div class='page'>
 	<div id='question2'>일기 쓰기는 갈수록 쉬워졌나요, 힘들어졌나요?</div>
 	<input type='hidden' id='answer2' name='a2' value=''>
-	<div class='answer2'>쉬워졌다></div>
+	<div class='answer2'>쉬워졌다</div>
 	<div class='answer2'>힘들어졌다</div>
 	<div class='answer2'>그냥 똑같다</div>
+	</div>
 
+	<div class='page'>
 	<div id='question3'>일기 쓰기는 득실을 종합적으로 따져 봤을 때, </div>
 	<input type='hidden' id='answer3' name='a3' value=''>
 	<div class='answer3'>꾸준히 쓸 만한 가치가 있고 그렇게 하고 싶다</div>
 	<div class='answer3'>특별한 날이라면 써볼 만 하다</div>
 	<div class='answer3'>좋은 점은 있지만 쓰지 않게 되는 이유가 더 강했다</div>
 	<div class='answer3'>힘들고 시간만 쓰지 얻을게 있는지 모르겠다</div>
+	</div>
 
+	<div class='page'>
 	<div class='question4'>꾸준히 써서 얻을 수 있는 것은 무엇이었나요?</div>
 	<div class='question4'>일기를 써서 얻을 수 있는 것은 무엇이었나요?</div>
 	<div class='question4'>좋은 점은 무엇이었나요?</div>
 	<div class='question4'>시무룩 짤</div>
 	<textarea id='answer4' name='a4'></textarea>
+	</div>
 
+	<div class='page'>
 	<div id='question5'>무엇이 일기 쓰기를 힘들고, 어렵게 만들었나요? 생각나는 대로 모두 적어주세요.</div>
+	<input type='hidden' id='answer5' name='a5' value=''>
 	<div id='answer5_srcA_label'>힘들게 만든 요소</div>
 	<textarea id='answer5_src_hard'></textarea>
 	<div id='answer5_srcB_label'>어렵게 만든 요소</div>
 	<textarea id='answer5_src_diffi'></textarea>
-	<input type='hidden' id='answer5' name='a5' value=''>
+	<div id='question5_next_button'>다음</div>
+	</div>
 
+	<div class='page'>
 	<div id='question6'>일기에 쓴 내용은,</div>
 	<input type='hidden' id='answer6' name='a6' value=''>
 	<div class='answer6'>사실 위주였다></div>
 	<div class='answer6'>느낌이나 생각, 마음 위주였다</div>
+	</div>
 
+	<div class='page'>
 	<div id='question7'>일기는,</div>
 	<input type='hidden' id='answer7' name='a7' value=''>
 	<div class='answer7'>기록에 의미가 있다</div>
 	<div class='answer7'>사고*에 의미가 있다(*생각하고 궁리함)</div>
+	</div>
 
-	<div id='question8'></div>
+	<div class='page'>
+	<div id='question8'>일기 쓰기를 통해 스스로에 대해 좀 더 알게 되었나요?(쓰지 않던 때에 비하여)</div>
 	<input type='hidden' id='answer8' name='a8' value=''>
 	<div class='answer8'>그렇다</div>
 	<div class='answer8'>그런 면이 없진 않지만 너무 미약하다</div>
 	<div class='answer8'>일기 쓰기와는 상관이 없는 것 같다</div>
+	</div>
 </form>
 
+<div id='next'>NEXT</div>
+<div id='before'>BEFORE</div>
 <div id='send_survey'>완료</div>
 
 <script>
 	const survey_form = document.getElementById('survey_form');
 	const send_survey = document.getElementById('send_survey');
+	
+	const pages = Array.from(document.getElementsByClassName('page'));
+
+	pages.forEach(ele => {
+		ele.style.display = 'none'
+	});
+	pages[0].style.display = 'block';
+
+	const next = document.getElementById('next'); 
+	const before = document.getElementById('before'); 
+	before.style.color = 'grey';
+	let page_index = 0;
+
+	next.addEventListener('click', () => {
+		if(page_index < 7)
+			page_index++;
+		pages.forEach(ele => {ele.style.display = 'none'});
+		pages[page_index].style.display = 'block';
+		if(page_index == 7)
+			next.style.color = 'grey';
+		if(page_index != 0)
+			before.style.color = 'black';
+	});
+	before.addEventListener('click', () => {
+		if(page_index > 0)
+			page_index--;
+		pages.forEach(ele => {ele.style.display = 'none'});
+		pages[page_index].style.display = 'block';
+		if(page_index == 0)
+			before.style.color = 'grey';
+		if(page_index != 7)
+			next.style.color = 'black';
+	});
+	
+
+
+	const answer2 = document.getElementById('answer2');
+	const answer3 = document.getElementById('answer3');
+	const answer4 = document.getElementById('answer4');
+	const answer5 = document.getElementById('answer5');
+	const answer6 = document.getElementById('answer6');
+	const answer7 = document.getElementById('answer7');
+	const answer8 = document.getElementById('answer8');
+
+	const answer2_example = document.getElementsByClassName('answer2');
+	answer2_example[0].addEventListener('click', () => {
+		answer2.value = '0';
+	});
+	answer2_example[1].addEventListener('click', () => {
+		answer2.value = '1';
+	});
+	answer2_example[2].addEventListener('click', () => {
+		answer2.value = '2';
+	});
+
+	const answer3_example = document.getElementsByClassName('answer3');
+	answer3_example[0].addEventListener('click', () => {
+		answer3.value = '0';
+	});
+	answer3_example[1].addEventListener('click', () => {
+		answer3.value = '1';
+	});
+	answer3_example[2].addEventListener('click', () => {
+		answer3.value = '2';
+	});
+	answer3_example[3].addEventListener('click', () => {
+		answer3.value = '3';
+	});
+
+	const answer5_src_hard = document.getElementById('answer5_src_hard');
+	const answer5_src_diffi = document.getElementById('answer5_src_diffi');
+	const question5_next_button = document.getElementById('question5_next_button');
+	question5_next_button.addEventListener('click', () => {
+		answer5.value = '힘든점: ' + answer5_src_hard.value + '@@@' + '어려운점: ' + answer5_src_diffi.value;
+	});
+
+	const answer6_example = document.getElementsByClassName('answer6');
+	answer6_example[0].addEventListener('click', () => {
+		answer6.value = '0';
+	});
+	answer6_example[1].addEventListener('click', () => {
+		answer6.value = '1';
+	});
+
+	const answer7_example = document.getElementsByClassName('answer7');
+	answer7_example[0].addEventListener('click', () => {
+		answer7.value = '0';
+	});
+	answer7_example[1].addEventListener('click', () => {
+		answer7.value = '1';
+	});
+
+	const answer8_example = document.getElementsByClassName('answer8');
+	answer8_example[0].addEventListener('click', () => {
+		answer8.value = '0';
+	});
+	answer8_example[1].addEventListener('click', () => {
+		answer8.value = '1';
+	});
+	answer8_example[2].addEventListener('click', () => {
+		answer8.value = '2';
+	});
 
 
 	send_survey.addEventListener('click', () => {
