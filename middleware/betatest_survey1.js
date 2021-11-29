@@ -2,10 +2,10 @@ const db = require('../config/db.js').promise();
 
 const is_surveyed = async (req, res, next) => {
 	const user_id = res.locals.user.id;
-	const data = await db.query(`SELECT id FROM betatest_survey where (user_id=?)`, [user_id]);
+	const [data] = await db.query(`SELECT id FROM betatest_survey where (user_id=?)`, [user_id]);
 
-	console.log(data[0].id);
-	if(data[0].id == undefined)
+	console.log(data[0]);
+	if(data[0] == undefined)
 		return res.render('../views/public/betatest_survey1');
 
 

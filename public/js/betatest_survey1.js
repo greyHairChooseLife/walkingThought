@@ -230,7 +230,15 @@ answer8_example[2].addEventListener('click', () => {
 });
 
 
+const answer_arr = [answer1, answer2, answer3, answer4, answer5, answer6, answer7, answer8];
 send_survey.addEventListener('click', () => {
-	alert('send!!');
-	//survey_form.submit();
+	let is_missed = false;
+	answer_arr.forEach(ele => {
+		if(ele.value == '')
+			is_missed = true;
+	})
+	if(is_missed == true)
+		alert('빼먹은게 있어요!');
+	else
+		survey_form.submit();
 });
