@@ -36,6 +36,16 @@ before.addEventListener('click', () => {
 });
 
 const answer1 = document.getElementById('answer1');
+
+const show_length = document.getElementById('show_length');
+answer1.addEventListener('keyup', () => {
+	show_length.innerText = answer1.value.length;
+	if(answer1.value.length > 250){
+		alert('글자 수 초과에요!');
+		answer1.value = answer1.value.substring(0, 250);
+	}
+})
+
 const answer2 = document.getElementById('answer2');
 const answer3 = document.getElementById('answer3');
 const answer4 = document.getElementById('answer4');
