@@ -67,4 +67,12 @@ html, body {
 
 .questions {
 	margin-bottom: 5vh;
+	font-size: 20px;
+}
+
+
+#answer1 {
+	width: 40vw;
+	height: 20vh;
+	font-size: 20px;
 }
