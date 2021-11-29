@@ -408,6 +408,7 @@ const monthly_post = (req, res) => {
 	const touched_str_contents = str_contents.replace(regex_for_encode1, '<br>');
 	const touched_str_coments = str_coments.replace(regex_for_encode1, '<br>');
 
+	//now로 하면 익월 1,2,3일에 쓴 것은 밀려서 기록된다. 이거 1,2,3일일 경우엔 전월로 기록되도록 수정해야한다.
 	db.query(`INSERT INTO diary (classes, question, content, coment, user_id, created_date) VALUES (?, ?, ?, ?, ?, NOW())`, [classes, touched_str_titles, touched_str_contents, touched_str_coments, user_id]);
 	
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1];

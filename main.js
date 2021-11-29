@@ -24,7 +24,7 @@ app.use(express.static('./public'));
 //
 //getUserInfo checks login status
 app.use(getUserInfo);
-app.use('/diary', betatest_survey1);
+//app.use('/diary', betatest_survey1);								12월 3일에 주석 해제 해 주자
 	
 const adminRouter = require('./routers/adminRouter.js');
 const homeRouter = require('./routers/homeRouter.js');

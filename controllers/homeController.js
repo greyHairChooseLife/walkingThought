@@ -13,7 +13,7 @@ function get_monthly_diary(y, m, user_id){
 }
 
 function get_M_period(y, m, d){
-	const compare = new Date(y, m+1, 0).getDate();
+	const compare = new Date(y, m, 0).getDate();
 	if(d == 1 || d == 2 || d == 3 || d == compare)
 		return monthly_write_period = true;
 	return monthly_write_period = false;
