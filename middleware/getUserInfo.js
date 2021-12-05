@@ -1,11 +1,14 @@
 const jwt = require('jsonwebtoken');
+const cookie = require('cookie');
 
 function get_token(req) {
-	let token = req.headers.cookie;
-	if(token != undefined){
-		token = token.split("=")[1];
-		return token;
+	let cookies = {};
+	cookies = cookie.parse(req.headers.cookie);
+	if(cookies != undefined){
+		//token = token.split("=")[1];		legacy: there could be more than 2 cookies. req.headers.cookie will return single string no matter how many of cookies are being.
+	 	return cookies.login_access_token;
 	} else{
+		console.log('cookies are undefined. aka no token is being')
 		return false;
 	}
 }
