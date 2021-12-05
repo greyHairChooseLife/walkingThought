@@ -238,7 +238,13 @@ const pickup_game_monthly = async (req, res) => {
 
 	const index = [user_id, focused_year, focused_month, focused_date, init_day, last_date_of_month];
 
-	let calendar_data = await get_every_diary_of_month(focused_year, focused_month, user_id);
+	let calendar_data;
+	if(focused_date < 4){
+		calendar_data = await get_every_diary_of_month(focused_year, focused_month-1, user_id);
+	}else{
+		calendar_data = await get_every_diary_of_month(focused_year, focused_month, user_id);
+	}
+	calendar_data = await get_every_diary_of_month(focused_year, focused_month-1, user_id);		// 이번달만 이렇게 운영하고, 다음 월간일기부터는 이 줄 삭제
 	calendar_data = calendar_data[0];
 
 	//sorting by order

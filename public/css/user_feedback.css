@@ -1,11 +1,36 @@
 #feedback_notice_board {
 	font-family: none;
 	position: absolute;
-	left: 20vw;
-	top:  1vh;
-	width: 60vw;
-	height: 10vh;
+	left: 18vw;
+	top:  15vh;
+	width: 56vw;
+	height: 60vh;
+	background-color: white;
+	border: solid 10px rgb(255, 200, 20);
+	z-index: 100;
+	padding: 5vh 5vw 5vh 5vw;
+	cursor: pointer;
+
 }
-.noticed_msg {
+#feedback_notice_board:hover {
+	background-color: rgb(255, 200, 20);
 	color: grey;
+}
+
+.noticed_msg {
+	margin-top: 10%;
+	font-size: 25px;
+}
+
+#quit {
+	position: absolute;
+	left: 26%;
+	top: 72%;
+	font-size: 100px;
+	color: grey;
+	opacity: 0.2;
+}
+
+#not-now {
+display: none;
 }

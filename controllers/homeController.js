@@ -49,7 +49,9 @@ const home = async (req, res) => {
 		is_monthly_written = false;
 
 
-	const monthly_write_period = get_M_period(year, month, date);
+	//const monthly_write_period = get_M_period(year, month, date);
+	const monthly_write_period = true;
+	
 	const annually_write_period = get_A_period(year, month, date);
 
 
