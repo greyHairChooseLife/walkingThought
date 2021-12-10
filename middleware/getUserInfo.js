@@ -3,7 +3,11 @@ const cookie = require('cookie');
 
 function get_token(req) {
 	let cookies = {};
-	cookies = cookie.parse(req.headers.cookie);
+	if(req.headers.cookie == undefined){
+		cookies = undefined;
+	}else{
+		cookies = cookie.parse(req.headers.cookie);
+	}
 	if(cookies != undefined){
 		//token = token.split("=")[1];		legacy: there could be more than 2 cookies. req.headers.cookie will return single string no matter how many of cookies are being.
 	 	return cookies.login_access_token;
