@@ -41,6 +41,7 @@ ignored/*
 #########################
 ########################## Dependency directories
 node_modules/
+./tester/
 #########################jspm_packages/
 #########################
 ########################## Snowpack dependency directory (https://snowpack.dev/)
