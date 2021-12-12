@@ -2,6 +2,8 @@ const db = require('../config/db.js').promise();
 const Joi = require('joi');
 const jwt = require('jsonwebtoken');
 
+const userModel = require('../models/userModel.js');
+
 
 // 회원 가입
 const post_register = async (req, res) => {
@@ -93,33 +95,24 @@ function generate_token(id, nickname, created_date){
     return token;
 };
 
-function is_agreed(user_id){
-	return db.query(`select agreement from data_use_agreement where user_id=${user_id}`);
-}
 const post_login = async (req, res) => {
 	const { mobile_number, password } = req.body;
-
 	try{
-		const [db_taken] = await db.query(`SELECT id, mobile_number, pw, nickname, created_date FROM user WHERE mobile_number=?`, [mobile_number]);
-		// not registered
-		if(db_taken.length == 0)
+		const get_user = await userModel.get_user(mobile_number);
+		if(get_user == false)
 			return res.send("가입되지 않은 전화번호입니다.");
-		// password not match
-		if(password != db_taken[0].pw)
+		if(get_user.pw != password)
 			return res.send("틀린 비밀번호입니다.");
-		// success login,
-		// generate token
-		const token = generate_token(db_taken[0].id, db_taken[0].nickname, db_taken[0].created_date);
+		const token = generate_token(get_user.user_id, get_user.nickname, get_user.created_date);
 		// send token as cookie(while there are various methods for different usages)
 		res.cookie('login_access_token', token, {
 			maxAge: 1000 * 60 * 60 * 24 * 30, //30days
 			httpOnly: true
 		});
-
-		const check_agreed = await is_agreed(db_taken[0].id);
-		if(check_agreed[0].length == 0)
+		if(await userModel.check_betatest_agreement(get_user.user_id) == true){
+			return res.redirect('/');
+		}else
 			return res.render('../views/parts_home/user_agreement')
-		return res.redirect('/');
 	}
 	catch(err){
 		console.log(err);

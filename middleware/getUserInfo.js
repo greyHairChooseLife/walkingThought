@@ -4,16 +4,16 @@ const cookie = require('cookie');
 function get_token(req) {
 	let cookies = {};
 	if(req.headers.cookie == undefined){
-		cookies = undefined;
+		console.log('there is no cookie')
+		return false;
 	}else{
 		cookies = cookie.parse(req.headers.cookie);
 	}
-	if(cookies != undefined){
-		//token = token.split("=")[1];		legacy: there could be more than 2 cookies. req.headers.cookie will return single string no matter how many of cookies are being.
-	 	return cookies.login_access_token;
-	} else{
-		console.log('cookies are undefined. aka no token is being')
+	if(cookies.login_access_token == undefined){
+		console.log('there are cookie but not the right thing')
 		return false;
+	}else{
+		return cookies.login_access_token;
 	}
 }
 
