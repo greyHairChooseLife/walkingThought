@@ -9,7 +9,12 @@ class User {
 		this.created_date = created_date;
 		this.mobile_number = mobile_number;
 	}
-	//period(){}
+	period(){
+		const created_date = this.created_date.getTime();
+		const now = new Date().getTime();
+		const time = Math.ceil(now-created_date) / (1000*3600*24);
+		return Math.floor(time);
+	}
 }
 
 const get_user = async (given_mobile) => {
