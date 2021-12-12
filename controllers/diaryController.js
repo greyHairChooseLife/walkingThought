@@ -1,15 +1,15 @@
 const db = require('../config/db.js').promise();
+const diaryModel = require('../models/diaryModel.js');
 //generate dummy data
 const gen = require('../tester/test_data_generater.js');
-
 
 const dummy = (req, res) => {
 	gen.gen(req, res);
 	res.send('data settled');
 }
 
-//contents for daily page. it need a proper function naming
-function get_daily_diary(y, m, d, user_id){
+//날짜 오버플로우 대응
+function modify_overflow_dates(y, m, d){
 	if(d === 0){
 		m = m-1;
 		d = new Date(y, m, d).getDate();
@@ -18,13 +18,7 @@ function get_daily_diary(y, m, d, user_id){
 		y = y-1;
 		m = 12;
 	}
-		
-	return db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
-		AND (classes = 'd')
-		AND (YEAR(created_date) = ${y})
-		AND (MONTH(created_date) = ${m}) 
-		AND (DAY(created_date) = ${d})
-		`, [user_id]);
+	return {y, m, d};
 }
 
 //contents for monthly page. it need a proper function naming 
@@ -95,136 +89,86 @@ function getDateName(year, month, day, type){
 const read_and_write_daily = async (req, res) => {
 
 	const user_id = res.locals.user.id;
-	const focused_year = Number(req.query.year);
-	const focused_month = Number(req.query.month);
-	const focused_date = Number(req.query.date);
-
-	const focused_index = [focused_year, focused_month, focused_date];
+	const focused_index = [Number(req.query.year), Number(req.query.month), Number(req.query.date)]; 
 	const today_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
 
+	//표시할 3년치 다이어리 가져오기
+	const diary_obj = {_top:'', _mid:'', _bot:''};
+	const modified_index = modify_overflow_dates(focused_index[0], focused_index[1], focused_index[2]);
+	diary_obj['_top'] = await diaryModel.get_daily(modified_index.y-2, modified_index.m, modified_index.d, user_id)
+	diary_obj['_mid'] = await diaryModel.get_daily(modified_index.y-1, modified_index.m, modified_index.d, user_id)
+	diary_obj['_bot'] = await diaryModel.get_daily(modified_index.y-0, modified_index.m, modified_index.d, user_id)
+
+	//오늘 일기 썼는지 안썼지 체크
 	let is_written;
-	let checker = await get_daily_diary(today_index[0], today_index[1], today_index[2], user_id);
-
-	if(checker[0][0] != undefined)
-		is_written = true;
-	else
+	let checker = await diaryModel.get_daily(today_index[0], today_index[1], today_index[2], user_id)
+	if(checker.created_date == null)
 		is_written = false;
+	else
+		is_written = true;
 
-
-	let db_obj = [];
-	for(var j=0; j<3; j++){
-		let temp = await get_daily_diary(focused_year-j, focused_month, focused_date, user_id);
-		if(temp[0][0] == undefined){
-			temp[0][0] = {
-				created_date: null,
-				content: ``,
-				question: `기록이 없어요 :(`,
-
-			}
-		}
-		db_obj.push(temp[0][0]);
-	}
-//사람이 읽기 편한게 날짜 표시방식을 바꿔준다.
-	function convert_date(original) {
-		if(original == null)
-			return null;
-		let converted = [];
-		converted[0] = original.getFullYear();
-		converted[1] = original.getMonth() + 1;
-		converted[2] = original.getDate();
-		converted[3] = original.getDay();
-		if(converted[3] == 0)
-			converted[3] = "일요일";
-		else if(converted[3] == 1)
-			converted[3] = "월요일";
-		else if(converted[3] == 2)
-			converted[3] = "화요일";
-		else if(converted[3] == 3)
-			converted[3] = "수요일";
-		else if(converted[3] == 4)
-			converted[3] = "목요일";
-		else if(converted[3] == 5)
-			converted[3] = "금요일";
-		else if(converted[3] == 6)
-			converted[3] = "토요일";
-		return converted;
-	}
-	function call_converted_date(converted_date) {
-		if(converted_date == null)
-			return '';
-		return converted_date[0]+'. '+converted_date[1]+'. '+converted_date[2]+'. '+converted_date[3];
-	}
-
-	let writing_board_index;
+	//오늘의 일기 에디터 위치 선정
+	let writing_board_index = null;
 	function get_writing_board_index(focused_index, today_index) {
 		if(focused_index[1] != today_index[1]){
-			writing_board_index = null;
-			return;
+			return null;
 		}
 		if(focused_index[2] != today_index[2]){
-			writing_board_index = null;
-			return;
+			return null;
 		}
 		const year_gap = focused_index[0] - today_index[0];
 		switch (year_gap) {
 			case 0 :
-				writing_board_index = 3;
-				break;
+				return 3;
 			case 1 :
-				writing_board_index = 2;
-				break;
+				return 2;
 			case 2 :
-				writing_board_index = 1;
-				break;
+				return 1;
 			default :
-				writing_board_index = null;
+				return null;
 		}
 	}
-	get_writing_board_index(focused_index, today_index);
+	if(is_written == false){
+		writing_board_index = get_writing_board_index(focused_index, today_index);
+	}
 	
+	//읽기 쉬운 날짜 생성
 	const dates = [];
-	dates[0] = focused_year + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year, focused_month, focused_date, 'string');
-	dates[1] = (focused_year-1) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-1, focused_month, focused_date, 'string');
-	dates[2] = (focused_year-2) + '. ' + focused_month + '. ' + focused_date + ' ' + getDateName(focused_year-2, focused_month, focused_date, 'string');
+	dates[0] = (focused_index[0] -0) + '. ' + focused_index[1] + '. ' + focused_index[2] + ' ' + getDateName(focused_index[0]-0, focused_index[1], focused_index[2], 'string');
+	dates[1] = (focused_index[0] -1) + '. ' + focused_index[1] + '. ' + focused_index[2] + ' ' + getDateName(focused_index[0]-1, focused_index[1], focused_index[2], 'string');
+	dates[2] = (focused_index[0] -2) + '. ' + focused_index[1] + '. ' + focused_index[2] + ' ' + getDateName(focused_index[0]-2, focused_index[1], focused_index[2], 'string');
 
-	const regex_for_decode = /<br>/g;
-	let touched_content = [];
-	let touched_question = [];
+	//db에서 가져온 데이터에 줄바꿈 적용
+	const regex_operator = /<br>/g;
+	diary_obj['_top'].content = diary_obj['_top'].content.replace(regex_operator, '\n');
+	diary_obj['_mid'].content = diary_obj['_mid'].content.replace(regex_operator, '\n');
+	diary_obj['_bot'].content = diary_obj['_bot'].content.replace(regex_operator, '\n');
+	diary_obj['_top'].question = diary_obj['_top'].question.replace(regex_operator, '\n');
+	diary_obj['_mid'].question = diary_obj['_mid'].question.replace(regex_operator, '\n');
+	diary_obj['_bot'].question = diary_obj['_bot'].question.replace(regex_operator, '\n');
 
-	touched_content[0] = db_obj[0].content.replace(regex_for_decode, '\n');	//bot
-	touched_content[1] = db_obj[1].content.replace(regex_for_decode, '\n');	//mid
-	touched_content[2] = db_obj[2].content.replace(regex_for_decode, '\n');	//top
+	const obj_ejs = {
+		index_year: focused_index[0],
+		index_month: focused_index[1],
+		index_date: focused_index[2],
 
-	touched_question[0] = db_obj[0].question.replace(regex_for_decode, '\n');	//bot
-	touched_question[1] = db_obj[1].question.replace(regex_for_decode, '\n');	//mid
-	touched_question[2] = db_obj[2].question.replace(regex_for_decode, '\n');	//top
-
-	const db_obj_ejs = {
-		top_date : call_converted_date(convert_date(db_obj[2].created_date)),
-		mid_date : call_converted_date(convert_date(db_obj[1].created_date)),
-		bot_date : call_converted_date(convert_date(db_obj[0].created_date)),
- 		
-		dates : dates,
-
-		top_content : touched_content[2],
-		mid_content : touched_content[1],
-		bot_content : touched_content[0],
-
-		top_question : touched_question[2],
-		mid_question : touched_question[1],
-		bot_question : touched_question[0],
-
-		index_year: focused_year,
-		index_month: focused_month,
-		index_date: focused_date,
 		user_id: user_id,
 		today_index: today_index,
 		is_written: is_written,
 		writing_board_index: writing_board_index,
+
+		dates : dates,
+		top_content : diary_obj['_top'].content,
+		mid_content : diary_obj['_mid'].content,
+		bot_content : diary_obj['_bot'].content,
+		top_question : diary_obj['_top'].question,
+		mid_question : diary_obj['_mid'].question,
+		bot_question : diary_obj['_bot'].question,
 	}	
 
-	res.render('../views/diary/daily/daily', db_obj_ejs);
+	res.render('../views/diary/daily/daily', obj_ejs);
 }
+
 
 const pickup_game_monthly = async (req, res) => {
 
