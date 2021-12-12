@@ -30,24 +30,28 @@ const post_register = async (req, res) => {
     }
 
 	if(req.body.password != req.body.password_check)
-		return res.send('"check your password!!"');
+		return res.send('비밀번호 확인이 틀렸어요xD');
 
     const { mobile_number, password, nickname, birthdate, sex, address } = req.body;
 
-    const db_mobile_number = await db.query(`SELECT mobile_number FROM user WHERE mobile_number=?`, [mobile_number]);
-	if (db_mobile_number[0].length > 0)
-		return res.status(409).send('이미 가입된 전화번호입니다.');
+	const get_user = await userModel.get_user(mobile_number);
+	if(get_user == false){
+		userModel.register_user(mobile_number, password, nickname, birthdate, sex, address);
+		return res.redirect('/');
+	}
 	else{
-		db.query(`INSERT INTO user (mobile_number, pw, nickname, birthdate, sex, address, created_date) VALUES(?,?,?,?,?,?,NOW())`, [mobile_number, password, nickname, birthdate, sex, address]);
-		res.redirect('/');
+		return res.status(409).send('이미 가입된 전화번호입니다.');
 	}
 }
 
 // 회원 정보 수정
 const get_setting = (req, res) => {
-	const id = req.params.id;
+	return res.send('this is blocked temperally');
+
+	const id = res.locals.user.id;
 	res.render('user/setting', {id: id});
 }
+
 const post_setting = async (req, res) => {
     const schema = Joi.object().keys({
         password: Joi.string().required(),
@@ -69,15 +73,11 @@ const post_setting = async (req, res) => {
 		return res.send('"check your password!!"');
 
     const { password, nickname, birthdate, sex, address } = req.body;
+	const user_id = res.locals.user.id;
 
-	//query uder this line dosn't work. i can't use '[ ]' and '?' syntax 
-	//const user_info_edit_result = await db.query(`UPDATE user SET (pw=?, nickname=?, birthdate=?, sex=?, address=?) VALUES(?,?,?,?,?) WHERE id = '${req.params.id}'`, [password, nickname, birthdate, sex, address]);
-	const user_info_edit_result = await db.query(`UPDATE user SET pw='${password}', nickname='${nickname}', birthdate='${birthdate}', sex='${sex}', address='${address}' WHERE id='${req.params.id}'`);
-	if(user_info_edit_result != undefined)
+	if(await userModel.edit_user_info(user_id, password, nickname, birthdate, sex, address) != undefined)
 		res.redirect('/');
 }
-
-
 
 //token generator
 function generate_token(id, nickname, created_date){
@@ -123,7 +123,7 @@ const post_login = async (req, res) => {
 const post_agreement = (req, res) => {
 	const user_id = res.locals.user.id;
 	const agreement = 'Y';
-	db.query(`INSERT INTO data_use_agreement (user_id, agreement, created_date) VALUES(?,?,NOW())`, [user_id, agreement]);
+	userModel.post_agreement(user_id, agreement);
 	return res.redirect('/');
 }
 
@@ -141,7 +141,15 @@ const post_logout = (req, res) => {
 }
 
 const post_delete = async (req, res) => { // 계정 삭제
-	const delete_result = await db.query(`DELETE FROM user WHERE id='${req.params.id}'`);
+	return res.send('this is blocked temperally');
+	
+	//check login status and if it is true then force to logged out as taking login_access_token away.
+	if(res.locals.isLogin === true)
+		res.clearCookie('login_access_token');
+	
+	const user_id = res.locals.user.id;
+
+	const delete_result = await db.query(`DELETE FROM user WHERE id=?`, [user_id]);
 	if(delete_result != undefined)
 		res.redirect('/');
 }
@@ -150,13 +158,11 @@ const post_delete = async (req, res) => { // 계정 삭제
 
 module.exports = {
 	post_register,
-	get_setting,
-	post_setting,
+	get_setting,			//inactive temperally
+	post_setting,			//inactive temperally
 
 	post_login,
-
 	post_agreement,
-
 	post_logout,
-	post_delete,
+	post_delete,			//inactive temperally
 };
