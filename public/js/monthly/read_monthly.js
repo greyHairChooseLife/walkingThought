@@ -70,7 +70,7 @@ month_down.addEventListener('mouseleave', () => {
 const diary = document.getElementById('diary');
 let tag_maker;
 
-let focused_period = index[2];
+let focused_period = index[1];
 let how_many_paragraph = db_obj[focused_period-1].question.length;
 
 //월간 생각 작성여부 판단
@@ -82,15 +82,15 @@ for(var i=0; i<12; i++){
 		is_written[i] = true;
 }
 
-focus_year_index.innerText = index[1]+'.';
+focus_year_index.innerText = index[0]+'.';
 
 function navigate_period(focused_period) {
 	if(focused_period > 12){
-		navigator.action = '/diary/read_monthly?year='+(Number(index[1])+1)+'&month='+1;
+		navigator.action = '/diary/read_monthly?year='+(Number(index[0])+1)+'&month='+1;
 		navigator.submit();
 	}
 	else if(focused_period < 1){
-		navigator.action = '/diary/read_monthly?year='+(Number(index[1])-1+'&month='+12);
+		navigator.action = '/diary/read_monthly?year='+(Number(index[0])-1+'&month='+12);
 		navigator.submit();
 	}
 }
@@ -173,11 +173,11 @@ month_down.addEventListener('click', () => {
 	spread_diary(how_many_paragraph);
 });
 year_up.addEventListener('click', () => {
-	navigator.action = '/diary/read_monthly?year='+(Number(index[1])+1)+'&month='+focused_period;
+	navigator.action = '/diary/read_monthly?year='+(Number(index[0])+1)+'&month='+focused_period;
 	navigator.submit();
 });
 year_down.addEventListener('click', () => {
-	navigator.action = '/diary/read_monthly?year='+(Number(index[1])-1)+'&month='+focused_period;
+	navigator.action = '/diary/read_monthly?year='+(Number(index[0])-1)+'&month='+focused_period;
 	navigator.submit();
 });
 

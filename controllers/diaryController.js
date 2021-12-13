@@ -3,6 +3,7 @@ const diaryModel = require('../models/diaryModel.js');
 //generate dummy data
 const gen = require('../tester/test_data_generater.js');
 
+//test data maker
 const dummy = (req, res) => {
 	gen.gen(req, res);
 	res.send('data settled');
@@ -35,6 +36,7 @@ function get_every_diary_of_month(y, m, user_id){
 		`, [user_id]);
 }
 
+//날짜별 요일 이름 말해주는 기능. 이런 공통 메소드는 나중에 밖으로 빼야 한다.
 function getDateName(year, month, day, type){
 	var a;
 	var b;
@@ -234,20 +236,16 @@ const write_monthly = (req, res) => {
 	res.render('../views/diary/monthly/write_monthly', obj_ejs);
 }
 
-
 const read_monthly = async (req, res) => {
 	const user_id = res.locals.user.id;
-	const index_year = req.query.year;
-	const index_month = req.query.month;
-
 	const today_index = [new Date().getFullYear(), new Date().getMonth()+1];
-	const index = [user_id, index_year, index_month];
+	const focused_index = [req.query.year, req.query.month]; 
 
 	let raw_db_obj = [];
 	for(var i=0; i<12; i++){
 		let temp = await db.query(`SELECT * FROM diary WHERE (user_id=?)
 			AND (classes = 'm')
-			AND (YEAR(created_date) = ${index_year})
+			AND (YEAR(created_date) = ${focused_index[0]})
 			AND (MONTH(created_date) = ${i+1})
 			`, [user_id]);
 		
@@ -282,9 +280,10 @@ const read_monthly = async (req, res) => {
 	}
 
 	const obj_ejs = {
-		db_obj: raw_db_obj,
-		index: index,
+		user_id: user_id,
 		today_index: today_index,
+		focused_index: focused_index,
+		db_obj: raw_db_obj,
 	}
 	res.render('../views/diary/monthly/read_monthly', obj_ejs);
 }
