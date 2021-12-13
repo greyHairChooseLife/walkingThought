@@ -71,12 +71,12 @@ const diary = document.getElementById('diary');
 let tag_maker;
 
 let focused_period = index[1];
-let how_many_paragraph = db_obj[focused_period-1].question.length;
+let how_many_paragraph = diarys[focused_period-1].question.length;
 
 //월간 생각 작성여부 판단
 let is_written = [];
 for(var i=0; i<12; i++){
-	if(db_obj[i].content.length <= 1 && db_obj[i].content[0] == '' && db_obj[i].coment[0] == '')
+	if(diarys[i].content.length <= 1 && diarys[i].content[0] == '' && diarys[i].coment[0] == '')
 		is_written[i] = false;
 	else
 		is_written[i] = true;
@@ -105,7 +105,7 @@ function spread_focused_period(focused_period) {
 function spread_diary(how_many_paragraph) {
 	tag_maker = document.createElement('div');
 	tag_maker.setAttribute("id","start_spacer");
-	tag_maker.innerHTML = '작성일 : ' + db_obj[focused_period-1].created_date.split('T')[0];
+	tag_maker.innerHTML = '작성일 : ' + diarys[focused_period-1].created_date.split('T')[0];
 	diary.appendChild(tag_maker);
 	for(var i=0; i<how_many_paragraph; i++){
 		if(is_written[focused_period-1] == false){
@@ -114,10 +114,10 @@ function spread_diary(how_many_paragraph) {
 			tag_maker.innerText = '작성된 내용이 없습니다.';
 			diary.appendChild(tag_maker);
 		} else{
-			if(db_obj[focused_period-1].content[i] == ''){
+			if(diarys[focused_period-1].content[i] == ''){
 				tag_maker = document.createElement('pre');
 				tag_maker.setAttribute("class","new_coment");
-				tag_maker.innerText = db_obj[focused_period-1].coment[i];
+				tag_maker.innerText = diarys[focused_period-1].coment[i];
 				diary.appendChild(tag_maker);
 			} else{
 				tag_maker = document.createElement('div');
@@ -126,17 +126,17 @@ function spread_diary(how_many_paragraph) {
 
 				tag_maker = document.createElement('pre');
 				tag_maker.setAttribute("class","pickup_content");
-				tag_maker.innerText = db_obj[focused_period-1].content[i];
+				tag_maker.innerText = diarys[focused_period-1].content[i];
 				diary.appendChild(tag_maker);
 
 				tag_maker = document.createElement('pre');
 				tag_maker.setAttribute("class","pickup_question");
-				tag_maker.innerText = '☞ ' + db_obj[focused_period-1].question[i];
+				tag_maker.innerText = '☞ ' + diarys[focused_period-1].question[i];
 				diary.appendChild(tag_maker);
 
 				tag_maker = document.createElement('pre');
 				tag_maker.setAttribute("class","pickup_coment");
-				tag_maker.innerText = '☞ ' + db_obj[focused_period-1].coment[i];
+				tag_maker.innerText = '☞ ' + diarys[focused_period-1].coment[i];
 				diary.appendChild(tag_maker);
 
 				tag_maker = document.createElement('div');
@@ -161,7 +161,7 @@ month_up.addEventListener('click', () => {
 	focused_period++;
 	navigate_period(focused_period);
 	spread_focused_period(focused_period);
-	how_many_paragraph = db_obj[focused_period-1].question.length;
+	how_many_paragraph = diarys[focused_period-1].question.length;
 	spread_diary(how_many_paragraph);
 });
 month_down.addEventListener('click', () => {
@@ -169,7 +169,7 @@ month_down.addEventListener('click', () => {
 	focused_period--;
 	navigate_period(focused_period);
 	spread_focused_period(focused_period);
-	how_many_paragraph = db_obj[focused_period-1].question.length;
+	how_many_paragraph = diarys[focused_period-1].question.length;
 	spread_diary(how_many_paragraph);
 });
 year_up.addEventListener('click', () => {
@@ -208,14 +208,14 @@ for(var i=0; i<12; i++){
 			remove_spreaded();
 			focused_period = m+1;
 			spread_focused_period(focused_period);
-			how_many_paragraph = db_obj[focused_period-1].content.length;
+			how_many_paragraph = diarys[focused_period-1].content.length;
 			spread_diary(how_many_paragraph);
 		});
 	})(i);
 }
 for(var i=0; i<12; i++){
 	(function(m){
-		if(db_obj[m].forgot == true){
+		if(diarys[m].is_written == false){
 			buttons_arr[m].style.opacity = '0.2';
 		} else
 			buttons_arr[m].style.cursor = 'pointer';

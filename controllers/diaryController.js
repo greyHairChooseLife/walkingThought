@@ -241,41 +241,26 @@ const read_monthly = async (req, res) => {
 	const today_index = [new Date().getFullYear(), new Date().getMonth()+1];
 	const focused_index = [req.query.year, req.query.month]; 
 
-	let raw_db_obj = [];
-	for(var i=0; i<12; i++){
-		let temp = await db.query(`SELECT * FROM diary WHERE (user_id=?)
-			AND (classes = 'm')
-			AND (YEAR(created_date) = ${focused_index[0]})
-			AND (MONTH(created_date) = ${i+1})
-			`, [user_id]);
-		
-		if(temp[0][0] == undefined){
-			temp[0][0] = {
-				created_date: ``,
-				content: ``,
-				question: `기록이 없어요 :(`,
-				coment: ``,
-				forgot: true,
-			}
-		}
-		raw_db_obj.push(temp[0][0]);
+	let diarys = [];
+	for(var i=1; i<=12; i++){
+		diarys.push(await diaryModel.get_monthly(focused_index[0], i, user_id));
 	}
 	
+	//post_monthly에서 합쳐 놓은 것들 도로 쪼개기
 	const key = '##@@##@@##';
-//converting
-	for(var i=0; i<raw_db_obj.length; i++){
-		raw_db_obj[i].question = raw_db_obj[i].question.split(key);
-		raw_db_obj[i].content = raw_db_obj[i].content.split(key);
-		raw_db_obj[i].coment = raw_db_obj[i].coment.split(key);
+	for(var i=0; i<diarys.length; i++){
+		diarys[i].question = diarys[i].question.split(key);
+		diarys[i].content = diarys[i].content.split(key);
+		diarys[i].coment = diarys[i].coment.split(key);
 	}
 
+	//줄바꿈 변환
 	const regex_for_decode = /<br>/g;
-
-	for(var i=0; i<raw_db_obj.length; i++){
-		for(var j=0; j<raw_db_obj[i].question.length; j++){
-			raw_db_obj[i].question[j] = raw_db_obj[i].question[j].replace(regex_for_decode, '\n');
-			raw_db_obj[i].content[j] = raw_db_obj[i].content[j].replace(regex_for_decode, '\n');
-			raw_db_obj[i].coment[j] = raw_db_obj[i].coment[j].replace(regex_for_decode, '\n');
+	for(var i=0; i<diarys.length; i++){
+		for(var j=0; j<diarys[i].question.length; j++){
+			diarys[i].question[j] = diarys[i].question[j].replace(regex_for_decode, '\n');
+			diarys[i].content[j] = diarys[i].content[j].replace(regex_for_decode, '\n');
+			diarys[i].coment[j] = diarys[i].coment[j].replace(regex_for_decode, '\n');
 		}
 	}
 
@@ -283,7 +268,7 @@ const read_monthly = async (req, res) => {
 		user_id: user_id,
 		today_index: today_index,
 		focused_index: focused_index,
-		db_obj: raw_db_obj,
+		diarys: diarys,
 	}
 	res.render('../views/diary/monthly/read_monthly', obj_ejs);
 }
