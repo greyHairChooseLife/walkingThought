@@ -22,20 +22,6 @@ function modify_overflow_dates(y, m, d){
 	return {y, m, d};
 }
 
-//contents for monthly page. it need a proper function naming 
-function get_every_diary_of_month(y, m, user_id){
-	if(m === 0){
-		y = y-1;
-		m = 12;
-	}
-		
-	return db.query(`SELECT created_date, content, question FROM diary WHERE (user_id=?)
-		AND (classes = 'd')
-		AND (YEAR(created_date) = ${y})
-		AND (MONTH(created_date) = ${m}) 
-		`, [user_id]);
-}
-
 //날짜별 요일 이름 말해주는 기능. 이런 공통 메소드는 나중에 밖으로 빼야 한다.
 function getDateName(year, month, day, type){
 	var a;
@@ -173,55 +159,32 @@ const read_and_write_daily = async (req, res) => {
 
 
 const pickup_game_monthly = async (req, res) => {
-
 	const user_id = res.locals.user.id;
-	const focused_year = Number(req.query.year);
-	const focused_month = Number(req.query.month);
-	const focused_date = Number(req.query.date);
-	//get a name of day. the day of the first date of the month.
-	const init_day = getDateName(focused_year, focused_month, focused_date-focused_date+1, 'number');
-	const last_date_of_month = new Date(focused_year, focused_month, 0).getDate();
+	const focused_index = [Number(req.query.year), Number(req.query.month), Number(req.query.date)];
+	//시작일의 요일을 알아야 달력을 그릴 수 있다.
+	const init_day = getDateName(focused_index[0], focused_index[1], focused_index[2]-focused_index[2]+1, 'number');
+	//마지막 날짜를 알아야 총 몇일인지 알 수 있다.
+	const last_date_of_month = new Date(focused_index[0], focused_index[1], 0).getDate();
 
-	const index = [user_id, focused_year, focused_month, focused_date, init_day, last_date_of_month];
+	const index = [user_id, focused_index[0], focused_index[1], focused_index[2], init_day, last_date_of_month];
 
 	let calendar_data;
-	if(focused_date < 4){
-		calendar_data = await get_every_diary_of_month(focused_year, focused_month-1, user_id);
-	}else{
-		calendar_data = await get_every_diary_of_month(focused_year, focused_month, user_id);
-	}
-	calendar_data = await get_every_diary_of_month(focused_year, focused_month-1, user_id);		// 이번달만 이렇게 운영하고, 다음 월간일기부터는 이 줄 삭제
-	calendar_data = calendar_data[0];
-
-	//sorting by order
-	const sorting_field = "created_date";
-	calendar_data.sort(function(a, b){
-		return a[sorting_field] - b[sorting_field];
-	});
-
-	const missing_filler = {
-		created_date: `기록이 없어요 :(`,
-		content: ``,
-		question: `기록이 없어요 :(`,
+	if(focused_index[2] < 4){		//익월 1, 2, 3일은 지난달 일기 쓸 차례
+		calendar_data = await diaryModel.get_dailys_of_month(focused_index[0], focused_index[1]-1, user_id, last_date_of_month);
+	}else{							//1, 2, 3일이 아니라면 그냥 이달의 월간생각 쓰는 것
+		calendar_data = await diaryModel.get_dailys_of_month(focused_index[0], focused_index[1]-0, user_id, last_date_of_month);
 	}
 
-	for(var i=0; i<last_date_of_month; i++){
-		if(calendar_data[i] == undefined){				//if there is not enough data, it should return undefined before the loop finished. 
-			calendar_data.splice(i, 0, missing_filler);
-			continue;
-		}
-		if(calendar_data[i].created_date.getDate().toString() != i+1){
-			calendar_data.splice(i, 0, missing_filler);
-		}
-	}
+	const obj_ejs = {
+		user_id: user_id,
+		calender_index: [init_day, last_date_of_month],
+		focused_index: focused_index,
 
-	//obj for ejs
-	const db_obj_ejs = {
 		index: index,
 		calendar_data: calendar_data,
 	}
 
-	res.render('../views/diary/monthly/pickup_game_monthly', db_obj_ejs);
+	res.render('../views/diary/monthly/pickup_game_monthly', obj_ejs);
 }
 
 const write_monthly = (req, res) => {
