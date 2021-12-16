@@ -188,12 +188,9 @@ const pickup_game_monthly = async (req, res) => {
 }
 
 const write_monthly = (req, res) => {
-	//const index = 1;
 	const pickup_list = JSON.parse(req.body.pickup);
 
-	//obj for ejs
 	const obj_ejs = {
-		//index: index,
 		pickup_list: pickup_list,
 	}
 	res.render('../views/diary/monthly/write_monthly', obj_ejs);
@@ -236,85 +233,31 @@ const read_monthly = async (req, res) => {
 	res.render('../views/diary/monthly/read_monthly', obj_ejs);
 }
 
-const daily_post = (req, res) => {
+const post_daily = (req, res) => {
 	const { question, content, writing_datetime } = req.body;
-	const classes = 'd';
 	const user_id = res.locals.user.id;
 	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1, new Date().getDate()];
 
-	const regex_for_encode1 = /\r\n/g;	//ms-window
-	//const regex_for_encode2 = /\n/g;	//unix
-	//const regex_for_encode3 = /\r/g;	//mac
-
-	const touched_content = content.replace(regex_for_encode1, '<br>');
-	const touched_question = question.replace(regex_for_encode1, '<br>');
-
-	db.query(`INSERT INTO diary (classes, content, question, user_id, created_date) VALUES (?, ?, ?, ?, ?)`, [classes, touched_content, touched_question, user_id, writing_datetime]);
+	diaryModel.post_daily(user_id, question, content, writing_datetime);
 
 	//without first argument 307, redirect askes GET method. 307 make it POST method.
 	res.redirect(307, `/diary/daily/${user_id}?year=${redirect_index[0]}&month=${redirect_index[1]}&date=${redirect_index[2]}`);
 };
 
-const monthly_post = (req, res) => {
-	const key = '##@@##@@##';
-	const classes = 'm';
-	const user_id = res.locals.user.id;
-
+const post_monthly = (req, res) => {
 	const { titles, contents, coments } = req.body;
+	const user_id = res.locals.user.id;
+	//1, 2, 3일 중에 쓴 월간일기는 지난달의 월간일기다.
+	let redirect_index;
+	if(new Date().getDate() <= 3)
+		redirect_index = [new Date().getFullYear(), new Date().getMonth()];
+	else
+		redirect_index = [new Date().getFullYear(), new Date().getMonth()+1];
 
-	let str_titles = '';
-	let str_contents = '';
-	let str_coments = '';
-
-	// 같은 name을 통해 받은 input data가 여럿이라면 배열로 받는다. 그런데 단 하나라면 string으로 받는다. 따라서 req.body로 가져온 input data의 length를 활용하고 싶다면, 가져온 데이터의 타입이 배열인지 문자열인지 확인하는 과정이 반드시 필요하다.
-	if(Array.isArray(titles) == false)
-		str_titles = titles;
-	else{
-		for(var i=0; i<titles.length; i++){
-			str_titles += titles[i];
-			if(i+1 != titles.length)
-			str_titles += key;
-		}
-	}
-
-	if(Array.isArray(contents) == false)
-		str_contents = contents;
-	else{
-		for(var i=0; i<contents.length; i++){
-			str_contents += contents[i];
-			if(i+1 != contents.length)
-			str_contents += key;
-		}
-	}
-
-	if(Array.isArray(coments) == false)
-		str_coments = coments;
-	else{
-		for(var i=0; i<coments.length; i++){
-			str_coments += coments[i];
-			if(i+1 != coments.length)
-			str_coments += key;
-		}
-	}
-
-	const regex_for_encode1 = /\r\n/g;	//ms-window
-	//const regex_for_encode2 = /\n/g;	//unix
-	//const regex_for_encode3 = /\r/g;	//mac
-
-	const touched_str_titles = str_titles.replace(regex_for_encode1, '<br>');
-	const touched_str_contents = str_contents.replace(regex_for_encode1, '<br>');
-	const touched_str_coments = str_coments.replace(regex_for_encode1, '<br>');
-
-	//now로 하면 익월 1,2,3일에 쓴 것은 밀려서 기록된다. 이거 1,2,3일일 경우엔 전월로 기록되도록 수정해야한다.
-	db.query(`INSERT INTO diary (classes, question, content, coment, user_id, created_date) VALUES (?, ?, ?, ?, ?, NOW())`, [classes, touched_str_titles, touched_str_contents, touched_str_coments, user_id]);
-	
-	const redirect_index = [new Date().getFullYear(), new Date().getMonth()+1];
+	diaryModel.post_monthly(user_id, titles, contents, coments);
 	
 	res.redirect(307, `/diary/read_monthly?year=${redirect_index[0]}&month=${redirect_index[1]}`);
 };
-
-
-
 
 //const annualy = (req, res) => {
 //}
@@ -325,11 +268,12 @@ const monthly_post = (req, res) => {
 module.exports = {
 	dummy,
 
-	read_and_write_daily, 
-	daily_post,
+	read_and_write_daily,	//DAY
 
-	pickup_game_monthly,
-	write_monthly,
-	read_monthly,
-	monthly_post,
+	pickup_game_monthly,	//MONTH
+	write_monthly,			//MONTH
+	read_monthly,			//MONTH
+
+	post_daily,
+	post_monthly,
 }
