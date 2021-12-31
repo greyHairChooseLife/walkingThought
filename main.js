@@ -25,7 +25,7 @@ app.use(express.static('./public'));
 //
 //getUserInfo checks login status
 app.use(getUserInfo);
-//app.use('/diary', betatest_survey1);
+app.use('/diary', betatest_survey1);
 app.use('/diary', betatest_survey2);
 	
 const adminRouter = require('./routers/adminRouter.js');
