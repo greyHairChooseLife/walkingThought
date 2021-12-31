@@ -1,0 +1,93 @@
+<head>
+	<link rel="stylesheet" href="/css/betatest_survey1.css">
+</head>
+<body>
+	<div id='background'></div>
+
+	<div id="title">
+	베타테스터 설문조사(1차)
+	</div>
+
+	<form action="/report/betatest_survey2" method="post" id="survey_form">
+		<div class='page'>
+		<div id='question1' class='questions'>Q. 일기란 무엇인가요? (글자 수 제한 : 500자)</div>
+		<textarea id='answer1' name='a1' placeholder="이번에는 500자 입니다.
+
+아침에 일어나면, 씻고 거울을 보잖아요? 밖에 나가도 될 모습인지 확인하려고요.
+
+저는 일기도 거울이라고 생각해요. 내 마음을, 내면을 비춰주는 거울. 얼굴 보는 거울보다는 사용이 어렵지만요.
+
+일기를 쓰지 않더라도 스스로를 인식하게 되는 많은 순간들이 있어요. 예를 들면 나를 부르는 호칭이나 말투가 있죠. 존중도 무시도 담겨있고, 무의식 중에 읽어 낼 수 있어요. 이렇게 타인과의 상호작용으로 스스로를 이해합니다.
+
+하지만 남이 보는 나는 이 세상에서 살아남기 위해 보여준 모습 만큼의 나 일 뿐입니다.
+
+우리는 각자의 삶에서 주인공들입니다. 살아갈 삶을 선택할 자유가 있습니다. 일기를 통해 자신이 어떤 삶을 살아가고 있는지, 어떤 마음으로 살아가고 있는지 잘 살펴보시기 바랍니다. 삶을 선택하세요.
+
+
+아, 혹시 어렵다면 도와주는 곳이 있습니다. 벌새라고... 대성로 55에 2월 오픈입니다. 베타테스터 여러분은 언제나 무료로 환영합니다."></textarea>
+		<div id=''>작성한 글자 수</div>
+		<div id='show_length'>0</div>
+		</div>
+
+		<div class='page'>
+		<div id='question2' class='questions'>Q. 일기 쓰기는 갈수록 쉬워졌나요, 힘들어졌나요?</div>
+		<input type='hidden' id='answer2' name='a2' value=''>
+		<div class='answer2'>1. 쉬워졌다</div>
+		<div class='answer2'>2. 힘들어졌다</div>
+		<div class='answer2'>3. 그냥 똑같다</div>
+		</div>
+
+		<div class='page'>
+			<div id='question3' class='questions'>Q. 일기 쓰기는 얻는 것과 소모되는 것을 종합적으로 따져 봤을 때, </div>
+			<input type='hidden' id='answer3' name='a3' value=''>
+			<div class='answer3'>1. 꾸준히 쓸 만한 가치가 있고 그렇게 하고 싶다</div>
+			<div class='answer3'>2. 특별한 날이라면 써볼 만 하다</div>
+			<div class='answer3'>3. 좋은 점은 있지만 쓰지 않게 되는 이유가 더 강했다</div>
+			<div class='answer3'>4. 힘들고 시간만 쓰지 얻을게 있는지 모르겠다</div>
+
+			<div id='question4' class='questions'>
+				<div class='question4' class='questions'>Q. 꾸준히 써서 얻을 수 있는 것은 무엇이었나요?</div>
+				<div class='question4' class='questions'>Q. 일기를 써서 얻을 수 있는 것은 무엇이었나요?</div>
+				<div class='question4' class='questions'>Q. 좋은 점은 무엇이었나요?</div>
+			</div>
+			<textarea id='answer4' name='a4'></textarea>
+		</div>
+
+		<div class='page'>
+			<div id='question5' class='questions'>Q. 무엇이 일기 쓰기를 힘들고, 어렵게 만들었나요? 생각나는 대로 모두 적어주세요.</div>
+			<input type='hidden' id='answer5' name='a5' value=''>
+			<div id='answer5_srcA_label'>힘들게 만든 것들</div>
+			<textarea id='answer5_src_hard'></textarea>
+			<div id='answer5_srcB_label'>어렵게 만든 것들</div>
+			<textarea id='answer5_src_diffi'></textarea>
+		</div>
+
+		<div class='page'>
+		<div id='question6' class='questions'>Q. 일기에 쓴 내용은,</div>
+		<input type='hidden' id='answer6' name='a6' value=''>
+		<div class='answer6'>1. 사실 위주였다</div>
+		<div class='answer6'>2. 느낌이나 생각, 마음 위주였다</div>
+		</div>
+
+		<div class='page'>
+		<div id='question7' class='questions'>Q. 일기는,</div>
+		<input type='hidden' id='answer7' name='a7' value=''>
+		<div class='answer7'>1. 기록에 의미가 있다</div>
+		<div class='answer7'>2. 사고*에 의미가 있다(*생각하고 궁리함)</div>
+		</div>
+
+		<div class='page'>
+		<div id='question8' class='questions'>Q. 일기 쓰기를 통해 스스로에 대해 좀 더 알게 되었나요?(쓰지 않던 때에 비하여)</div>
+		<input type='hidden' id='answer8' name='a8' value=''>
+		<div class='answer8'>1. 그렇다</div>
+		<div class='answer8'>2. 그런 면이 없진 않지만 너무 미약하다</div>
+		<div class='answer8'>3. 일기 쓰기와는 상관이 없는 것 같다</div>
+		</div>
+	</form>
+ 
+	<div id='next'>다음</div>
+	<div id='before'>이전</div>
+	<div id='send_survey'>1/7</div>
+</body>
+
+<script type="text/javascript" src="/js/betatest_survey2.js"></script>

@@ -2,6 +2,7 @@ require('dotenv').config();
 const { PORT } = process.env; // .env로 정보 유출을 방지 , env는 gitignore에 등록되어있습니다.
 const getUserInfo = require('./middleware/getUserInfo');
 const betatest_survey1 = require('./middleware/betatest_survey1');
+const betatest_survey2 = require('./middleware/betatest_survey2');
 
 //FRAMEWORK 
 const express = require('express');
@@ -24,7 +25,8 @@ app.use(express.static('./public'));
 //
 //getUserInfo checks login status
 app.use(getUserInfo);
-app.use('/diary', betatest_survey1);
+//app.use('/diary', betatest_survey1);
+app.use('/diary', betatest_survey2);
 	
 const adminRouter = require('./routers/adminRouter.js');
 const homeRouter = require('./routers/homeRouter.js');
