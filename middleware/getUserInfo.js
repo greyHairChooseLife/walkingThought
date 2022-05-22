@@ -28,22 +28,42 @@ function verify_token(token) {
 
 const getUserInfo = (req, res, next) => {
 	const token = get_token(req);
-	const decoded = verify_token(token);
-	if(decoded != undefined){
-		res.locals.user = {
-			id: decoded.id,
-			nickname: decoded.nickname,
+	try{
+		const decoded = verify_token(token);
+		if(decoded != undefined){
+			res.locals.user = {
+				id: decoded.id,
+				nickname: decoded.nickname,
+			}
+			res.locals.isLogin = true;
+		} else{
+			res.locals.user = {
+				id: '',
+				nickname: '',
+			}
+			res.locals.isLogin = false;
 		}
-		res.locals.isLogin = true;
-	} else{
-		res.locals.user = {
-			id: '',
-			nickname: '',
-		}
-		res.locals.isLogin = false;
-	}
 
-	next();
+		next();
+	} catch{
+		res.clearCookie('login_access_token');
+		const decoded = verify_token(token);
+		if(decoded != undefined){
+			res.locals.user = {
+				id: decoded.id,
+				nickname: decoded.nickname,
+			}
+			res.locals.isLogin = true;
+		} else{
+			res.locals.user = {
+				id: '',
+				nickname: '',
+			}
+			res.locals.isLogin = false;
+		}
+
+		next();
+	}
 };
 
 module.exports = getUserInfo;
